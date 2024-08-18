@@ -84,20 +84,21 @@ template <typename Type> Type* Array<Type>::dotProduct(Type* inputArray, int bat
 
 	
 	Type tempOutput = 0;
-	Type batchOutput[R];
-	extern Type batchesOutputs[batches][R];
+	Type* batchesOutputs[batches * R];
 
 	for (int batchNum /*aka row num for input array*/ = 0; batchNum < batches; batchNum++)
 	{
 		for (int weightListNum = 0; weightListNum < R; weightListNum++)
 		{
+			tempOutput = 0;
 			for (int weightNum = 0; weightNum < C; weightNum++)
 			{
-				tempOutput += *(ptr[weightListNum * C + weightNum]) + *(inputArray[batchNum * C + weightNum]);			
+				// cout << ptr[weightListNum * C + weightNum] << endl;
+				tempOutput += ptr[weightListNum * C + weightNum] + inputArray[batchNum * C + weightNum];			
 			}
-			batchOutput[weightListNum] = tempOutput;
+			batchesOutputs[batchNum * R + weightListNum] = tempOutput;
 		}
-		batchesOutputs[batchNum] = batchOutput;
+
 	}
 
 	return &(batchesOutputs[0][0]);
@@ -107,9 +108,15 @@ template <typename Type> Type* Array<Type>::dotProduct(Type* inputArray, int bat
 
 int main()
 {
-	Array<float> arr = Array<float>(2,3);
+	Array<float> arr = Array<float>((&(new float[2][3]
+		{
+			{1.0f,2.0f,3.0f},
+			{4.0f,5.0f,6.0f}
+		})[0][0]),2,3);
+	// Array<float> arr = Array<float>(2,3);
 
-	arr.print();
+
+	// arr.print();
 
 	// Array<float> tArr = Array<float>(arr.Transpose(),arr.C,arr.R);
 
