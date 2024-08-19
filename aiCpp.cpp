@@ -88,7 +88,7 @@ template <typename T, std::size_t Rows, std::size_t Collumns> void Array<T, Rows
 
 int main()
 {
-    Array<float,2,3> testArray(&(new float[2][3] {
+    Array<float,2,3> testArray(&(new float[2][3] q{
         {3.651f,0.91248f,7.81243f},
         {5.3f,3.0f,1236456234.231212f}
     })[0]);
