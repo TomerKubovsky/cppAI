@@ -1,6 +1,4 @@
 #include <iostream>
-
-#include <array>
 using namespace std;
 
 template <typename Type>
