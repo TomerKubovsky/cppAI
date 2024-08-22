@@ -1,4 +1,6 @@
+#include <random>
 #include <iostream>
+#include <chrono>
 using namespace std;
 
 template <typename Type>
@@ -12,19 +14,25 @@ public:
 	int C;
 
 public:
-	Array(Type* arrPtr, int Rows, int Collumns);
-	Array(int Rows, int Collumns);
-	void print();
+	Array(Type* arrPtr, const int Rows, const int Collumns);
+	Array(const int Rows, const int Collumns);
+	static Array<Type>* constructArray(const int Rows, const int Collumns);
+	void print() const;
 
-	Type* dotProduct(Type* inputArray, int batches /*aka rows in input array*/); //takes an array of inputs and multiplys it with its own weights, the values in THIS array is the weights
+	Type* dotProduct(const Array<Type> inputArray, const int batches /*aka rows in input array*/) const; //takes an array of inputs and multiplys it with its own weights, the values in THIS array is the weights
 
-	Type* Transpose(); //returns transposed array
+	Type* Transpose() const; //returns transposed array
 	
+	~Array() {delete ptr;}
 
 };
 
-template <typename Type> Array<Type>::Array(int Rows, int Collumns)
+template <typename Type> Array<Type>::Array(const int Rows,const int Collumns)
 {
+    mt19937 gen(chrono::system_clock::now().time_since_epoch().count());
+
+    uniform_real_distribution<> dis(0.0, 1.0);
+
 	R = Rows;
 	C = Collumns;
 
@@ -32,19 +40,26 @@ template <typename Type> Array<Type>::Array(int Rows, int Collumns)
 	
 	for (int index = 0; index < R * C; index++)
 	{
-		ptr[index] = index + 1;
+		ptr[index] = dis(gen);
 	}
 
 }
 
-template <typename Type> Array<Type>::Array(Type* arrPtr, int Rows, int Collumns)
+
+
+template <typename Type> Array<Type>* Array<Type>::constructArray(const int Rows,const int Collumns)
+{
+	return new Array<Type>(Rows, Collumns);
+}
+
+template <typename Type> Array<Type>::Array(Type* arrPtr,const int Rows,const int Collumns)
 {
 	R = Rows;
 	C = Collumns;
 	ptr = arrPtr;
 }
 
-template <typename Type> void Array<Type>::print()
+template <typename Type> void Array<Type>::print() const
 {
 
 	for (int index = 0; index < R * C; index++)
@@ -62,7 +77,7 @@ template <typename Type> void Array<Type>::print()
 }
 
 
-template <typename Type> Type* Array<Type>::Transpose()
+template <typename Type> Type* Array<Type>::Transpose() const
 {
 	Type* tempPtr = new Type[R*C];
 	for (int row = 0; row < R; row++)
@@ -76,7 +91,7 @@ template <typename Type> Type* Array<Type>::Transpose()
 	return tempPtr;
 }
 
-template <typename Type> Type* Array<Type>::dotProduct(Type* inputArray, int batches /*aka rows in inputArray*/)
+template <typename Type> Type* Array<Type>::dotProduct(const Array<Type> inputArray,const int batches /*aka rows in inputArray*/) const
 {
 	//amount of rows = amount of neurons so the amount of rows = the amount of collumns in the final array, the amount of rows in the input array = the amount of batches, so the amount of rows in input array = amount of rows in the output array
 
@@ -97,7 +112,7 @@ template <typename Type> Type* Array<Type>::dotProduct(Type* inputArray, int bat
 		{
 			for (int weightNum = 0; weightNum < C; weightNum++)
 			{
-				*(batchesOutputs + (batchNum * R + weightListNum)) += ptr[weightListNum * C + weightNum] * inputArray[batchNum * C + weightNum];			
+				*(batchesOutputs + (batchNum * R + weightListNum)) += ptr[weightListNum * C + weightNum] * *(inputArray.ptr + (batchNum * C + weightNum));			
 			}
 		}
 
@@ -107,30 +122,30 @@ template <typename Type> Type* Array<Type>::dotProduct(Type* inputArray, int bat
 	return batchesOutputs;
 }
 
-
-
 int main()
 {
+	Array<float> testArr = Array<float>(2,1);
+
+	testArr.print();
+
+	float mArrData[2][1] = {{10.0f},{100.0f}};
+
+	Array<float> mArr = Array<float>(&mArrData[0][0], 2, 1);
+
+	float* dottedArrOutput = testArr.dotProduct(mArr, 2);
+
+	cout << endl << endl;
+
+	for (int i = 0; i < 10; i++)
+	{
+		cout << *(dottedArrOutput + i) << endl;
+	}
+
+	cout << endl << endl;
+
+	// Array<float> finalArr = Array<float>(dottedArrOutput, 2,1);
+
+	// finalArr.print(); 
 
 
-	Array<float> arr = Array<float>((&(new float[2][3]
-		{
-			{1.0f,2.0f,3.0f},
-			{4.0f,5.0f,6.0f}
-		})[0][0]),2,3);
-
-
-
-	float inputs[2][3] = {
-		{10.0f,1.0f,30.0f},
-		{1.0f,0.1f,3.0f}
-	};
-
-
-	
-	Array<float> mArr = Array<float>(arr.dotProduct(&(inputs[0][0]),2),2,2);
-
-	mArr.print();
-
-
-}	
+}

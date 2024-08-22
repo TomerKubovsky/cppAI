@@ -3,6 +3,7 @@
 
 #include <random>
 #include <iostream>
+#include <chrono>
 using namespace std;
 
 template <typename Type>
@@ -16,26 +17,22 @@ public:
 	int C;
 
 public:
-	Array(const Type* arrPtr, const int Rows, const int Collumns);
+	Array(Type* arrPtr, const int Rows, const int Collumns);
 	Array(const int Rows, const int Collumns);
+	static Array<Type>* constructArray(const int Rows, const int Collumns);
 	void print() const;
 
-	Type* dotProduct(const Type* inputArray, const int batches /*aka rows in input array*/) const; //takes an array of inputs and multiplys it with its own weights, the values in THIS array is the weights
+	Type* dotProduct(const Array<Type> inputArray, const int batches /*aka rows in input array*/) const; //takes an array of inputs and multiplys it with its own weights, the values in THIS array is the weights
 
 	Type* Transpose() const; //returns transposed array
 	
-	~Array()
-	{
-		delete ptr;
-	}
+	~Array() {delete ptr;}
 
 };
 
 template <typename Type> Array<Type>::Array(const int Rows,const int Collumns)
 {
-    random_device rd;
-
-    mt19937 gen(rd());
+    mt19937 gen(chrono::system_clock::now().time_since_epoch().count());
 
     uniform_real_distribution<> dis(0.0, 1.0);
 
@@ -51,7 +48,14 @@ template <typename Type> Array<Type>::Array(const int Rows,const int Collumns)
 
 }
 
-template <typename Type> Array<Type>::Array(const Type* arrPtr,const int Rows,const int Collumns)
+
+
+template <typename Type> Array<Type>* Array<Type>::constructArray(const int Rows,const int Collumns)
+{
+	return new Array<Type>(Rows, Collumns);
+}
+
+template <typename Type> Array<Type>::Array(Type* arrPtr,const int Rows,const int Collumns)
 {
 	R = Rows;
 	C = Collumns;
@@ -90,7 +94,7 @@ template <typename Type> Type* Array<Type>::Transpose() const
 	return tempPtr;
 }
 
-template <typename Type> Type* Array<Type>::dotProduct(const Type* inputArray,const int batches /*aka rows in inputArray*/) const
+template <typename Type> Type* Array<Type>::dotProduct(const Array<Type> inputArray,const int batches /*aka rows in inputArray*/) const
 {
 	//amount of rows = amount of neurons so the amount of rows = the amount of collumns in the final array, the amount of rows in the input array = the amount of batches, so the amount of rows in input array = amount of rows in the output array
 
@@ -111,7 +115,7 @@ template <typename Type> Type* Array<Type>::dotProduct(const Type* inputArray,co
 		{
 			for (int weightNum = 0; weightNum < C; weightNum++)
 			{
-				*(batchesOutputs + (batchNum * R + weightListNum)) += ptr[weightListNum * C + weightNum] * inputArray[batchNum * C + weightNum];			
+				*(batchesOutputs + (batchNum * R + weightListNum)) += ptr[weightListNum * C + weightNum] * *(inputArray.ptr + (batchNum * C + weightNum));			
 			}
 		}
 
@@ -120,7 +124,6 @@ template <typename Type> Type* Array<Type>::dotProduct(const Type* inputArray,co
 
 	return batchesOutputs;
 }
-
 
 
 
