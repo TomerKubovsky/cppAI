@@ -1,6 +1,5 @@
 #ifndef arrayUtils_H
 #define arrayUtils_H
-
 #include <random>
 #include <iostream>
 #include <chrono>
@@ -21,12 +20,14 @@ public:
 	Array(const int Rows, const int Collumns);
 	static Array<Type>* constructArray(const int Rows, const int Collumns);
 	void print() const;
-
 	Type* dotProduct(const Array<Type> inputArray, const int batches /*aka rows in input array*/) const; //takes an array of inputs and multiplys it with its own weights, the values in THIS array is the weights
-
+	Type* add(Type* inputs) const;
 	Type* Transpose() const; //returns transposed array
-	
 	~Array() {delete ptr;}
+	int GetRows() const;
+	int GetCollumns() const;
+	Type* GetPtr() const;
+
 
 };
 
@@ -126,5 +127,35 @@ template <typename Type> Type* Array<Type>::dotProduct(const Array<Type> inputAr
 }
 
 
+template <typename Type> int Array<Type>::GetRows() const
+{
+	return R;
+}
+
+template <typename Type> int Array<Type>::GetCollumns() const
+{
+	return C;
+}
+
+template <typename Type> Type* Array<Type>::GetPtr() const
+{
+	return ptr;
+}
+
+template <typename Type> Type* Array<Type>::add(Type* inputs) const
+{
+	Type* outputs = new Type[R*C]; 
+	for (int index = 0; index < R*C; index++)
+	{
+		*(outputs + index) = *(ptr + index) + *(inputs + index);
+	}
+
+	return outputs;
+}
+
 
 #endif //end of arrayUtils_H
+
+
+
+

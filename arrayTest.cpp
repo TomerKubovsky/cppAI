@@ -18,12 +18,14 @@ public:
 	Array(const int Rows, const int Collumns);
 	static Array<Type>* constructArray(const int Rows, const int Collumns);
 	void print() const;
-
 	Type* dotProduct(const Array<Type> inputArray, const int batches /*aka rows in input array*/) const; //takes an array of inputs and multiplys it with its own weights, the values in THIS array is the weights
-
+	Type* add(Type* inputs) const;
 	Type* Transpose() const; //returns transposed array
-	
 	~Array() {delete ptr;}
+	int GetRows() const;
+	int GetCollumns() const;
+	Type* GetPtr() const;
+
 
 };
 
@@ -122,30 +124,37 @@ template <typename Type> Type* Array<Type>::dotProduct(const Array<Type> inputAr
 	return batchesOutputs;
 }
 
-int main()
+
+template <typename Type> int Array<Type>::GetRows() const
 {
-	Array<float> testArr = Array<float>(2,1);
+	return R;
+}
 
-	testArr.print();
+template <typename Type> int Array<Type>::GetCollumns() const
+{
+	return C;
+}
 
-	float mArrData[2][1] = {{10.0f},{100.0f}};
+template <typename Type> Type* Array<Type>::GetPtr() const
+{
+	return ptr;
+}
 
-	Array<float> mArr = Array<float>(&mArrData[0][0], 2, 1);
-
-	float* dottedArrOutput = testArr.dotProduct(mArr, 2);
-
-	cout << endl << endl;
-
-	for (int i = 0; i < 10; i++)
+template <typename Type> Type* Array<Type>::add(Type* inputs) const
+{
+	Type* outputs = new Type[R*C]; 
+	for (int index = 0; index < R*C; index++)
 	{
-		cout << *(dottedArrOutput + i) << endl;
+		*(outputs + index) = *(ptr + index) + *(inputs + index);
 	}
 
-	cout << endl << endl;
-
-	// Array<float> finalArr = Array<float>(dottedArrOutput, 2,1);
-
-	// finalArr.print(); 
+	return outputs;
+}
 
 
+int main()
+{
+	Array<float> testArr = Array<float>(1,2);
+
+	cout << testArr.GetPtr() << endl;
 }
