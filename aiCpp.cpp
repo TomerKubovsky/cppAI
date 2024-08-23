@@ -60,17 +60,17 @@ template <typename Type> void Layer<Type>::setWeights(Array<Type>* weightVals)
 
 int main() {
 
-    float testLayerData[2][3] = {
-        {1.0f,2.0f,0.5f},
-        {2.0f,2.0f,2.0f}
-    };
+    // float testLayerData[2][3] = {
+    //     {1.0f,2.0f,0.5f},
+    //     {2.0f,2.0f,2.0f}
+    // };
 
-    Array<float> testLayerWeights = Array<float>(&(testLayerData[0][0]),3,2);
+    // Array<float> testLayerWeights = Array<float>(&(testLayerData[0][0]),3,2);
 
-    Layer<float> testLayer = Layer<float>(2,3);
+    Layer<float> testLayer = Layer<float>(3,2);
 
 
-    testLayer.setWeights(&testLayerWeights);
+    // testLayer.setWeights(&testLayerWeights);
 
     testLayer.print();
 
