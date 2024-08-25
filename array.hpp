@@ -23,13 +23,22 @@ public:
 	Type* dotProduct(const Array<Type> inputArray, const int batches /*aka rows in input array*/) const; //takes an array of inputs and multiplys it with its own weights, the values in THIS array is the weights
 	Type* add(Type* inputs) const;
 	Type* Transpose() const; //returns transposed array
-	~Array() {delete ptr;}
+	Type* customFunc(Type (*func)(Type)) const;
+	~Array() {delete[] ptr;}
 	int GetRows() const;
 	int GetCollumns() const;
 	Type* GetPtr() const;
 
 
+
 };
+
+template <typename Type> Array<Type>::Array(Type* arrPtr,const int Rows,const int Collumns)
+{
+	R = Rows;
+	C = Collumns;
+	ptr = arrPtr;
+}
 
 template <typename Type> Array<Type>::Array(const int Rows,const int Collumns)
 {
@@ -45,6 +54,7 @@ template <typename Type> Array<Type>::Array(const int Rows,const int Collumns)
 	for (int index = 0; index < R * C; index++)
 	{
 		ptr[index] = dis(gen);
+		// ptr[index] = 1.0f;
 	}
 
 }
@@ -56,12 +66,7 @@ template <typename Type> Array<Type>* Array<Type>::constructArray(const int Rows
 	return new Array<Type>(Rows, Collumns);
 }
 
-template <typename Type> Array<Type>::Array(Type* arrPtr,const int Rows,const int Collumns)
-{
-	R = Rows;
-	C = Collumns;
-	ptr = arrPtr;
-}
+
 
 template <typename Type> void Array<Type>::print() const
 {
@@ -78,21 +83,6 @@ template <typename Type> void Array<Type>::print() const
 		cout << *(ptr+index);
 	}
 	cout << endl;
-}
-
-
-template <typename Type> Type* Array<Type>::Transpose() const
-{
-	Type* tempPtr = new Type[R*C];
-	for (int row = 0; row < R; row++)
-	{
-		for (int collumn = 0; collumn < C; collumn++)
-		{
-			tempPtr[collumn * R + row] = ptr[row * C + collumn];
-		}
-	}
-
-	return tempPtr;
 }
 
 template <typename Type> Type* Array<Type>::dotProduct(const Array<Type> inputArray,const int batches /*aka rows in inputArray*/) const
@@ -127,6 +117,44 @@ template <typename Type> Type* Array<Type>::dotProduct(const Array<Type> inputAr
 }
 
 
+template <typename Type> Type* Array<Type>::add(Type* inputs) const
+{
+	Type* outputs = new Type[R*C]; 
+	for (int index = 0; index < R*C; index++)
+	{
+		*(outputs + index) = *(ptr + index) + *(inputs + index);
+	}
+
+	return outputs;
+}
+
+
+template <typename Type> Type* Array<Type>::Transpose() const
+{
+	Type* tempPtr = new Type[R*C];
+	for (int row = 0; row < R; row++)
+	{
+		for (int collumn = 0; collumn < C; collumn++)
+		{
+			tempPtr[collumn * R + row] = ptr[row * C + collumn];
+		}
+	}
+
+	return tempPtr;
+}
+
+template <typename Type> Type* Array<Type>::customFunc(Type (*func)(Type)) const
+{
+	Type* tempPtr = new Type[R*C];
+	for (int index = 0; index < R*C; index++)
+	{
+		*(tempPtr + index) = func(*(ptr + index));
+	}
+	return tempPtr;
+}
+
+
+
 template <typename Type> int Array<Type>::GetRows() const
 {
 	return R;
@@ -142,16 +170,6 @@ template <typename Type> Type* Array<Type>::GetPtr() const
 	return ptr;
 }
 
-template <typename Type> Type* Array<Type>::add(Type* inputs) const
-{
-	Type* outputs = new Type[R*C]; 
-	for (int index = 0; index < R*C; index++)
-	{
-		*(outputs + index) = *(ptr + index) + *(inputs + index);
-	}
-
-	return outputs;
-}
 
 
 #endif //end of arrayUtils_H
