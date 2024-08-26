@@ -22,7 +22,7 @@ public:
     void print() const;
     Array<Type> Forwards(const Array<Type>* Inputs) const;
     Array<Type> ForwardsActivation(const Array<Type>* Inputs) const;
-    Array<Type> Backwards(const Array<Type>* dInputs) const;
+    Array<Type> Backwards(const Array<Type>* dOutputs) const;
     void setWeights(Array<Type>* weightVals);
     void setBiases(Array<Type>* biasVals);
 };
@@ -78,7 +78,7 @@ template <typename Type> Array<Type> Layer<Type>::ForwardsActivation(const Array
 }
 
 
-template <typename Type> Array<Type> Layer<Type>::Backwards(const Array<Type>* dInputs) const
+template <typename Type> Array<Type> Layer<Type>::Backwards(const Array<Type>* dOutputs /*dOutputs = derivative of outputs*/) const
 {
     /*
     weights derivatives = inputs since y=wx where x is input and w is weights, and derivative of y=wx with respect to w is x, this also means derivative of inputs is weights since d/dx y=wx is w
@@ -86,14 +86,35 @@ template <typename Type> Array<Type> Layer<Type>::Backwards(const Array<Type>* d
     furthermore with bias derivatives instead of writing it as  d                                         we can write it as   d  below value is 0 bc treated as a constant   d   the one below is 1 since y=x wrt x is 1 and this is y=bias wrt bias =
                                                                ----(input1*weight1+input2*weight2+bias)                       ---- (input1*weight1).......                   ----bias  
                                                                dbias                                                          dbias                                          dbias
-    remember all the derivatives must be multiplied by dInputs due to chain rule 
+    remember all the derivatives must be multiplied by dOutputs due to chain rule 
     */
 
 
-// i think this comment is wrong btw dont listen to it tomer!    also dInputs is 2dArray of derivatives for each neuron for each batch so it will have weights.rows rows and Inputs.rows collumns since it 
+    //theoretical inputs
+    1, 2, 3
 
+    //theoritcal weights, 3 neurons
+    1.3, 2.6, 3.8    
+    6.3, 9.6, 1.8    
+    7.3, 1.1, 3.6   
 
+    //derivatives of weights: add for all batches 
+    1, 2, 3
+    1, 2, 3
+    1, 2, 3
 
+    //derivatives of inputs = 
+    1.3 + 6.3 + 7.3, 2.6 + 9.6 + 1.1, 3.8 + 1.8 + 3.6
+
+    Array<Type> dOutputs = Array<Type> 
+
+    for (int Row = 0; Row < weights.GetRows(); Row++)
+    {
+        for (int Collumn = 0; Collumn < weights.GetCollumns(); Collumn++)
+        {
+
+        }
+    }
 
 }
 
