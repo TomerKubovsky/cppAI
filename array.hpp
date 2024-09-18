@@ -53,8 +53,8 @@ template <typename Type> Array<Type>::Array(const int Rows,const int Collumns)
 	
 	for (int index = 0; index < R * C; index++)
 	{
-		ptr[index] = dis(gen);
-		// ptr[index] = 1.0f;
+		// ptr[index] = dis(gen);
+		ptr[index] = 2.0f;
 	}
 
 }

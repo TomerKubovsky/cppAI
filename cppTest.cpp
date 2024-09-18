@@ -1,55 +1,27 @@
 #include <iostream>
-#include <array>
-using namespace std;
 
-template <typename Type>
-class Array
+int* testFunc()
 {
-
-	Type* ptr;
-
-	int R;
-	int C;
-
-public:
-
-	Array(Type* arrPtr, int Rows, int Collumns);
-	// Array<Type> multiply()
-	void print();
-
-};
-
-
-template <typename Type> Array<Type>::Array(Type* arrPtr[][], int Rows, int Collumns)
-{
-	R = Rows;
-	C = Collumns;
-
-
-	ptr = arrPtr;
+    int h = 6;
+    int* o = &h;
+    return o;
 }
 
-template <typename Type> void Array<Type>::print()
+void disruptStack()
 {
-	for (int collumn = 0; collumn < C; collumn++)
-	{
-		for (int row = 0; row < R; row++)
-		{
-			 cout << *(ptr + (collumn * R + row)) << endl;
-		}
-	}
-
+    int largeArray[10000]; // Larger array
+    for (int i = 0; i < 10000; ++i)
+        largeArray[i] = i; // Force memory usage
 }
 
 int main()
 {
-	float arrD[2][3] = {
-		
-		{1.3f,4.51f,5.9512f},
-		{3.1f,0.0124f,9999.01f}
-	
-	};
-	Array<float> arr = Array<float>(arrD,2,3);
+    int* ptr = testFunc();
 
-	arr.print();
+    std::cout << "Value: " << *ptr << std::endl;
+    std::cout << "Address: " << ptr << std::endl;
+
+    disruptStack(); // Call the function to disrupt the stack
+
+    std::cout << "Value after stack disruption: " << *ptr << std::endl;
 }

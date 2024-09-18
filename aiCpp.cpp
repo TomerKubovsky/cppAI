@@ -87,7 +87,7 @@ template <typename Type> Array<Type> Layer<Type>::Backwards(const Array<Type>* d
                                                                ----(input1*weight1+input2*weight2+bias)                       ---- (input1*weight1).......                   ----bias  
                                                                dbias                                                          dbias                                          dbias
     remember all the derivatives must be multiplied by dOutputs due to chain rule 
-    */
+    
 
 
     //theoretical inputs
@@ -104,13 +104,13 @@ template <typename Type> Array<Type> Layer<Type>::Backwards(const Array<Type>* d
     1, 2, 3
 
     //derivatives of inputs = 
-    1.3 + 6.3 + 7.3, 2.6 + 9.6 + 1.1, 3.8 + 1.8 + 3.6
+    1.3 + 6.3 + 7.3, 2.6 + 9.6 + 1.1, 3.8 + 1.8 + 3.6*/
 
-    Array<Type> dOutputs = Array<Type> 
+    // Array<Type> dOutputs = Array<Type> 
 
-    for (int Row = 0; Row < weights.GetRows(); Row++)
+    for (int Row = 0; Row < weights->GetRows(); Row++)
     {
-        for (int Collumn = 0; Collumn < weights.GetCollumns(); Collumn++)
+        for (int Collumn = 0; Collumn < weights->GetCollumns(); Collumn++)
         {
 
         }
@@ -130,7 +130,12 @@ template <typename Type> void Layer<Type>::setBiases(Array<Type>* biasVals)
     biases = biasVals;
 }
 
-
+void disruptStack()
+{
+    int largeArray[10000]; // Larger array
+    for (int i = 0; i < 10000; ++i)
+        largeArray[i] = i; // Force memory usage
+}
 
 int main() {
 
@@ -157,7 +162,6 @@ int main() {
     float inputData[1][3] = {{3.0f,2.0f,5.0f}};
 
     Array<float> Inputs = Array<float>(&(inputData[0][0]),1,3); //1 batch 3 inputs for that 1 batch
-
 
     Array<float> Outputs = testLayer.Forwards(&Inputs);
 
