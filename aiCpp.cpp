@@ -16,8 +16,6 @@ private:
 
     string activationFunc;
 
-    type inputs[];
-
 public:
     Layer(const int Inputs, const int outputs /*outputs = neurons*/, string activationFunc = "none");
     ~Layer();
@@ -60,8 +58,6 @@ template <typename Type> void Layer<Type>::print() const
 
 template <typename Type> Array<Type> Layer<Type>::Forwards(const Array<Type>* Inputs) const
 {
-    inputs = Inputs
-
     Type* outputs = weights->dotProduct(*Inputs, Inputs->GetRows());
     Array<Type> outputPreBias = Array<Type>(outputs,Inputs->GetRows()/*amount of rows in inputs = batches = amount of rows in output arr*/,weights->GetRows()/*amount of rows = amount of neurons = amount of collumns in output arr*/);
     Array<Type> outputPreActivationFunc = Array<Type>(outputPreBias.add(biases->GetPtr()), Inputs->GetRows(), weights->GetRows());
@@ -91,7 +87,7 @@ template <typename Type> Array<Type> Layer<Type>::Backwards(const Array<Type>* d
                                                                ----(input1*weight1+input2*weight2+bias)                       ---- (input1*weight1).......                   ----bias  
                                                                dbias                                                          dbias                                          dbias
     remember all the derivatives must be multiplied by dOutputs due to chain rule 
-    */
+    
 
 
     //theoretical inputs
@@ -108,33 +104,17 @@ template <typename Type> Array<Type> Layer<Type>::Backwards(const Array<Type>* d
     1, 2, 3
 
     //derivatives of inputs = 
-    1.3 + 6.3 + 7.3, 2.6 + 9.6 + 1.1, 3.8 + 1.8 + 3.6
+    1.3 + 6.3 + 7.3, 2.6 + 9.6 + 1.1, 3.8 + 1.8 + 3.6*/
 
-    Array<Type> dOutputs = Array<Type>
+    // Array<Type> dOutputs = Array<Type> 
 
-
-    Type tempDweights[weights->GetRows()][weights->GetCollumns()] = new Type[weights->GetRows() * weights->GetCollumns()]
-
-    for (int index = 0; index < weights->GetCollumns() * weights->GetRows(); index++)
+    for (int Row = 0; Row < weights->GetRows(); Row++)
     {
-        *(&tempDweights[0] + index) = 0;
-    }
-
-    Type tempDInputs[inputs->GetRows()][wei]
-
-
-    for (int batchIndex = 0; batchIndex < dOutputs->GetRows(); batchIndex++)
-    {
-        for (int neuronNum = 0; neuronNum < weights->GetRows(); neuronNum++)
+        for (int Collumn = 0; Collumn < weights->GetCollumns(); Collumn++)
         {
-            for (int inputNum = 0; weightNum < weights->GetCollumns(); inputNum++)
-            {
-                tempDweights[neuronNum][weightNum] += inputs[batchIndex][weightNum]
 
-            }
         }
     }
-
 
 }
 
@@ -150,7 +130,12 @@ template <typename Type> void Layer<Type>::setBiases(Array<Type>* biasVals)
     biases = biasVals;
 }
 
-
+void disruptStack()
+{
+    int largeArray[10000]; // Larger array
+    for (int i = 0; i < 10000; ++i)
+        largeArray[i] = i; // Force memory usage
+}
 
 int main() {
 
@@ -177,7 +162,6 @@ int main() {
     float inputData[1][3] = {{3.0f,2.0f,5.0f}};
 
     Array<float> Inputs = Array<float>(&(inputData[0][0]),1,3); //1 batch 3 inputs for that 1 batch
-
 
     Array<float> Outputs = testLayer.Forwards(&Inputs);
 

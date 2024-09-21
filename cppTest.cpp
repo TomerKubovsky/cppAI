@@ -1,16 +1,27 @@
 #include <iostream>
 
-using namespace std;
+int* testFunc()
+{
+    int h = 6;
+    int* o = &h;
+    return o;
+}
+
+void disruptStack()
+{
+    int largeArray[10000]; // Larger array
+    for (int i = 0; i < 10000; ++i)
+        largeArray[i] = i; // Force memory usage
+}
 
 int main()
 {
-	float h = new int[5]
+    int* ptr = testFunc();
 
+    std::cout << "Value: " << *ptr << std::endl;
+    std::cout << "Address: " << ptr << std::endl;
 
-	for (int i = 0; i < 5; i++)
-	{
-		cout << h[i] << endl;
-	}
+    disruptStack(); // Call the function to disrupt the stack
 
-	return 0
+    std::cout << "Value after stack disruption: " << *ptr << std::endl;
 }

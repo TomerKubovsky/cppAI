@@ -1,33 +1,30 @@
+// #include <iostream>
+
+// int main()
+// {
+//     for (int i = 0; i < 10; i++)
+//     {
+//         std::cout << "hello!" << std::endl;
+//     }
+// }
+
+
 #include <iostream>
-#include <vector>
 
-using namespace std;
-
-int lengthOfLastWord(string s) {
-    int length = 0;
-    bool hitWord = false;
-    for (int index = s.length() - 1; index >= 0; --index)
+int func(int h)
+{
+    
+    if (h > 0)
     {
-    	cout << s[index] << endl;
-        if (s[index] != ' ')
-        {
-            hitWord = true;
-            ++length;                
-        } else if (hitWord == true)
-        {
-            break;
-        }
+        std::cout << "hello!" << std::endl;
+        return func(h-1);
+    } else
+    {
+        return 0;
     }
-    return length;
-}	
+}
 
 int main()
 {
-	string s = "a";
-
-	// lengthOfLastWord(s);
-	cout << lengthOfLastWord(s) << endl;
-
+    func(10);
 }
-
-
