@@ -90,7 +90,6 @@ template <typename Type> Type* Array<Type>::dotProduct(const Array<Type> inputAr
 	//amount of rows = amount of neurons so the amount of rows = the amount of collumns in the final array, the amount of rows in the input array = the amount of batches, so the amount of rows in input array = amount of rows in the output array
 
 	
-	Type* tempOutput;
 	Type* batchesOutputs = new Type[batches * R];
 
 	for (int index = 0; index < batches * R; index++)

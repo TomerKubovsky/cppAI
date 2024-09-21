@@ -16,6 +16,8 @@ private:
 
     string activationFunc;
 
+    type inputs[];
+
 public:
     Layer(const int Inputs, const int outputs /*outputs = neurons*/, string activationFunc = "none");
     ~Layer();
@@ -58,6 +60,8 @@ template <typename Type> void Layer<Type>::print() const
 
 template <typename Type> Array<Type> Layer<Type>::Forwards(const Array<Type>* Inputs) const
 {
+    inputs = Inputs
+
     Type* outputs = weights->dotProduct(*Inputs, Inputs->GetRows());
     Array<Type> outputPreBias = Array<Type>(outputs,Inputs->GetRows()/*amount of rows in inputs = batches = amount of rows in output arr*/,weights->GetRows()/*amount of rows = amount of neurons = amount of collumns in output arr*/);
     Array<Type> outputPreActivationFunc = Array<Type>(outputPreBias.add(biases->GetPtr()), Inputs->GetRows(), weights->GetRows());
@@ -106,15 +110,31 @@ template <typename Type> Array<Type> Layer<Type>::Backwards(const Array<Type>* d
     //derivatives of inputs = 
     1.3 + 6.3 + 7.3, 2.6 + 9.6 + 1.1, 3.8 + 1.8 + 3.6
 
-    Array<Type> dOutputs = Array<Type> 
+    Array<Type> dOutputs = Array<Type>
 
-    for (int Row = 0; Row < weights.GetRows(); Row++)
+
+    Type tempDweights[weights->GetRows()][weights->GetCollumns()] = new Type[weights->GetRows() * weights->GetCollumns()]
+
+    for (int index = 0; index < weights->GetCollumns() * weights->GetRows(); index++)
     {
-        for (int Collumn = 0; Collumn < weights.GetCollumns(); Collumn++)
-        {
+        *(&tempDweights[0] + index) = 0;
+    }
 
+    Type tempDInputs[inputs->GetRows()][wei]
+
+
+    for (int batchIndex = 0; batchIndex < dOutputs->GetRows(); batchIndex++)
+    {
+        for (int neuronNum = 0; neuronNum < weights->GetRows(); neuronNum++)
+        {
+            for (int inputNum = 0; weightNum < weights->GetCollumns(); inputNum++)
+            {
+                tempDweights[neuronNum][weightNum] += inputs[batchIndex][weightNum]
+
+            }
         }
     }
+
 
 }
 
