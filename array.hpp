@@ -9,21 +9,19 @@ template <typename Type>
 class Array
 {
 	Type* ptr;
-
-
-public:
 	int R;
 	int C;
 
 public:
+	Array();//defult constructor shouldnt be used UNLESS you assign the array immedietly after, use with EXTREME CAUTION
 	Array(Type* arrPtr, const int Rows, const int Collumns);
 	Array(const int Rows, const int Collumns);
 	static Array<Type>* constructArray(const int Rows, const int Collumns);
 	void print() const;
-	Type* dotProduct(const Array<Type> inputArray, const int batches /*aka rows in input array*/) const; //takes an array of inputs and multiplys it with its own weights, the values in THIS array is the weights
-	Type* add(Type* inputs) const;
-	Type* Transpose() const; //returns transposed array
-	Type* customFunc(Type (*func)(Type)) const;
+	Array<Type> dotProduct(const Array<Type> inputArray) const; //takes an array of inputs and multiplys it with its own weights, the values in THIS array is the weights
+	Array<Type> add(Array<Type> inputs) const;
+	Array<Type> Transpose() const; //returns transposed array
+	Array<Type> customFunc(Type (*func)(Type, int)) const;
 	~Array() {delete[] ptr;}
 	int GetRows() const;
 	int GetCollumns() const;
@@ -32,6 +30,14 @@ public:
 
 
 };
+
+template <typename Type> Array<Type>::Array()
+{
+	R = 0;
+	C = 0;
+	ptr = nullptr;
+}
+
 
 template <typename Type> Array<Type>::Array(Type* arrPtr,const int Rows,const int Collumns)
 {
@@ -42,9 +48,9 @@ template <typename Type> Array<Type>::Array(Type* arrPtr,const int Rows,const in
 
 template <typename Type> Array<Type>::Array(const int Rows,const int Collumns)
 {
-    mt19937 gen(chrono::system_clock::now().time_since_epoch().count());
+    // mt19937 gen(chrono::system_clock::now().time_since_epoch().count());
 
-    uniform_real_distribution<> dis(0.0, 1.0);
+    // uniform_real_distribution<> dis(0.0, 1.0);
 
 	R = Rows;
 	C = Collumns;
@@ -54,7 +60,8 @@ template <typename Type> Array<Type>::Array(const int Rows,const int Collumns)
 	for (int index = 0; index < R * C; index++)
 	{
 		// ptr[index] = dis(gen);
-		ptr[index] = 2.0f;
+		// cout << "test" << endl;
+		ptr[index] = 0.0f;
 	}
 
 }
@@ -85,9 +92,16 @@ template <typename Type> void Array<Type>::print() const
 	cout << endl;
 }
 
-template <typename Type> Type* Array<Type>::dotProduct(const Array<Type> inputArray,const int batches /*aka rows in inputArray*/) const
+template <typename Type> Array<Type> Array<Type>::dotProduct(const Array<Type> inputArray) const
 {
 	//amount of rows = amount of neurons so the amount of rows = the amount of collumns in the final array, the amount of rows in the input array = the amount of batches, so the amount of rows in input array = amount of rows in the output array
+
+	if (inputArray.GetCollumns() != C)
+	{
+		throw std::invalid_argument("input array and self array collumns do not match in dot product");
+	}
+
+	const int batches = inputArray.GetRows();
 
 	
 	Type* batchesOutputs = new Type[batches * R];
@@ -110,25 +124,34 @@ template <typename Type> Type* Array<Type>::dotProduct(const Array<Type> inputAr
 		}
 
 	}
+	/*
+	this code is built to be like weights.DotProduct(inputs) where weights look like:
+	neuron1Weight1, neuron1Weight2
+	neuron2Weight1, neuron2Weight2
+	and inputs:
+	input1batch1, input2batch1
+	input1batch2, input2batch2
 
-
-	return batchesOutputs;
+	collumns have to match, rows dont
+	*/
+	return Array<Type>(batchesOutputs, inputArray.GetRows(), R);
 }
 
 
-template <typename Type> Type* Array<Type>::add(Type* inputs) const
+template <typename Type> Array<Type> Array<Type>::add(Array<Type> inputs) const
 {
-	Type* outputs = new Type[R*C]; 
+	Type* outputs = new Type[R*C];
+	Type* inputPtr = inputs.GetPtr();
 	for (int index = 0; index < R*C; index++)
 	{
-		*(outputs + index) = *(ptr + index) + *(inputs + index);
+		*(outputs + index) = *(ptr + index) + *(inputPtr + index);
 	}
 
-	return outputs;
+	return Array<Type>(outputs, R, C);
 }
 
 
-template <typename Type> Type* Array<Type>::Transpose() const
+template <typename Type> Array<Type> Array<Type>::Transpose() const
 {
 	Type* tempPtr = new Type[R*C];
 	for (int row = 0; row < R; row++)
@@ -139,17 +162,17 @@ template <typename Type> Type* Array<Type>::Transpose() const
 		}
 	}
 
-	return tempPtr;
+	return Array<Type>(tempPtr, C, R); //rows and collumns are reversed after transpose
 }
 
-template <typename Type> Type* Array<Type>::customFunc(Type (*func)(Type)) const
+template <typename Type> Array<Type> Array<Type>::customFunc(Type (*func)(Type, int)) const
 {
 	Type* tempPtr = new Type[R*C];
 	for (int index = 0; index < R*C; index++)
 	{
-		*(tempPtr + index) = func(*(ptr + index));
+		*(tempPtr + index) = func(*(ptr + index), index);
 	}
-	return tempPtr;
+	return Array<Type>(tempPtr, R, C);
 }
 
 

@@ -9,10 +9,10 @@ template <typename Type>
 class Layer
 {
 private:
-    Array<Type>* weights;
-    Array<Type>* biases;
+    Array<Type> weights;
+    Array<Type> biases;
 
-    Array<Type>* dWeights;
+    Array<Type> dWeights;
 
     string activationFunc;
 
@@ -20,65 +20,61 @@ public:
     Layer(const int Inputs, const int outputs /*outputs = neurons*/, string activationFunc = "none");
     ~Layer();
     void print() const;
-    Array<Type> Forwards(const Array<Type>* Inputs) const;
-    Array<Type> ForwardsActivation(const Array<Type>* Inputs) const;
-    Array<Type> Backwards(const Array<Type>* dOutputs) const;
-    void setWeights(Array<Type>* weightVals);
-    void setBiases(Array<Type>* biasVals);
+    Array<Type> Forwards(const Array<Type> Inputs) const;
+    Array<Type> ForwardsActivation(const Array<Type> Inputs) const;
+    Array<Type> Backwards(const Array<Type> dOutputs) const;
+    void setWeights(Array<Type> weightVals);
+    void setBiases(Array<Type> biasVals);
 };
 
 
 
 
 template <typename Type> Layer<Type>::Layer(const int Inputs, const int outputs, string activationFunc)
-{
-    weights = Array<Type>::constructArray(outputs, Inputs);
-    biases = Array<Type>::constructArray(1, outputs); //1 bias for each neuron and there should be a bias for each neuron and outputs = num of neurons
-
-    this->activationFunc = activationFunc;
+    :
+    weights(Array<Type>(outputs, Inputs).customFunc([](Type input, int index)
+        {
+            return (float) index;
+        })),
+    biases(Array<Type>(1, outputs)), //1 bias for each neuron and there should be a bias for each neuron and outputs = num of neurons
+    activationFunc(activationFunc)
     // {{neuron1weight1, neuron1weight2, neuron1weight3},
     //  {neuron2weight1, neuron2weight2, neuron2weight3}} ammount of rows = amount of outputs, amount of columns = amount of inputs
-}
+    {}
 
 
-template <typename Type> Layer<Type>::~Layer()
-{
-    delete weights;
-    delete biases;
-}
+template <typename Type> Layer<Type>::~Layer() {}
 
 
 template <typename Type> void Layer<Type>::print() const
 {
     cout << "weights: ";
-    weights->print();
+    weights.print();
     cout << "biases: ";
-    biases->print();
+    biases.print();
 }
 
-template <typename Type> Array<Type> Layer<Type>::Forwards(const Array<Type>* Inputs) const
+template <typename Type> Array<Type> Layer<Type>::Forwards(const Array<Type> Inputs) const
 {
-    Type* outputs = weights->dotProduct(*Inputs, Inputs->GetRows());
-    Array<Type> outputPreBias = Array<Type>(outputs,Inputs->GetRows()/*amount of rows in inputs = batches = amount of rows in output arr*/,weights->GetRows()/*amount of rows = amount of neurons = amount of collumns in output arr*/);
-    Array<Type> outputPreActivationFunc = Array<Type>(outputPreBias.add(biases->GetPtr()), Inputs->GetRows(), weights->GetRows());
-    Array<Type> finalOutput = ForwardsActivation(&outputPreActivationFunc);
-    delete outputs;
+    Array<Type> outputs = weights.dotProduct(Inputs);
+    Array<Type> outputPreActivationFunc = outputs.add(biases);
+    Array<Type> finalOutput = ForwardsActivation(outputPreActivationFunc);
     return finalOutput;
 }
 
-template <typename Type> Array<Type> Layer<Type>::ForwardsActivation(const Array<Type>* Inputs) const
+template <typename Type> Array<Type> Layer<Type>::ForwardsActivation(const Array<Type> Inputs) const
 {
     if (activationFunc == "relu")
     {
-        return Array<Type>(Inputs->customFunc([](Type input){return (input > 0) ? input : 0;}), Inputs->GetRows(), Inputs->GetCollumns()); //makes a lambda function for relu and passess it into inputs custom func
+        return Inputs.customFunc([](Type input, int index){return (input > 0) ? input : 0;}); //makes a lambda function for relu and passess it into inputs custom func
     } else
     {
-        return *(Inputs);
+        return Inputs;
     }
 }
 
 
-template <typename Type> Array<Type> Layer<Type>::Backwards(const Array<Type>* dOutputs /*dOutputs = derivative of outputs*/) const
+template <typename Type> Array<Type> Layer<Type>::Backwards(const Array<Type> dOutputs /*dOutputs = derivative of outputs*/) const
 {
     /*
     weights derivatives = inputs since y=wx where x is input and w is weights, and derivative of y=wx with respect to w is x, this also means derivative of inputs is weights since d/dx y=wx is w
@@ -98,34 +94,42 @@ template <typename Type> Array<Type> Layer<Type>::Backwards(const Array<Type>* d
     6.3, 9.6, 1.8    
     7.3, 1.1, 3.6   
 
-    //derivatives of weights: add for all batches 
-    1, 2, 3
-    1, 2, 3
-    1, 2, 3
+    //derivatives of weights: add for all batches
+    1 * dActivationFunc[0], 2 * dActivationFunc[0], 3 * dActivationFunc[0],
+    1 * dActivationFunc[1], 2 * dActivationFunc[1], 3 * dActivationFunc[1] etc, if its multiple batches then you have to do 1 * dActivationFunc[batch1][0] + batch2input1 * dActivationFunc[batch2][0]
+    
+    can be written as inputs.transposed.dotproduct(dActivationFunc.transpose()) which can be seen as:
+    let dactivationfunc = neuron1:7, neuron2:8, neuron3:9
+    transformed into 7,8,9
+                    transposed
+    1            7
+    2            8
+    3            9
+    
+    dot product above gives:
+    1*7, 2*7, 3*7
+    1*8, 2*8, 3*8
+    1*9, 2*9, 3*9
+
+    with multiple batches dotproducts add them together
+    
 
     //derivatives of inputs = 
     1.3 + 6.3 + 7.3, 2.6 + 9.6 + 1.1, 3.8 + 1.8 + 3.6*/
 
-    // Array<Type> dOutputs = Array<Type> 
-
-    for (int Row = 0; Row < weights->GetRows(); Row++)
-    {
-        for (int Collumn = 0; Collumn < weights->GetCollumns(); Collumn++)
-        {
-
-        }
-    }
+    //define dActive to be self.activationBackwards(doutputs)
+    dWeights = Inputs.dotProduct(dActiv)
 
 }
 
 
 
-template <typename Type> void Layer<Type>::setWeights(Array<Type>* weightVals)
+template <typename Type> void Layer<Type>::setWeights(Array<Type> weightVals)
 {
     weights = weightVals;   
 }
 
-template <typename Type> void Layer<Type>::setBiases(Array<Type>* biasVals)
+template <typename Type> void Layer<Type>::setBiases(Array<Type> biasVals)
 {
     biases = biasVals;
 }
@@ -163,7 +167,7 @@ int main() {
 
     Array<float> Inputs = Array<float>(&(inputData[0][0]),1,3); //1 batch 3 inputs for that 1 batch
 
-    Array<float> Outputs = testLayer.Forwards(&Inputs);
+    Array<float> Outputs = testLayer.Forwards(Inputs);
 
     Outputs.print();
 

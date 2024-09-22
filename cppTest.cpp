@@ -1,10 +1,19 @@
 #include <iostream>
 
+using namespace std;
+
 int* testFunc()
-{
-    int h = 6;
-    int* o = &h;
+{   
+    cerr << "test" << endl;
+    throw std::invalid_argument("test123");
+    int* h = new int[5];
+    for (int i = 0; i < 5; i++)
+    {
+        *(h + i) = 1;
+    }
+    int* o = h;
     return o;
+    delete h;
 }
 
 void disruptStack()
@@ -18,10 +27,18 @@ int main()
 {
     int* ptr = testFunc();
 
-    std::cout << "Value: " << *ptr << std::endl;
+    for (int i = 0; i < 5; i++)
+    {
+        cout << "value pre disruption: " << *(ptr + i) << endl;
+    }
     std::cout << "Address: " << ptr << std::endl;
 
     disruptStack(); // Call the function to disrupt the stack
 
-    std::cout << "Value after stack disruption: " << *ptr << std::endl;
+    for (int i = 0; i < 5; i++)
+    {
+        cout << "value post disruption: " << *(ptr + i) << endl;
+    }
+    // delete h;
+    delete ptr;
 }
