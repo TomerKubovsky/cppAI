@@ -3,103 +3,141 @@
 #include <random>
 #include <iostream>
 #include <chrono>
-using namespace std;
 
 template <typename Type>
 class Array
 {
+	// Type* ptr;
+	// int R;
+	// int C;
+
+public:
 	Type* ptr;
 	int R;
 	int C;
 
 public:
 	Array();//defult constructor shouldnt be used UNLESS you assign the array immedietly after, use with EXTREME CAUTION
-	Array(Type* arrPtr, const int Rows, const int Collumns);
-	Array(const int Rows, const int Collumns);
-	static Array<Type>* constructArray(const int Rows, const int Collumns);
+	Array(Type* arrPtr, const int Rows, const int Columns);
+	Array(const int Rows, const int Columns);
+
+	Array<Type>(Array<Type>&& otherArr/*other array is a temporary object that isa getting deleted*/);	//move constructor
+	Array<Type>(const Array<Type>& otherArr);
+	Array<Type>* operator=(const Array<Type>& arr);
+	static Array<Type>* constructArray(const int Rows, const int Columns);
+
 	void print() const;
-	Array<Type> dotProduct(const Array<Type> inputArray) const; //takes an array of inputs and multiplys it with its own weights, the values in THIS array is the weights
-	Array<Type> add(Array<Type> inputs) const;
+
+	Array<Type> dotProduct(const Array<Type>& inputArray) const; //takes an array of inputs and multiplys it with its own weights, the values in THIS array is the weights
+	Array<Type> add(Array<Type>& inputs) const;
+	Array<Type> multiply(Array<Type>& inputs) const;
 	Array<Type> Transpose() const; //returns transposed array
 	Array<Type> customFunc(Type (*func)(Type, int)) const;
+	Array<Type> customFunc2Arr(const Array<Type>& arr2, Type (*func)(Type, Type, int)) const;
+
 	~Array() {delete[] ptr;}
+
 	int GetRows() const;
-	int GetCollumns() const;
+	int GetColumns() const;
 	Type* GetPtr() const;
 
 
 
 };
 
-template <typename Type> Array<Type>::Array()
-{
-	R = 0;
-	C = 0;
-	ptr = nullptr;
-}
+template <typename Type> Array<Type>::Array():
+	ptr(nullptr),
+	R(0),
+	C(0)
+{}
 
 
-template <typename Type> Array<Type>::Array(Type* arrPtr,const int Rows,const int Collumns)
-{
-	R = Rows;
-	C = Collumns;
-	ptr = arrPtr;
-}
+template <typename Type>
+Array<Type>::Array(Type* arrPtr,const int Rows,const int Columns):
+	ptr(arrPtr),
+	R(Rows),
+	C(Columns)
+{}
 
-template <typename Type> Array<Type>::Array(const int Rows,const int Collumns)
+template <typename Type>
+Array<Type>::Array(const int Rows,const int Columns):
+	R(Rows),
+	C(Columns),
+	ptr(new Type[Rows*Columns])
 {
     // mt19937 gen(chrono::system_clock::now().time_since_epoch().count());
-
     // uniform_real_distribution<> dis(0.0, 1.0);
-
-	R = Rows;
-	C = Collumns;
-
-	ptr = new Type[R * C];
-	
 	for (int index = 0; index < R * C; index++)
 	{
 		// ptr[index] = dis(gen);
-		// cout << "test" << endl;
 		ptr[index] = 0.0f;
 	}
 
 }
 
-
-
-template <typename Type> Array<Type>* Array<Type>::constructArray(const int Rows,const int Collumns)
+template <typename Type>
+Array<Type>::Array(Array<Type>&& otherArr):
+	ptr(otherArr.GetPtr()),
+	R(otherArr.GetRows()),
+	C(otherArr.GetColumns())
 {
-	return new Array<Type>(Rows, Collumns);
+	otherArr.ptr = nullptr;
+}
+
+template <typename Type>
+Array<Type>::Array(const Array<Type>& otherArr)
+{
+	ptr = otherArr.GetPtr();
+	R = otherArr.GetRows();
+	C = otherArr.GetColumns();
+}
+
+template <typename Type>
+Array<Type>* Array<Type>::operator=(const Array<Type>& arr)
+{
+	delete[] ptr;
+	C = arr.GetColumns();
+	R = arr.GetRows();
+	ptr = new Type[R*C];
+	for (int index = 0; index < R * C; index++)
+	{
+		ptr[index] = arr.ptr[index];
+	}
+	return this;
+}
+
+template <typename Type>
+Array<Type>* Array<Type>::constructArray(const int Rows,const int Columns)
+{
+	return new Array<Type>(Rows, Columns);
 }
 
 
 
-template <typename Type> void Array<Type>::print() const
+template <typename Type>
+void Array<Type>::print() const
 {
 
 	for (int index = 0; index < R * C; index++)
 	{
 		if (index % C == 0)
 		{
-			cout << endl;
+			std::cout << std::endl;
 		} else
 		{
-			cout << ' ';
+			std::cout << ' ';
 		}
-		cout << *(ptr+index);
+		std::cout << *(ptr+index);
 	}
-	cout << endl;
+	std::cout << std::endl;
 }
 
-template <typename Type> Array<Type> Array<Type>::dotProduct(const Array<Type> inputArray) const
+template <typename Type>
+Array<Type> Array<Type>::dotProduct(const Array<Type>& inputArray) const
 {
-	//amount of rows = amount of neurons so the amount of rows = the amount of collumns in the final array, the amount of rows in the input array = the amount of batches, so the amount of rows in input array = amount of rows in the output array
+	//amount of rows = amount of neurons so the amount of rows = the amount of columns in the final array, the amount of rows in the input array = the amount of batches, so the amount of rows in input array = amount of rows in the output array
 
-	if (inputArray.GetCollumns() != C)
-	{
-		throw std::invalid_argument("input array and self array collumns do not match in dot product");
-	}
+	if (inputArray.GetColumns() != C) {throw std::invalid_argument("input array and self array columns do not match in dot product");}
 
 	const int batches = inputArray.GetRows();
 
@@ -132,14 +170,18 @@ template <typename Type> Array<Type> Array<Type>::dotProduct(const Array<Type> i
 	input1batch1, input2batch1
 	input1batch2, input2batch2
 
-	collumns have to match, rows dont
+	columns have to match, rows dont
 	*/
 	return Array<Type>(batchesOutputs, inputArray.GetRows(), R);
 }
 
 
-template <typename Type> Array<Type> Array<Type>::add(Array<Type> inputs) const
+template <typename Type>
+Array<Type> Array<Type>::add(Array<Type>& inputs) const
 {
+	if (inputs.GetRows() != R) {throw std::invalid_argument("inputs rows is not equal to self rows in add arr");}
+	if (inputs.GetColumns() != C) {throw std::invalid_argument("inputs columns is not equal to self columns in add arr");}
+
 	Type* outputs = new Type[R*C];
 	Type* inputPtr = inputs.GetPtr();
 	for (int index = 0; index < R*C; index++)
@@ -150,8 +192,25 @@ template <typename Type> Array<Type> Array<Type>::add(Array<Type> inputs) const
 	return Array<Type>(outputs, R, C);
 }
 
+template <typename Type>
+Array<Type> Array<Type>::multiply(Array<Type>& inputs) const
+{
+	if (inputs.GetRows() != R) {throw std::invalid_argument("inputs rows is not equal to self rows in mult arr");}
+	if (inputs.GetColumns() != C) {throw std::invalid_argument("inputs columns is not equal to self columns in mult arr");}
+	
+	Type* outputs = new Type[R*C];
+	Type* inputPtr = inputs.GetPtr();
+	for (int index = 0; index < R*C; index++)
+	{
+		*(outputs + index) = *(ptr + index) * *(inputPtr + index);
+	}
 
-template <typename Type> Array<Type> Array<Type>::Transpose() const
+	return Array<Type>(outputs, R, C);
+}
+
+
+template <typename Type>
+Array<Type> Array<Type>::Transpose() const
 {
 	Type* tempPtr = new Type[R*C];
 	for (int row = 0; row < R; row++)
@@ -162,10 +221,11 @@ template <typename Type> Array<Type> Array<Type>::Transpose() const
 		}
 	}
 
-	return Array<Type>(tempPtr, C, R); //rows and collumns are reversed after transpose
+	return Array<Type>(tempPtr, C, R); //rows and columns are reversed after transpose
 }
 
-template <typename Type> Array<Type> Array<Type>::customFunc(Type (*func)(Type, int)) const
+template <typename Type>
+Array<Type> Array<Type>::customFunc(Type (*func)(Type, int)) const
 {
 	Type* tempPtr = new Type[R*C];
 	for (int index = 0; index < R*C; index++)
@@ -176,18 +236,36 @@ template <typename Type> Array<Type> Array<Type>::customFunc(Type (*func)(Type, 
 }
 
 
+template <typename Type>
+Array<Type> Array<Type>::customFunc2Arr(const Array<Type>& arr2, Type (*func)(Type, Type, int)) const
+{
+	if (arr2.GetRows() != R) {std::cerr << "arr2 rows do not equal arr1 rows in customFunc2Arr :(" << std::endl;}
+	if (arr2.GetColumns() != C) {std::cerr << "arr2 columns do not equal arr1 columns in customFunc2Arr :(" << std::endl;}
 
-template <typename Type> int Array<Type>::GetRows() const
+	Type* arr2Ptr = arr2.GetPtr(); //pointer doesnt need to be delted as arr2 is responsible for controling that memory and has a destructor
+
+	Type* tempPtr = new Type[R*C];
+	for (int index = 0; index < R*C; index++)
+	{
+		*(tempPtr + index) = func(*(ptr+index), *(arr2Ptr + index), index);
+	}
+	return Array<Type>(tempPtr, R, C);
+}
+
+template <typename Type>
+int Array<Type>::GetRows() const
 {
 	return R;
 }
 
-template <typename Type> int Array<Type>::GetCollumns() const
+template <typename Type>
+int Array<Type>::GetColumns() const
 {
 	return C;
 }
 
-template <typename Type> Type* Array<Type>::GetPtr() const
+template <typename Type>
+Type* Array<Type>::GetPtr() const
 {
 	return ptr;
 }
