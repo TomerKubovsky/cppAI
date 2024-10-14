@@ -29,7 +29,10 @@ public:
 	void print() const;
 
 	Array<Type> dotProduct(const Array<Type>& inputArray) const; //takes an array of inputs and multiplys it with its own weights, the values in THIS array is the weights
-	Array<Type> add(Array<Type>& inputs) const;
+	Array<Type> operator+(const Array<Type>& arr);
+	Array<Type> add(const Array<Type>& inputs) const;
+	Array<Type> operator-(const Array<Type>& arr);
+	Array<Type> subtract(const Array<Type>& inputs) const;
 	Array<Type> multiply(Array<Type>& inputs) const;
 	Array<Type> Transpose() const; //returns transposed array
 	Array<Type> customFunc(Type (*func)(Type, int)) const;
@@ -63,15 +66,15 @@ template <typename Type>
 Array<Type>::Array(const int Rows,const int Columns):
 	R(Rows),
 	C(Columns),
-	ptr(new Type[Rows*Columns])
+	ptr(new Type[Rows*Columns]())//() makes it intiliaze at 0
 {
     // mt19937 gen(chrono::system_clock::now().time_since_epoch().count());
     // uniform_real_distribution<> dis(0.0, 1.0);
-	for (int index = 0; index < R * C; index++)
-	{
-		// ptr[index] = dis(gen);
-		ptr[index] = 0.0f;
-	}
+	// for (int index = 0; index < R * C; index++)
+	// {
+	// 	// ptr[index] = dis(gen);
+	// 	ptr[index] = 0.0f;
+	// }
 
 }
 
@@ -98,7 +101,7 @@ Array<Type>* Array<Type>::operator=(const Array<Type>& arr)
 	delete[] ptr;
 	C = arr.GetColumns();
 	R = arr.GetRows();
-	ptr = new Type[R*C];
+	ptr = new Type[R*C]();
 	for (int index = 0; index < R * C; index++)
 	{
 		ptr[index] = arr.ptr[index];
@@ -142,12 +145,7 @@ Array<Type> Array<Type>::dotProduct(const Array<Type>& inputArray) const
 	const int batches = inputArray.GetRows();
 
 	
-	Type* batchesOutputs = new Type[batches * R];
-
-	for (int index = 0; index < batches * R; index++)
-	{
-		*(batchesOutputs + index) = 0;
-	}
+	Type* batchesOutputs = new Type[batches * R]();
 
 
 
@@ -175,18 +173,46 @@ Array<Type> Array<Type>::dotProduct(const Array<Type>& inputArray) const
 	return Array<Type>(batchesOutputs, inputArray.GetRows(), R);
 }
 
+template<typename Type>
+Array<Type> Array<Type>::operator+(const Array<Type> &arr)
+{
+	return add(arr);
+}
+
 
 template <typename Type>
-Array<Type> Array<Type>::add(Array<Type>& inputs) const
+Array<Type> Array<Type>::add(const Array<Type>& inputs) const
 {
 	if (inputs.GetRows() != R) {throw std::invalid_argument("inputs rows is not equal to self rows in add arr");}
 	if (inputs.GetColumns() != C) {throw std::invalid_argument("inputs columns is not equal to self columns in add arr");}
 
-	Type* outputs = new Type[R*C];
+	Type* outputs = new Type[R*C]();
 	Type* inputPtr = inputs.GetPtr();
 	for (int index = 0; index < R*C; index++)
 	{
 		*(outputs + index) = *(ptr + index) + *(inputPtr + index);
+	}
+
+	return Array<Type>(outputs, R, C);
+}
+
+template<typename Type>
+Array<Type> Array<Type>::operator-(const Array<Type> &arr)
+{
+	return subtract(arr);
+}
+
+template<typename Type>
+Array<Type> Array<Type>::subtract(const Array<Type> &inputs) const
+{
+	if (inputs.GetRows() != R) {throw std::invalid_argument("inputs rows is not equal to self rows in subtract arr");}
+	if (inputs.GetColumns() != C) {throw std::invalid_argument("inputs columns is not equal to self columns in subtrct arr");}
+
+	Type* outputs = new Type[R*C]();
+	Type* inputPtr = inputs.GetPtr();
+	for (int index = 0; index < R*C; index++)
+	{
+		*(outputs + index) = *(ptr + index) - *(inputPtr + index);
 	}
 
 	return Array<Type>(outputs, R, C);
@@ -198,7 +224,7 @@ Array<Type> Array<Type>::multiply(Array<Type>& inputs) const
 	if (inputs.GetRows() != R) {throw std::invalid_argument("inputs rows is not equal to self rows in mult arr");}
 	if (inputs.GetColumns() != C) {throw std::invalid_argument("inputs columns is not equal to self columns in mult arr");}
 	
-	Type* outputs = new Type[R*C];
+	Type* outputs = new Type[R*C]();
 	Type* inputPtr = inputs.GetPtr();
 	for (int index = 0; index < R*C; index++)
 	{
@@ -227,7 +253,7 @@ Array<Type> Array<Type>::Transpose() const
 template <typename Type>
 Array<Type> Array<Type>::customFunc(Type (*func)(Type, int)) const
 {
-	Type* tempPtr = new Type[R*C];
+	Type* tempPtr = new Type[R*C]();
 	for (int index = 0; index < R*C; index++)
 	{
 		*(tempPtr + index) = func(*(ptr + index), index);
