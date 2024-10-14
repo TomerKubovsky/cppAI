@@ -7,14 +7,14 @@
 template <typename Type>
 class Array
 {
-	// Type* ptr;
-	// int R;
-	// int C;
-
-public:
-	Type* ptr = NULL;
+	Type* ptr;
 	int R;
 	int C;
+
+// public:
+// 	Type* ptr = NULL;
+// 	int R;
+// 	int C;
 
 public:
 	Array();//defult constructor shouldnt be used UNLESS you assign the array immedietly after, use with EXTREME CAUTION
