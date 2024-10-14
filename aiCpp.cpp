@@ -67,7 +67,8 @@ template <typename Type> void Layer<Type>::print() const
     biases.print();
 }
 
-template <typename Type> Array<Type> Layer<Type>::Forwards(const Array<Type>& Inputs)
+template <typename Type>
+Array<Type> Layer<Type>::Forwards(const Array<Type>& Inputs)
 {
     selfInputs = Inputs;
     Array<Type> outputs = weights.dotProduct(Inputs);//caclulate inputs * weights
@@ -267,25 +268,26 @@ int main()
 
     Array<float> correctOutputs(&(correctOutputsData[0][0]), 2, 2);
 
+
+    // for (int rowIndex = 0; rowIndex < Outputs.GetRows(); rowIndex++)
+    // {
+    //     for (int colIndex = 0; colIndex < Outputs.GetColumns(); colIndex++)
+    //     {
+    //         *(dOutputsData + (colIndex + rowIndex * Outputs.GetColumns())) = (correctOutputsData[rowIndex][colIndex] - *(Outputs.GetPtr() + (colIndex + rowIndex * Outputs.GetColumns()))) * 2/Outputs.GetColumns();
+    //     }
+    // }
+    Array<float> dOutputs;
+    // testLayer.Backwards(dOutputs);
+    // testLayer.updateWeightsAndBiases(1);
+    // testLayer.zeroGradient();
+    // Outputs = testLayer.Forwards(Inputs);
+    // std::cout << "outputs:";
+    // Outputs.print();
     float* dOutputsData = new float[4]();
 
-    for (int rowIndex = 0; rowIndex < Outputs.GetRows(); rowIndex++)
+    for (int i = 0; i < 10000; i++)
     {
-        for (int colIndex = 0; colIndex < Outputs.GetColumns(); colIndex++)
-        {
-            *(dOutputsData + (colIndex + rowIndex * Outputs.GetColumns())) = (correctOutputsData[rowIndex][colIndex] - *(Outputs.GetPtr() + (colIndex + rowIndex * Outputs.GetColumns()))) * 2/Outputs.GetColumns();
-        }
-    }
-    Array<float> dOutputs(dOutputsData, 2, 2);
-    testLayer.Backwards(dOutputs);
-    testLayer.updateWeightsAndBiases(1);
-    testLayer.zeroGradient();
-    Outputs = testLayer.Forwards(Inputs);
-    std::cout << "outputs:";
-    Outputs.print();
 
-    for (int i = 0; i < 100; i++)
-    {
         for (int rowIndex = 0; rowIndex < Outputs.GetRows(); rowIndex++)
         {
             for (int colIndex = 0; colIndex < Outputs.GetColumns(); colIndex++)
@@ -293,7 +295,7 @@ int main()
                 *(dOutputsData + (colIndex + rowIndex * Outputs.GetColumns())) = (correctOutputsData[rowIndex][colIndex] - *(Outputs.GetPtr() + (colIndex + rowIndex * Outputs.GetColumns()))) * 2/Outputs.GetColumns();
             }
         }
-        dOutputs = Array(dOutputsData, 2, 2);
+        dOutputs = Array<float>(dOutputsData, 2, 2);
         testLayer.Backwards(dOutputs);
         testLayer.updateWeightsAndBiases(1);
         testLayer.zeroGradient();
@@ -301,4 +303,6 @@ int main()
         std::cout << "outputs:";
         Outputs.print();
     }
+
+    delete[] dOutputsData;
 }

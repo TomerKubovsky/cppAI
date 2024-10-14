@@ -12,13 +12,14 @@ class Array
 	// int C;
 
 public:
-	Type* ptr;
+	Type* ptr = NULL;
 	int R;
 	int C;
 
 public:
 	Array();//defult constructor shouldnt be used UNLESS you assign the array immedietly after, use with EXTREME CAUTION
 	Array(Type* arrPtr, const int Rows, const int Columns);
+	Array(Type& arrPtr);
 	Array(const int Rows, const int Columns);
 
 	Array<Type>(Array<Type>&& otherArr/*other array is a temporary object that isa getting deleted*/);	//move constructor
@@ -38,7 +39,10 @@ public:
 	Array<Type> customFunc(Type (*func)(Type, int)) const;
 	Array<Type> customFunc2Arr(const Array<Type>& arr2, Type (*func)(Type, Type, int)) const;
 
-	~Array() {delete[] ptr;}
+	~Array()
+	{
+		delete[] ptr;
+	}
 
 	int GetRows() const;
 	int GetColumns() const;
@@ -56,11 +60,22 @@ template <typename Type> Array<Type>::Array():
 
 
 template <typename Type>
-Array<Type>::Array(Type* arrPtr,const int Rows,const int Columns):
-	ptr(arrPtr),
-	R(Rows),
-	C(Columns)
-{}
+Array<Type>::Array(Type* arrPtr,const int Rows,const int Columns)
+{
+	R = Rows;
+	C = Columns;
+	ptr = new Type[R * C];
+	for (int i = 0; i < R*C; i++)
+	{
+		ptr[i] = arrPtr[i];
+	}
+}
+
+template <typename Type>
+Array<Type>::Array(Type& arrPtr)
+{
+	*this = arrPtr;
+}
 
 template <typename Type>
 Array<Type>::Array(const int Rows,const int Columns):
@@ -98,7 +113,11 @@ Array<Type>::Array(const Array<Type>& otherArr)
 template <typename Type>
 Array<Type>* Array<Type>::operator=(const Array<Type>& arr)
 {
-	delete[] ptr;
+	if (ptr != NULL && ptr != arr.GetPtr())
+	{
+		delete[] ptr;
+		ptr = NULL;
+	}
 	C = arr.GetColumns();
 	R = arr.GetRows();
 	ptr = new Type[R*C]();
