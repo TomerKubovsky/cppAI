@@ -22,12 +22,20 @@ private:
 
 public:
     Layer(const int Inputs, const int outputs /*outputs = neurons*/, std::string activationFunc = "none");
-    ~Layer();
+    ~Layer()
+    {
+        // delete weights;
+        // delete biases;
+        // delete dWeights;
+        // delete dBiases;
+        // delete outputsPreActive;
+        // delete selfInputs;
+    };
     void print() const;
     Array<Type> Forwards(const Array<Type>& Inputs);
     Array<Type> ForwardsActivation(const Array<Type>& Inputs) const;
-    Array<Type> BackwardsActivation(const Array<Type>& dOutputs) const;
-    Array<Type> Backwards(const Array<Type>& dOutputs) const;
+    Array<Type> BackwardsActivation(Array<Type>& dOutputs) const;
+    Array<Type> Backwards(Array<Type>& dOutputs) const; //doutputs isnt const because we use a mvoe constrcutor on it and nullify it after we dont need it anymore
     void updateWeightsAndBiases(Type learningRate);
     void zeroGradient();
     void setWeights(Array<Type>& weightVals);
@@ -56,7 +64,6 @@ template <typename Type> Layer<Type>::Layer(const int Inputs, const int outputs,
     {}
 
 
-template <typename Type> Layer<Type>::~Layer() {}
 
 
 template <typename Type> void Layer<Type>::print() const
@@ -79,19 +86,20 @@ Array<Type> Layer<Type>::Forwards(const Array<Type>& Inputs)
 
     Type* outputsPreActivePtr = new Type[outputs.GetColumns() * outputs.GetRows()]();
     Type* biasesPtr = biases.GetPtr();
-    for (int collumnIndex = 0; collumnIndex < outputsCollumns; collumnIndex++)
+    for (int rowIndex = 0; rowIndex < outputRows; rowIndex++)
     {
-        for (int rowIndex = 0; rowIndex < outputRows; rowIndex++)
+        for (int collumnIndex = 0; collumnIndex < outputsCollumns; collumnIndex++)
         {
             outputsPreActivePtr[collumnIndex + outputsCollumns * rowIndex] = outputs.GetPtr()[collumnIndex + outputsCollumns * rowIndex] + biasesPtr[collumnIndex];
         }
     }
     outputsPreActive = Array<Type>(outputsPreActivePtr, outputRows, outputsCollumns);
-    Array<Type> finalOutput = ForwardsActivation(outputsPreActive);//activation function
-    return finalOutput;
+    // Array<Type> finalOutput = ForwardsActivation(outputsPreActive);//activation function
+    return ForwardsActivation(outputsPreActive);
 }
 
-template <typename Type> Array<Type> Layer<Type>::ForwardsActivation(const Array<Type>& Inputs) const
+template <typename Type>
+Array<Type> Layer<Type>::ForwardsActivation(const Array<Type>& Inputs) const
 {
     if (activationFunc == "relu")
     {
@@ -102,7 +110,7 @@ template <typename Type> Array<Type> Layer<Type>::ForwardsActivation(const Array
         //makes a lambda function for relu and passess it into inputs custom func
     }else
     {
-        return Inputs;
+        return Inputs.deepCopy();
     }
 }
 
@@ -110,7 +118,7 @@ template <typename Type> Array<Type> Layer<Type>::ForwardsActivation(const Array
 /*
     dactiv is the derivative of the inputs to the activbation functions so self.activationBackwards(dOutputs) also you gotta multiply it by dOutputs which is why it is passed into the function
 */
-template <typename Type> Array<Type> Layer<Type>::BackwardsActivation(const Array<Type>& dOutputs) const
+template <typename Type> Array<Type> Layer<Type>::BackwardsActivation(Array<Type>& dOutputs) const
 {
     if (activationFunc == "relu")
     {
@@ -121,12 +129,12 @@ template <typename Type> Array<Type> Layer<Type>::BackwardsActivation(const Arra
         });
     } else
     {
-        return dOutputs; //linear activation function derivative is 1 so 1*doutpus so doutputs
+        return std::move(dOutputs); //linear activation function derivative is 1 so 1*doutpus so doutputs
     }
 }
 
 
-template <typename Type> Array<Type> Layer<Type>::Backwards(const Array<Type>& dOutputs /*dOutputs = derivative of outputs*/) const
+template <typename Type> Array<Type> Layer<Type>::Backwards(Array<Type>& dOutputs /*dOutputs = derivative of outputs*/) const
 {
     /*
     weights derivatives = inputs since y=wx where x is input and w is weights, and derivative of y=wx with respect to w is x, this also means derivative of inputs is weights since d/dx y=wx is w
@@ -248,7 +256,7 @@ template <typename Type> void Layer<Type>::setBiases(Array<Type>& biasVals)
 int main()
 {
 
-    Layer<float> testLayer(3,2, "relu");
+    Layer<float> testLayer(3,2, "linear");
 
     testLayer.print();
 
@@ -262,8 +270,8 @@ int main()
     std::cout << "outputs:";
     Outputs.print();
 
-    float correctOutputsData[2][2] = {{1,2},
-                                    {3,4}};
+    float correctOutputsData[2][2] = {{112476, 212},
+                                    {-84, 2}};
 
     Array<float> correctOutputs(&(correctOutputsData[0][0]), 2, 2);
 

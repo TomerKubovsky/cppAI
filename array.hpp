@@ -1,8 +1,6 @@
 #ifndef arrayUtils_H
 #define arrayUtils_H
-#include <random>
 #include <iostream>
-#include <chrono>
 
 template <typename Type>
 class Array
@@ -22,26 +20,29 @@ public:
 	Array(Type& arrPtr);
 	Array(const int Rows, const int Columns);
 
-	Array<Type>(Array<Type>&& otherArr/*other array is a temporary object that isa getting deleted*/);	//move constructor
-	Array<Type>(const Array<Type>& otherArr);
-	Array<Type>* operator=(const Array<Type>& arr);
+	Array(Array<Type>&& otherArr/*other array is a temporary object that isa getting deleted*/);	//move constructor
+	Array(const Array<Type>& otherArr);//copy constructor
+	Array& operator=(const Array<Type>& arr);
+	Array& operator=(Array<Type>&& arr); //move assignment operator
 	static Array<Type>* constructArray(const int Rows, const int Columns);
+	Array deepCopy() const;
 
 	void print() const;
+	void nullify();
 
-	Array<Type> dotProduct(const Array<Type>& inputArray) const; //takes an array of inputs and multiplys it with its own weights, the values in THIS array is the weights
-	Array<Type> operator+(const Array<Type>& arr);
-	Array<Type> add(const Array<Type>& inputs) const;
-	Array<Type> operator-(const Array<Type>& arr);
-	Array<Type> subtract(const Array<Type>& inputs) const;
-	Array<Type> multiply(Array<Type>& inputs) const;
-	Array<Type> Transpose() const; //returns transposed array
-	Array<Type> customFunc(Type (*func)(Type, int)) const;
-	Array<Type> customFunc2Arr(const Array<Type>& arr2, Type (*func)(Type, Type, int)) const;
+	Array dotProduct(const Array<Type>& inputArray) const; //takes an array of inputs and multiplys it with its own weights, the values in THIS array is the weights
+	Array operator+(const Array<Type>& arr);
+	Array add(const Array<Type>& inputs) const;
+	Array operator-(const Array<Type>& arr);
+	Array subtract(const Array<Type>& inputs) const;
+	Array multiply(Array<Type>& inputs) const;
+	Array Transpose() const; //returns transposed array
+	Array customFunc(Type (*func)(Type, int)) const;
+	Array customFunc2Arr(const Array<Type>& arr2, Type (*func)(Type, Type, int)) const;
 
 	~Array()
 	{
-		delete[] ptr;
+	delete[] ptr;
 	}
 
 	int GetRows() const;
@@ -60,16 +61,11 @@ template <typename Type> Array<Type>::Array():
 
 
 template <typename Type>
-Array<Type>::Array(Type* arrPtr,const int Rows,const int Columns)
-{
-	R = Rows;
-	C = Columns;
-	ptr = new Type[R * C];
-	for (int i = 0; i < R*C; i++)
-	{
-		ptr[i] = arrPtr[i];
-	}
-}
+Array<Type>::Array(Type* arrPtr,const int Rows,const int Columns):
+	ptr(arrPtr),
+	C(Columns),
+	R(Rows)
+{}
 
 template <typename Type>
 Array<Type>::Array(Type& arrPtr)
@@ -95,37 +91,55 @@ Array<Type>::Array(const int Rows,const int Columns):
 
 template <typename Type>
 Array<Type>::Array(Array<Type>&& otherArr):
-	ptr(otherArr.GetPtr()),
-	R(otherArr.GetRows()),
-	C(otherArr.GetColumns())
+	ptr(otherArr.ptr),
+	R(otherArr.R),
+	C(otherArr.C)
 {
+	std::cout << "move cconsturctor good" << std::endl;
 	otherArr.ptr = nullptr;
+	otherArr.R = 0;
+	otherArr.C = 0;
 }
 
 template <typename Type>
 Array<Type>::Array(const Array<Type>& otherArr)
 {
-	ptr = otherArr.GetPtr();
-	R = otherArr.GetRows();
-	C = otherArr.GetColumns();
+	std::cout << "copy cconstructor used, it is a shalow copy its probably fine" << std::endl;
+	ptr = otherArr.ptr;
+	R = otherArr.R;
+	C = otherArr.C;
 }
 
 template <typename Type>
-Array<Type>* Array<Type>::operator=(const Array<Type>& arr)
+Array<Type>& Array<Type>::operator=(const Array<Type>& arr)
 {
-	if (ptr != NULL && ptr != arr.GetPtr())
+
+	// std::cout << "copy operator used" << std::endl;
+	if (ptr != arr.ptr)
 	{
 		delete[] ptr;
-		ptr = NULL;
 	}
-	C = arr.GetColumns();
-	R = arr.GetRows();
-	ptr = new Type[R*C]();
+	C = arr.C;
+	R = arr.R;
+	ptr = new Type[R*C];
 	for (int index = 0; index < R * C; index++)
 	{
 		ptr[index] = arr.ptr[index];
 	}
-	return this;
+	return *this;
+}
+
+template<typename Type>
+Array<Type> & Array<Type>::operator=(Array<Type> &&arr)
+{
+	// std::cout << "move operator used, good" << std::endl;
+	delete[] ptr;
+	ptr = arr.ptr;
+	R = arr.R;
+	C = arr.C;
+
+	arr.ptr = nullptr;
+	return *this;
 }
 
 template <typename Type>
@@ -134,6 +148,16 @@ Array<Type>* Array<Type>::constructArray(const int Rows,const int Columns)
 	return new Array<Type>(Rows, Columns);
 }
 
+template<typename Type>
+Array<Type> Array<Type>::deepCopy() const
+{
+	Type* newArrPtr = new Type[R*C];
+	for (int index = 0; index < R * C; index++)
+	{
+		newArrPtr[index] = ptr[index];
+	}
+	return std::move(Array<Type>(newArrPtr, R, C));
+}
 
 
 template <typename Type>
@@ -154,14 +178,22 @@ void Array<Type>::print() const
 	std::cout << std::endl;
 }
 
+template<typename Type>
+void Array<Type>::nullify()
+{
+	ptr = nullptr;
+	R = 0;
+	C = 0;
+}
+
 template <typename Type>
 Array<Type> Array<Type>::dotProduct(const Array<Type>& inputArray) const
 {
 	//amount of rows = amount of neurons so the amount of rows = the amount of columns in the final array, the amount of rows in the input array = the amount of batches, so the amount of rows in input array = amount of rows in the output array
 
-	if (inputArray.GetColumns() != C) {throw std::invalid_argument("input array and self array columns do not match in dot product");}
+	if (inputArray.C != C) {throw std::invalid_argument("input array and self array columns do not match in dot product");}
 
-	const int batches = inputArray.GetRows();
+	const int& batches = inputArray.R;
 
 	
 	Type* batchesOutputs = new Type[batches * R]();
@@ -189,24 +221,25 @@ Array<Type> Array<Type>::dotProduct(const Array<Type>& inputArray) const
 
 	columns have to match, rows dont
 	*/
-	return Array<Type>(batchesOutputs, inputArray.GetRows(), R);
+	return Array<Type>(batchesOutputs, inputArray.R, R);
 }
 
 template<typename Type>
 Array<Type> Array<Type>::operator+(const Array<Type> &arr)
 {
-	return add(arr);
+	Array<Type>& addedArrRef = add(arr);
+	return Array<Type>(addedArrRef.ptr, addedArrRef.R, addedArrRef.C);
 }
 
 
 template <typename Type>
 Array<Type> Array<Type>::add(const Array<Type>& inputs) const
 {
-	if (inputs.GetRows() != R) {throw std::invalid_argument("inputs rows is not equal to self rows in add arr");}
-	if (inputs.GetColumns() != C) {throw std::invalid_argument("inputs columns is not equal to self columns in add arr");}
+	if (inputs.R != R) {throw std::invalid_argument("inputs rows is not equal to self rows in add arr");}
+	if (inputs.C != C) {throw std::invalid_argument("inputs columns is not equal to self columns in add arr");}
 
 	Type* outputs = new Type[R*C]();
-	Type* inputPtr = inputs.GetPtr();
+	Type* inputPtr = inputs.ptr;
 	for (int index = 0; index < R*C; index++)
 	{
 		*(outputs + index) = *(ptr + index) + *(inputPtr + index);
@@ -218,17 +251,18 @@ Array<Type> Array<Type>::add(const Array<Type>& inputs) const
 template<typename Type>
 Array<Type> Array<Type>::operator-(const Array<Type> &arr)
 {
-	return subtract(arr);
+	Array<Type>& subbedArrRef = subtract(arr);
+	return Array<Type>(subbedArrRef.ptr, subbedArrRef.R, subbedArrRef.C);
 }
 
 template<typename Type>
-Array<Type> Array<Type>::subtract(const Array<Type> &inputs) const
+Array<Type> Array<Type>::subtract(const Array<Type>& inputs) const
 {
-	if (inputs.GetRows() != R) {throw std::invalid_argument("inputs rows is not equal to self rows in subtract arr");}
-	if (inputs.GetColumns() != C) {throw std::invalid_argument("inputs columns is not equal to self columns in subtrct arr");}
+	if (inputs.R != R) {throw std::invalid_argument("inputs rows is not equal to self rows in subtract arr");}
+	if (inputs.C != C) {throw std::invalid_argument("inputs columns is not equal to self columns in subtrct arr");}
 
 	Type* outputs = new Type[R*C]();
-	Type* inputPtr = inputs.GetPtr();
+	Type* inputPtr = inputs.ptr;
 	for (int index = 0; index < R*C; index++)
 	{
 		*(outputs + index) = *(ptr + index) - *(inputPtr + index);
@@ -240,17 +274,17 @@ Array<Type> Array<Type>::subtract(const Array<Type> &inputs) const
 template <typename Type>
 Array<Type> Array<Type>::multiply(Array<Type>& inputs) const
 {
-	if (inputs.GetRows() != R) {throw std::invalid_argument("inputs rows is not equal to self rows in mult arr");}
-	if (inputs.GetColumns() != C) {throw std::invalid_argument("inputs columns is not equal to self columns in mult arr");}
+	if (inputs.R != R) {throw std::invalid_argument("inputs rows is not equal to self rows in mult arr");}
+	if (inputs.C != C) {throw std::invalid_argument("inputs columns is not equal to self columns in mult arr");}
 	
 	Type* outputs = new Type[R*C]();
-	Type* inputPtr = inputs.GetPtr();
+	Type* inputPtr = inputs.ptr;
 	for (int index = 0; index < R*C; index++)
 	{
 		*(outputs + index) = *(ptr + index) * *(inputPtr + index);
 	}
 
-	return Array<Type>(outputs, R, C);
+	return new Array<Type>(outputs, R, C);
 }
 
 
@@ -284,10 +318,10 @@ Array<Type> Array<Type>::customFunc(Type (*func)(Type, int)) const
 template <typename Type>
 Array<Type> Array<Type>::customFunc2Arr(const Array<Type>& arr2, Type (*func)(Type, Type, int)) const
 {
-	if (arr2.GetRows() != R) {std::cerr << "arr2 rows do not equal arr1 rows in customFunc2Arr :(" << std::endl;}
-	if (arr2.GetColumns() != C) {std::cerr << "arr2 columns do not equal arr1 columns in customFunc2Arr :(" << std::endl;}
+	if (arr2.R != R) {std::cerr << "arr2 rows do not equal arr1 rows in customFunc2Arr :(" << std::endl;}
+	if (arr2.C != C) {std::cerr << "arr2 columns do not equal arr1 columns in customFunc2Arr :(" << std::endl;}
 
-	Type* arr2Ptr = arr2.GetPtr(); //pointer doesnt need to be delted as arr2 is responsible for controling that memory and has a destructor
+	Type* arr2Ptr = arr2.ptr; //pointer doesnt need to be delted as arr2 is responsible for controling that memory and has a destructor
 
 	Type* tempPtr = new Type[R*C];
 	for (int index = 0; index < R*C; index++)

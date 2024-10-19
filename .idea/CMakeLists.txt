@@ -11,4 +11,5 @@ add_executable(_idea
     misc.xml
     modules.xml
     vcs.xml
-    workspace.xml)
+    workspace.xml
+        ../findPixelValueTest.cpp)
