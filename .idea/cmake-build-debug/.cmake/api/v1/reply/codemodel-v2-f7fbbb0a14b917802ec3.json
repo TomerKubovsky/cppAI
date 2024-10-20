@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "_idea::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-_idea-Debug-1f8d905597297c065368.json",
+					"jsonFile" : "target-_idea-Debug-9461db71d7b8e922889a.json",
 					"name" : "_idea",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug",
-		"source" : "C:/Users/tomer/OneDrive/Desktop/cppAI/.idea"
+		"build" : "C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/.idea/cmake-build-debug",
+		"source" : "C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/.idea"
 	},
 	"version" : 
 	{

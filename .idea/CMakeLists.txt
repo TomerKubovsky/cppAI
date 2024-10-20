@@ -12,4 +12,5 @@ add_executable(_idea
     modules.xml
     vcs.xml
     workspace.xml
-        ../findPixelValueTest.cpp)
+        ../findPixelValueTest.cpp
+        ../array.hpp)

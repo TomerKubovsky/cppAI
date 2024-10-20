@@ -6,8 +6,8 @@ template <typename Type>
 class Array
 {
 	Type* ptr;
-	int R;
-	int C;
+	unsigned int R;
+	unsigned int C;
 
 // public:
 // 	Type* ptr = NULL;
@@ -42,7 +42,7 @@ public:
 
 	~Array()
 	{
-	delete[] ptr;
+		delete[] ptr;
 	}
 
 	int GetRows() const;
@@ -114,18 +114,14 @@ template <typename Type>
 Array<Type>& Array<Type>::operator=(const Array<Type>& arr)
 {
 
-	// std::cout << "copy operator used" << std::endl;
+	std::cout << "copy operator used" << std::endl;
 	if (ptr != arr.ptr)
 	{
 		delete[] ptr;
 	}
 	C = arr.C;
 	R = arr.R;
-	ptr = new Type[R*C];
-	for (int index = 0; index < R * C; index++)
-	{
-		ptr[index] = arr.ptr[index];
-	}
+	ptr = arr.ptr;
 	return *this;
 }
 
@@ -156,7 +152,8 @@ Array<Type> Array<Type>::deepCopy() const
 	{
 		newArrPtr[index] = ptr[index];
 	}
-	return std::move(Array<Type>(newArrPtr, R, C));
+	// return std::move(Array<Type>(newArrPtr, R, C));
+	return Array<Type>(newArrPtr, R, C);
 }
 
 

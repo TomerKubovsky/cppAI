@@ -128,6 +128,30 @@ _idea/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\_idea.dir\build.make CMakeFiles/_idea.dir/build
 .PHONY : _idea/fast
 
+C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.obj: C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.obj
+.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.obj
+
+# target to build an object file
+C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\_idea.dir\build.make CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.obj
+.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.obj
+
+C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.i: C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.i
+.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.i
+
+# target to preprocess a source file
+C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\_idea.dir\build.make CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.i
+.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.i
+
+C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.s: C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.s
+.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.s
+
+# target to generate assembly for a file
+C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\_idea.dir\build.make CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.s
+.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -137,6 +161,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... _idea
+	@echo ... C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.obj
+	@echo ... C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.i
+	@echo ... C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.s
 .PHONY : help
 
 

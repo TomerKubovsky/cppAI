@@ -3,6 +3,7 @@
 #include "array.hpp"
 #include <chrono>
 #include <complex.h>
+#include <memory>
 
 
 template <typename Type>
@@ -49,7 +50,7 @@ template <typename Type> Layer<Type>::Layer(const int Inputs, const int outputs,
     :
     weights(Array<Type>(outputs, Inputs).customFunc([](Type input, int index)
         {
-            return (Type) index;
+            return (Type) 1;
         })),
     biases(Array<Type>(1, outputs).customFunc([](Type input, int index)
         {
@@ -129,6 +130,7 @@ template <typename Type> Array<Type> Layer<Type>::BackwardsActivation(Array<Type
         });
     } else
     {
+        // return dOutputs.deepCopy(); //linear activation function derivative is 1 so 1*doutpus so doutputs
         return std::move(dOutputs); //linear activation function derivative is 1 so 1*doutpus so doutputs
     }
 }
@@ -140,24 +142,24 @@ template <typename Type> Array<Type> Layer<Type>::Backwards(Array<Type>& dOutput
     weights derivatives = inputs since y=wx where x is input and w is weights, and derivative of y=wx with respect to w is x, this also means derivative of inputs is weights since d/dx y=wx is w
     bias deivatives = 1 since the equation is activationFunc(input1*weight1+input2*weight2+bias) and since we are deriviving with respect to bias everything else can be treated as constants
     furthermore with bias derivatives instead of writing it as  d                                         we can write it as   d  below value is 0 bc treated as a constant   d   the one below is 1 since y=x wrt x is 1 and this is y=bias wrt bias =
-                                                               ----(input1*weight1+input2*weight2+bias)                       ---- (input1*weight1).......                   ----bias  
+                                                               ----(input1*weight1+input2*weight2+bias)                       ---- (input1*weight1).......                   ----bias
                                                                dbias                                                          dbias                                          dbias
-    remember all the derivatives must be multiplied by dOutputs due to chain rule 
-    
+    remember all the derivatives must be multiplied by dOutputs due to chain rule
+
 
 
     //theoretical inputs
     1, 2, 3
 
     //theoritcal weights, 3 neurons
-    1.3, 2.6, 3.8    
-    6.3, 9.6, 1.8    
-    7.3, 1.1, 3.6   
+    1.3, 2.6, 3.8
+    6.3, 9.6, 1.8
+    7.3, 1.1, 3.6
 
     //derivatives of weights: add for all batches
     1 * dActivationFunc[0], 2 * dActivationFunc[0], 3 * dActivationFunc[0],
     1 * dActivationFunc[1], 2 * dActivationFunc[1], 3 * dActivationFunc[1] etc, if its multiple batches then you have to do 1 * dActivationFunc[batch1][0] + batch2input1 * dActivationFunc[batch2][0]
-    
+
     can be written as inputs.transposed.dotproduct(dActivationFunc.transpose()) which can be seen as:
     let dactivationfunc = neuron1:7, neuron2:8, neuron3:9
     transformed into 7,8,9
@@ -173,29 +175,29 @@ template <typename Type> Array<Type> Layer<Type>::Backwards(Array<Type>& dOutput
 
     with batches it would be addedd together so eg for the first neuron assuming that for the batches the derivative for neuron 1 is 56 etc
     1*7+17*56,2*7+18*56,3*7+21*56
-    
+
     dot product above gives:
     1*7, 2*7, 3*7
     1*8, 2*8, 3*8
     1*9, 2*9, 3*9
 
     with multiple batches dotproducts add them together
-    
-    
+
+
     dactiv is the derivative of the inputs to the activbation functions so self.activationBackwards(dOutputs) also you gotta multiply it by dOutputs which is why it is passed into the function
 
 
-    //derivatives of inputs = 
+    //derivatives of inputs =
     1.3 + 6.3 + 7.3, 2.6 + 9.6 + 1.1, 3.8 + 1.8 + 3.6*/
 
     //define dActive to be self.activationBackwards()
-    const Array<Type> dActiv = BackwardsActivation(dOutputs);
+    const Array<Type> dActiv = BackwardsActivation(dOutputs); //this gets deleted its temporary
     // dWeights = selfInputs.Transpose().dotProduct(dActiv.Transpose());
 
     Type* dWeightsPtr = dWeights.GetPtr();
     const Type* inputPtr = selfInputs.GetPtr();
     const Type* dActivPtr = dActiv.GetPtr();
-    Type* dInputsPtr = new Type[selfInputs.GetRows() * selfInputs.GetColumns()]();//new[a]() makes all values intilliaze at 0 new[a] makes it have random emormy values
+    Type* dInputsPtr = new Type[selfInputs.GetRows() * selfInputs.GetColumns()]();//new[a]() makes all values initialize at 0 new[a] makes it have random memory values
     const Type* weightsPtr = weights.GetPtr();
     const int inputSize = selfInputs.GetColumns();
 
@@ -216,7 +218,7 @@ template <typename Type> Array<Type> Layer<Type>::Backwards(Array<Type>& dOutput
         }
     }
 
-    return  Array<Type>(dInputsPtr, selfInputs.GetRows(), selfInputs.GetColumns());
+    return Array<Type>(dInputsPtr, selfInputs.GetRows(), selfInputs.GetColumns());
 
 }
 
@@ -225,7 +227,7 @@ void Layer<Type>::updateWeightsAndBiases(Type learningRate)
 {
     weights = weights.add(dWeights.customFunc([](Type input, int index)
     {
-        return input * 0.01f;
+        return input * 0.01f; //0.01 is learning rate, change this later
     }));
     biases = biases.add(dBiases.customFunc([](Type input, int index)
     {
@@ -236,18 +238,19 @@ void Layer<Type>::updateWeightsAndBiases(Type learningRate)
 template<typename Type>
 void Layer<Type>::zeroGradient()
 {
+
     dWeights = Array<Type>(dWeights.GetRows(), dWeights.GetColumns());
     dBiases = Array<Type>(dBiases.GetRows(), dBiases.GetColumns());
 }
 
 template <typename Type> void Layer<Type>::setWeights(Array<Type>& weightVals)
 {
-    weights = weightVals;   
+    weights = std::move(weightVals);
 }
 
 template <typename Type> void Layer<Type>::setBiases(Array<Type>& biasVals)
 {
-    biases = biasVals;
+    biases = std::move(biasVals);
 }
 
 
@@ -270,17 +273,16 @@ int main()
     std::cout << "outputs:";
     Outputs.print();
 
-    float correctOutputsData[2][2] = {{112476, 212},
-                                    {-84, 2}};
+    float correctOutputsData[2][2] = {{120123, 13},
+                                    {19, -15}};
 
     Array<float> correctOutputs(&(correctOutputsData[0][0]), 2, 2);
 
     Array<float>* dOutputs;
-    float* dOutputsData = new float[4]();
 
     for (int i = 0; i < 10000; i++)
     {
-
+        float* dOutputsData = new float[4]();
         for (int rowIndex = 0; rowIndex < Outputs.GetRows(); rowIndex++)
         {
             for (int colIndex = 0; colIndex < Outputs.GetColumns(); colIndex++)
@@ -293,10 +295,12 @@ int main()
         testLayer.updateWeightsAndBiases(1);
         testLayer.zeroGradient();
         Outputs = testLayer.Forwards(Inputs);
-        std::cout << "outputs:";
+        std::cout << "iteration: " << i << std::endl << "outputs: ";
         Outputs.print();
         delete dOutputs;
     }
 
-    delete[] dOutputsData;
+    // delete[] dOutputsData;
+
+    return 0;
 }
