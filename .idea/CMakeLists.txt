@@ -13,4 +13,6 @@ add_executable(_idea
     vcs.xml
     workspace.xml
         ../findPixelValueTest.cpp
-        ../array.hpp)
+        ../array.hpp
+        ../cppTest.cpp
+        ../layerClass.h)
