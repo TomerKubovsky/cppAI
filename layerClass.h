@@ -4,6 +4,7 @@
 
 #include "array.hpp"
 
+
 using namespace ArrayUtils; //bad practice but its fine for now
 
 
@@ -25,14 +26,10 @@ private:
 
 public:
     Layer(const int Inputs, const int outputs /*outputs = neurons*/, std::string activationFunc = "none");
+    Layer():weights(Array<Type>()), biases(Array<Type>()), dWeights(Array<Type>()), dBiases(Array<Type>()), outputsPreActive(Array<Type>()), selfInputs(Array<Type>()), activationFunc(NULL) {};
     ~Layer()
     {
-        // delete weights;
-        // delete biases;
-        // delete dWeights;
-        // delete dBiases;
-        // delete outputsPreActive;
-        // delete selfInputs;
+
     };
     void print() const;
     Array<Type> Forwards(const Array<Type>& Inputs);

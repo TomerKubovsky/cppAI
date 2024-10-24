@@ -2,59 +2,57 @@
 #include <chrono>
 #include <iostream>
 
-int main()
+
+template <typename Type>
+class neuralnetwork
 {
-    auto start = std::chrono::high_resolution_clock::now();
+    Layer<Type>** Layers;
 
-    Layer<float> testLayer(3,2, "linear");
+    int numOfLayers;
 
-    // testLayer.print();
+    Layer<Type>** generateLayers(const int layers[], const int sizeOfLayers, const std::string activationFuncHidden, const std::string activationFuncFinal);
+public:
+    neuralnetwork(const int layers[], const int sizeOfLayers, const std::string hiddenActivation, const std::string finalActivation);
+    ~neuralnetwork();
 
-    float inputData[2][3] = {{3.0f,2.0f,5.0f},
-                                {2.0f, 2.0f, 2.0f}};
+    void printLayer(const int layerNum);
+};
 
-    Array<float> Inputs =  Array<float>(&(inputData[0][0]),2,3); //1 batch 3 inputs for that 1 batch
-
-    Array<float> Outputs = testLayer.Forwards(Inputs);
-
-    // std::cout << "outputs:";
-    // Outputs.print();
-
-    float correctOutputsData[2][2] = {{35, 13},
-                                    {19, -15}};
-
-    Array<float> correctOutputs(&(correctOutputsData[0][0]), 2, 2);
-
-    Array<float>* dOutputs;
-
-    for (int i = 0; i < 10000; i++)
+template<typename Type>
+Layer<Type>** neuralnetwork<Type>::generateLayers(const int layers[], const int sizeOfLayers, const std::string activationFuncHidden, const std::string activationFuncFinal)
+{
+    const int numOfLayers = sizeOfLayers - 1;
+    Layer<Type>** Layers = new Layer<Type>*[numOfLayers];
+    for (int index = 0; index < numOfLayers; index++) // we want it to loop through every layer but last one bc first layer inputs = first layer, layer outputs = index + 1 so we want to stop 1 before the last one to make the last one it makes sense to me rn
     {
-        float* dOutputsData = new float[4];
-        for (int rowIndex = 0; rowIndex < Outputs.GetRows(); rowIndex++)
-        {
-            for (int colIndex = 0; colIndex < Outputs.GetColumns(); colIndex++)
-            {
-                *(dOutputsData + (colIndex + rowIndex * Outputs.GetColumns())) = ((correctOutputsData[rowIndex][colIndex] - *(Outputs.GetPtr() + (colIndex + rowIndex * Outputs.GetColumns()))) * 2/Outputs.GetColumns());
-            }
-        }
-        dOutputs = new Array<float>(dOutputsData, 2, 2);
-        testLayer.Backwards(*dOutputs);
-        testLayer.updateWeightsAndBiases(1);
-        testLayer.zeroGradient();
-        Outputs = testLayer.Forwards(Inputs);
-        // std::cout << "iteration: " << i << std::endl << "outputs: ";
-        // Outputs.print();
-         delete dOutputs;
+        Layers[index] = new Layer<Type>(layers[index], layers[index + 1], (index != numOfLayers - 1) ? activationFuncHidden : activationFuncFinal);
     }
 
-    // delete[] dOutputsData;
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> elapsed = end - start;
-    std::cout << "Elapsed time: " << elapsed.count() << " seconds" << std::endl;
+    return Layers;
+}
 
-    // Sleep(5000);
- 
-    system("pause");
+template<typename Type>
+neuralnetwork<Type>::neuralnetwork(const int layers[], const int sizeOfLayers, const std::string hiddenActivation, const std::string finalActivation)
+    :Layers(generateLayers(layers, sizeOfLayers, hiddenActivation, finalActivation)), numOfLayers(sizeOfLayers - 1)
+{
 
-    return 0;
+}
+
+template<typename Type>
+neuralnetwork<Type>::~neuralnetwork()
+{
+    for (int index = 0; index < numOfLayers; index++)
+}
+
+template<typename Type>
+void neuralnetwork<Type>::printLayer(const int layerNum)
+{
+    (Layers + layerNum)->print();
+}
+
+
+int main()
+{
+    int layersVals[] = {1, 2, 3, 4};
+    neuralnetwork<float> neurelNet(layersVals, 4, "relu", "sigmoid");
 }
