@@ -22,7 +22,7 @@ namespace ArrayUtils
 		Array(Type& arrPtr);
 		Array(const int Rows, const int Columns);
 
-		Array(Array<Type>&& otherArr/*other array is a temporary object that isa getting deleted*/);	//move constructor
+		Array(Array<Type>&& otherArr/*other array is a temporary object that isa getting deleted*/) noexcept;	//move constructor
 		Array(const Array<Type>& otherArr);//copy constructor
 		Array& operator=(const Array<Type>& arr);
 		Array& operator=(Array<Type>&& arr); //move assignment operator
@@ -92,7 +92,7 @@ namespace ArrayUtils
 	}
 
 	template <typename Type>
-	Array<Type>::Array(Array<Type>&& otherArr):
+	Array<Type>::Array(Array<Type>&& otherArr) noexcept:
 		ptr(otherArr.ptr),
 		R(otherArr.R),
 		C(otherArr.C)
@@ -205,7 +205,7 @@ namespace ArrayUtils
 			{
 				for (int weightNum = 0; weightNum < C; weightNum++)
 				{
-					*(batchesOutputs + (batchNum * R + weightListNum)) += ptr[weightListNum * C + weightNum] * *(inputArray.ptr + (batchNum * C + weightNum));
+					batchesOutputs[batchNum * R + weightListNum] += ptr[weightListNum * C + weightNum] * inputArray.ptr[batchNum * C + weightNum];
 				}
 			}
 

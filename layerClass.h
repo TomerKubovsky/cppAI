@@ -2,10 +2,10 @@
 #ifndef LAYERCLASS_H
 #define LAYERCLASS_H
 
-#include "array.hpp"
+#include "array.h"
 
 
-using namespace ArrayUtils; //bad practice but its fine for now
+using namespace ArrayUtils; //bad practice but it's fine for now
 
 
 
@@ -25,21 +25,34 @@ private:
     std::string activationFunc;
 
 public:
-    Layer(const int Inputs, const int outputs /*outputs = neurons*/, std::string activationFunc = "none");
-    Layer():weights(Array<Type>()), biases(Array<Type>()), dWeights(Array<Type>()), dBiases(Array<Type>()), outputsPreActive(Array<Type>()), selfInputs(Array<Type>()), activationFunc(NULL) {};
-    ~Layer()
-    {
-
-    };
+    Layer(int Inputs, int outputs /*outputs = neurons*/, std::string activationFunc = "none");
+    Layer();
+    Layer(const Layer<Type>& other);
+    Layer& operator=(const Layer<Type>& other);
+    Layer(Layer<Type>&& other) noexcept ;
+    Layer& operator=(Layer<Type>&& other) noexcept ;
+    ~Layer();
     void print() const;
-    Array<Type> Forwards(const Array<Type>& Inputs);
-    Array<Type> ForwardsActivation(const Array<Type>& Inputs) const;
-    Array<Type> BackwardsActivation(Array<Type>& dOutputs) const;
-    Array<Type> Backwards(Array<Type>& dOutputs) const; //doutputs isnt const because we use a mvoe constrcutor on it and nullify it after we dont need it anymore
+
+    Array<Type> forwards(const Array<Type>& Inputs);
+    Array<Type> forwardsActivation(const Array<Type>& Inputs) const;
+    Array<Type> backwardsActivation(Array<Type>& dOutputs) const;
+    Array<Type> backwards(Array<Type>& dOutputs) const; //doutputs isnt const because we use a mvoe constrcutor on it and nullify it after we dont need it anymore
+
     void updateWeightsAndBiases(Type learningRate);
     void zeroGradient();
+
     void setWeights(Array<Type>& weightVals);
     void setBiases(Array<Type>& biasVals);
+    const Array<Type>& getWeights() const;
+    const Array<Type>& getdWeights() const;
+    const Array<Type>& getBiases() const;
+    const Array<Type>& getdBiases() const;
+    const Array<Type>& getOutputsPreActive() const;
+    const Array<Type>& getSelfInputs() const;
+    [[nodiscard]] std::string getActivationFunc() const;
+
+
 };
 
 
@@ -49,22 +62,83 @@ template <typename Type> Layer<Type>::Layer(const int Inputs, const int outputs,
     :
     weights(Array<Type>(outputs, Inputs).customFunc([](Type input, int index)
         {
-            return (Type) 1;
+            return static_cast<Type>(1);
         })),
     biases(Array<Type>(1, outputs).customFunc([](Type input, int index)
         {
-            return (Type) 1;
+            return static_cast<Type>(1);
         })),
     dWeights(Array<Type>(outputs, Inputs)),
     dBiases(Array<Type>(1, outputs)),
     // biases(Array<Type>(1, outputs)), //1 bias for each neuron and there should be a bias for each neuron and outputs = num of neurons
-    activationFunc(activationFunc)
+    activationFunc(std::move(activationFunc))
     // {{neuron1weight1, neuron1weight2, neuron1weight3},
     //  {neuron2weight1, neuron2weight2, neuron2weight3}} ammount of rows = amount of outputs, amount of columns = amount of inputs
     {}
 
+template <typename Type>
+Layer<Type>::Layer()
+= default;
+
+template <typename Type>
+Layer<Type>::Layer(const Layer<Type>& other)
+    : weights(other.weights), biases(other.biases), dWeights(other.weights), dBiases(other.biases), outputsPreActive(other.outputsPreActive), selfInputs(other.selfInputs), activationFunc(other.activationFunc)
+{
+    // weights = other.getWeights();
+    // biases = other.getBiases();
+    // dWeights = other.getdWeights();
+    // dBiases = other.getdBiases();
+    // outputsPreActive = other.getOutputsPreActive();
+    // selfInputs = other.getSelfInputs();
+    // activationFunc = other.getActivationFunc();
+}
+
+template <typename Type>
+Layer<Type>& Layer<Type>::operator=(const Layer<Type>& other) = default;
+// {
+//     weights = other.weights;
+//     biases = other.biases;
+//     dWeights = other.dWeights;
+//     dBiases = other.dBiases;
+//     outputsPreActive = other.outputsPreActive;
+//     selfInputs = other.selfInputs;
+//     activationFunc = other.activationFunc;
+//
+//     return *this;
+// }
+
+template <typename Type>
+Layer<Type>::Layer(Layer<Type>&& other) noexcept
+    // : weights(std::move(other.weights)), biases(std::move(other.biases)), dWeights(std::move(other.weights)),
+    //   dBiases(std::move(other.biases)), outputsPreActive(std::move(other.outputsPreActive)), selfInputs(std::move(other.selfInputs)),
+    //   activationFunc(std::move(other.activationFunc))
+{
+    weights = std::move(other.weights);
+    biases = std::move(other.biases);
+    dWeights = std::move(other.dWeights);
+    dBiases = std::move(other.dBiases);
+    outputsPreActive = std::move(other.outputsPreActive);
+    selfInputs = std::move(other.selfInputs);
+    activationFunc = std::move(other.activationFunc);
+}
+
+template <typename Type>
+Layer<Type>& Layer<Type>::operator=(Layer<Type>&& other) noexcept
+{
+    weights = std::move(other.weights);
+    biases = std::move(other.biases);
+    dWeights = std::move(other.dWeights);
+    dBiases = std::move(other.dBiases);
+    outputsPreActive = std::move(other.outputsPreActive);
+    selfInputs = std::move(other.selfInputs);
+    activationFunc = std::move(other.activationFunc);
+    return *this;
+}
 
 
+template <typename Type>
+Layer<Type>::~Layer()
+= default;
 
 template <typename Type> void Layer<Type>::print() const
 {
@@ -75,9 +149,9 @@ template <typename Type> void Layer<Type>::print() const
 }
 
 template <typename Type>
-Array<Type> Layer<Type>::Forwards(const Array<Type>& Inputs)
+Array<Type> Layer<Type>::forwards(const Array<Type>& Inputs)
 {
-    selfInputs = Inputs;
+    selfInputs = Inputs; //shallow copy is probably fine because its assumed that this is called from neurel network class and nuerel network class should be doing a deep copy for safety
     Array<Type> outputs = weights.dotProduct(Inputs);//caclulate inputs * weights
 
     //add biases to output
@@ -95,11 +169,11 @@ Array<Type> Layer<Type>::Forwards(const Array<Type>& Inputs)
     }
     outputsPreActive = Array<Type>(outputsPreActivePtr, outputRows, outputsCollumns);
     // Array<Type> finalOutput = ForwardsActivation(outputsPreActive);//activation function
-    return ForwardsActivation(outputsPreActive);
+    return forwardsActivation(outputsPreActive);
 }
 
 template <typename Type>
-Array<Type> Layer<Type>::ForwardsActivation(const Array<Type>& Inputs) const
+Array<Type> Layer<Type>::forwardsActivation(const Array<Type>& Inputs) const
 {
     if (activationFunc == "relu")
     {
@@ -118,7 +192,7 @@ Array<Type> Layer<Type>::ForwardsActivation(const Array<Type>& Inputs) const
 /*
     dactiv is the derivative of the inputs to the activbation functions so self.activationBackwards(dOutputs) also you gotta multiply it by dOutputs which is why it is passed into the function
 */
-template <typename Type> Array<Type> Layer<Type>::BackwardsActivation(Array<Type>& dOutputs) const
+template <typename Type> Array<Type> Layer<Type>::backwardsActivation(Array<Type>& dOutputs) const
 {
     if (activationFunc == "relu")
     {
@@ -135,7 +209,7 @@ template <typename Type> Array<Type> Layer<Type>::BackwardsActivation(Array<Type
 }
 
 
-template <typename Type> Array<Type> Layer<Type>::Backwards(Array<Type>& dOutputs /*dOutputs = derivative of outputs*/) const
+template <typename Type> Array<Type> Layer<Type>::backwards(Array<Type>& dOutputs /*dOutputs = derivative of outputs*/) const
 {
     /*
     weights derivatives = inputs since y=wx where x is input and w is weights, and derivative of y=wx with respect to w is x, this also means derivative of inputs is weights since d/dx y=wx is w
@@ -250,6 +324,48 @@ template <typename Type> void Layer<Type>::setWeights(Array<Type>& weightVals)
 template <typename Type> void Layer<Type>::setBiases(Array<Type>& biasVals)
 {
     biases = std::move(biasVals);
+}
+
+template <typename Type>
+const Array<Type>& Layer<Type>::getWeights() const
+{
+    return &weights;
+}
+
+template <typename Type>
+const Array<Type>& Layer<Type>::getdWeights() const
+{
+    return &dWeights;
+}
+
+template <typename Type>
+const Array<Type>& Layer<Type>::getBiases() const
+{
+    return &biases;
+}
+
+template <typename Type>
+const Array<Type>& Layer<Type>::getdBiases() const
+{
+    return &dBiases;
+}
+
+template <typename Type>
+const Array<Type>& Layer<Type>::getOutputsPreActive() const
+{
+    return &outputsPreActive;
+}
+
+template <typename Type>
+const Array<Type>& Layer<Type>::getSelfInputs() const
+{
+    return &selfInputs;
+}
+
+template <typename Type>
+std::string Layer<Type>::getActivationFunc() const
+{
+    return activationFunc;
 }
 
 #endif //LAYERCLASS_H

@@ -15,7 +15,7 @@ int main()
 
     Array<float> Inputs =  Array<float>(&(inputData[0][0]),2,3); //1 batch 3 inputs for that 1 batch
 
-    Array<float> Outputs = testLayer.Forwards(Inputs);
+    Array<float> Outputs = testLayer.forwards(Inputs);
 
     // std::cout << "outputs:";
     // Outputs.print();
@@ -38,10 +38,10 @@ int main()
             }
         }
         dOutputs = new Array<float>(dOutputsData, 2, 2);
-        testLayer.Backwards(*dOutputs);
+        testLayer.backwards(*dOutputs);
         testLayer.updateWeightsAndBiases(1);
         testLayer.zeroGradient();
-        Outputs = testLayer.Forwards(Inputs);
+        Outputs = testLayer.forwards(Inputs);
         // std::cout << "iteration: " << i << std::endl << "outputs: ";
         // Outputs.print();
         delete dOutputs;
