@@ -15,4 +15,5 @@ add_executable(_idea
         ../findPixelValueTest.cpp
         ../array.hpp
         ../cppTest.cpp
-        ../layerClass.h)
+        ../layerClass.h
+        ../layer10000.cpp)

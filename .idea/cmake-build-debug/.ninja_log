@@ -1,13 +1,7 @@
 # ninja log v6
-149	3493	7511723880416052	CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/findPixelValueTest.cpp.obj	5e40283126685e92
-3494	3740	7511723913856040	_idea.exe	b30fa7e49f13c607
-16	2549	7511786346466357	CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/cppTest.cpp.obj	8b18275db1d6366b
-20	724	7513496765753691	CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/cppTest.cpp.obj	8b18275db1d6366b
 6	138	7513497348906531	CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/findPixelValueTest.cpp.obj	5e40283126685e92
-139	295	7513497350236054	_idea.exe	7b332d7157671e71
-13	440	7514340872265239	CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/cppTest.cpp.obj	8b18275db1d6366b
-441	633	7514340876540886	_idea.exe	7b332d7157671e71
-5	339	7514340985158010	CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/cppTest.cpp.obj	8b18275db1d6366b
-339	432	7514340988505506	_idea.exe	7b332d7157671e71
-5	315	7514341061721484	CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/cppTest.cpp.obj	8b18275db1d6366b
 316	402	7514341064836802	_idea.exe	7b332d7157671e71
+5	315	7514341061721484	CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/cppTest.cpp.obj	8b18275db1d6366b
+10	864	7515229525360591	CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/layer10000.cpp.obj	b91603f751291c36
+14	168	7515229690747517	CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/cppTest.cpp.obj	8b18275db1d6366b
+169	316	7515229692302954	_idea.exe	cb78629c09b06c15

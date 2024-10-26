@@ -61,6 +61,12 @@ build CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/cppTest.cpp.obj
   OBJECT_DIR = CMakeFiles\_idea.dir
   OBJECT_FILE_DIR = CMakeFiles\_idea.dir\C_\Users\tomer\OneDrive\Desktop\cppAI
 
+build CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/layer10000.cpp.obj: CXX_COMPILER___idea_unscanned_Debug C$:/Users/tomer/OneDrive/Desktop/cppAI/layer10000.cpp || cmake_object_order_depends_target__idea
+  DEP_FILE = CMakeFiles\_idea.dir\C_\Users\tomer\OneDrive\Desktop\cppAI\layer10000.cpp.obj.d
+  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\_idea.dir
+  OBJECT_FILE_DIR = CMakeFiles\_idea.dir\C_\Users\tomer\OneDrive\Desktop\cppAI
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target _idea
@@ -69,7 +75,7 @@ build CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/cppTest.cpp.obj
 #############################################
 # Link the executable _idea.exe
 
-build _idea.exe: CXX_EXECUTABLE_LINKER___idea_Debug CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/findPixelValueTest.cpp.obj CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/cppTest.cpp.obj
+build _idea.exe: CXX_EXECUTABLE_LINKER___idea_Debug CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/findPixelValueTest.cpp.obj CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/cppTest.cpp.obj CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/layer10000.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\_idea.dir

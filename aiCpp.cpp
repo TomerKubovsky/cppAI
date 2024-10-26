@@ -11,11 +11,14 @@ class neuralnetwork
     int numOfLayers;
 
     Layer<Type>** generateLayers(const int layers[], const int sizeOfLayers, const std::string activationFuncHidden, const std::string activationFuncFinal);
+
 public:
     neuralnetwork(const int layers[], const int sizeOfLayers, const std::string hiddenActivation, const std::string finalActivation);
     ~neuralnetwork();
 
     void printLayer(const int layerNum);
+
+    Array<Type> forwards(const Array<Type>& inputs);
 };
 
 template<typename Type>
@@ -38,10 +41,15 @@ neuralnetwork<Type>::neuralnetwork(const int layers[], const int sizeOfLayers, c
 
 }
 
+
 template<typename Type>
 neuralnetwork<Type>::~neuralnetwork()
 {
     for (int index = 0; index < numOfLayers; index++)
+    {
+        delete Layers[index];
+    }
+    delete Layers;
 }
 
 template<typename Type>
@@ -50,9 +58,26 @@ void neuralnetwork<Type>::printLayer(const int layerNum)
     (Layers + layerNum)->print();
 }
 
+template<typename Type>
+Array<Type> neuralnetwork<Type>::forwards(const Array<Type> &inputs)
+{
+    Array<Type> tempInputs = inputs;
+
+    for (int layerIndex = 0; layerIndex < numOfLayers; layerIndex++)
+    {
+        tempInputs = Layers[layerIndex]->forwards(tempInputs);
+    }
+
+    return tempInputs;
+}
+
 
 int main()
 {
     int layersVals[] = {1, 2, 3, 4};
     neuralnetwork<float> neurelNet(layersVals, 4, "relu", "sigmoid");
+
+    int inputs[] = {6, 7, 8, 9};
+
+    return 0;
 }
