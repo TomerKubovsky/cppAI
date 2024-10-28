@@ -1,5 +1,6 @@
 #ifndef arrayUtils_H
 #define arrayUtils_H
+#include <functional>
 #include <iostream>
 
 namespace ArrayUtils
@@ -39,8 +40,8 @@ namespace ArrayUtils
 		Array subtract(const Array<Type>& inputs) const;
 		Array multiply(Array<Type>& inputs) const;
 		Array Transpose() const; //returns transposed array
-		Array customFunc(Type (*func)(Type, int)) const;
-		Array customFunc2Arr(const Array<Type>& arr2, Type (*func)(Type, Type, int)) const;
+		Array customFunc(std::function<Type(Type, int)> func) const;
+		Array customFunc2Arr(const Array<Type>& arr2, std::function<Type(Type, Type, int)> func) const;
 
 		~Array()
 		{
@@ -304,7 +305,7 @@ namespace ArrayUtils
 	}
 
 	template <typename Type>
-	Array<Type> Array<Type>::customFunc(Type (*func)(Type, int)) const
+	Array<Type> Array<Type>::customFunc(std::function<Type(Type, int)> func) const
 	{
 		Type* tempPtr = new Type[R*C];
 		for (int index = 0; index < R*C; index++)
@@ -316,7 +317,7 @@ namespace ArrayUtils
 
 
 	template <typename Type>
-	Array<Type> Array<Type>::customFunc2Arr(const Array<Type>& arr2, Type (*func)(Type, Type, int)) const
+	Array<Type> Array<Type>::customFunc2Arr(const Array<Type>& arr2, std::function<Type(Type, Type, int)> func) const
 	{
 		if (arr2.R != R) {std::cerr << "arr2 rows do not equal arr1 rows in customFunc2Arr :(" << std::endl;}
 		if (arr2.C != C) {std::cerr << "arr2 columns do not equal arr1 columns in customFunc2Arr :(" << std::endl;}

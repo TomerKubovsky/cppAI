@@ -10,6 +10,8 @@ class neuralnetwork
 
     int numOfLayers;
 
+    float learningRate = 0.001f;
+
     Layer<Type>* generateLayers(const int layers[], const int sizeOfLayers, const std::string activationFuncHidden, const std::string activationFuncFinal);
 
 public:
@@ -20,6 +22,10 @@ public:
 
     Array<Type> forwards(const Array<Type>& inputs);
     void backwards(const Array<Type>& dInputs);
+
+    void updateWeightsAndBiases();
+
+    template <typename pointerType> Array<Type> calculatedOutputs(std::string lossFunc, pointerType* extraDataVals);
 };
 
 template<typename Type>
@@ -58,7 +64,7 @@ void neuralnetwork<Type>::printLayer(const int layerNum)
 template<typename Type>
 Array<Type> neuralnetwork<Type>::forwards(const Array<Type>& inputs)
 {
-    Array<Type> tempInputs = inputs.deepCopy();//here you could also just make the first layer run forwards on inputs and etc
+    Array<Type> tempInputs = inputs.deepCopy();//here you could also just make the first layer run forwards on inputs and etc, also when you didnt do deep copy, what happened is you ended up calling delete on inputs and since input was created on stack you were deleting stack memrory
 
     for (int layerIndex = 0; layerIndex < numOfLayers; layerIndex++)
     {
@@ -73,24 +79,55 @@ void neuralnetwork<Type>::backwards(const Array<Type>& dInputs)
 {
     Array<Type> tempdInputs = dInputs.deepCopy();
 
-    for (int layerIndex = numOfLayers; layerIndex >= 0; layerIndex--)
+    for (int layerIndex = numOfLayers - 1; layerIndex >= 0; layerIndex--)
     {
         tempdInputs = Layers[layerIndex].backwards(tempdInputs);
     }
 
 }
 
+template <typename Type>
+void neuralnetwork<Type>::updateWeightsAndBiases()
+{
+    for (int layerIndex = 0; layerIndex < numOfLayers; layerIndex++)
+    {
+        Layers[layerIndex].updateWeightsAndBiases(learningRate);
+    }
+}
+
+template <typename Type>
+template <typename pointerType>
+Array<Type> neuralnetwork<Type>::calculatedOutputs(std::string lossFunc, pointerType* extraDataVals)
+{
+    unsigned int batchCount = Layers[numOfLayers - 1].getOutputsPreActive().GetRows();
+    unsigned int outputCount = Layers[numOfLayers - 1].getOutputsPreActive().GetColumns();
+
+    Type* dOutputs = new Type[batchCount * outputCount]();
+
+    if (lossFunc == "mse") //extra data vals is assumed to be an Array of type type with the correct / wanted outputs
+    {
+        if (std::is_same<pointerType, Array<Type>*>::value != true)
+        {
+            std::cerr << "didnt input Array pointer into calculate doutputs function in neurel network :( " << std::endl;
+        }
+
+        Type* extraDataValsPtr = extraDataVals->getPtr();
+        Type* selfOutputsPtr = Layers[numOfLayers - 1].getOutputsPostActive();
+
+        for (int batchIndex = 0; batchIndex < batchCount; batchIndex++) //technically using outputs pre active here isnt the best but the size of the batches and outputs doesnt change after the activation functions so it should be fine
+        {
+            for (int inputIndex = 0; inputIndex < outputCount; inputIndex++)
+            {
+                unsigned int index = inputIndex + batchIndex * outputCount;
+                dOutputs[index] += (((extraDataValsPtr[index] - selfOutputsPtr[index]) * -2) / outputCount) / batchCount; //this is derivative for mean squared error, you divide by
+            }
+        }
+    }
+}
+
 
 int main()
 {
-    try
-    {
-
-    } catch (testE e1)
-    {
-
-    }
-
 
     int layersVals[] = {1, 2, 3, 4};
     neuralnetwork<float> neurelNet(layersVals, 4, "relu", "sigmoid");
@@ -108,10 +145,14 @@ int main()
     Array<float> dInputsArr(&(dInputs[0][0]), 1, 4);
 
     neurelNet.backwards(dInputsArr);
-    //
-    // outputs = neurelNet.forwards(inputsArr);
-    //
-    // outputs.print();
+
+    neurelNet.updateWeightsAndBiases();
+
+    outputs = neurelNet.forwards(inputsArr);
+
+    outputs.print();
+
+    std::cout << "test" << std::endl;
 
     return 0;
 }

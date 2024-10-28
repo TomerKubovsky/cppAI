@@ -20,6 +20,7 @@ private:
     Array<Type> dBiases;
 
     Array<Type> outputsPreActive;
+    Array<Type> outputsPostActive;
     Array<Type> selfInputs;
 
     std::string activationFunc;
@@ -49,6 +50,7 @@ public:
     const Array<Type>& getBiases() const;
     const Array<Type>& getdBiases() const;
     const Array<Type>& getOutputsPreActive() const;
+    const Array<Type>& getOutputsPostActive() const;
     const Array<Type>& getSelfInputs() const;
     [[nodiscard]] std::string getActivationFunc() const;
 
@@ -169,7 +171,9 @@ Array<Type> Layer<Type>::forwards(const Array<Type>& Inputs)
     }
     outputsPreActive = Array<Type>(outputsPreActivePtr, outputRows, outputsCollumns);
     // Array<Type> finalOutput = ForwardsActivation(outputsPreActive);//activation function
-    return forwardsActivation(outputsPreActive);
+    outputsPostActive = forwardsActivation(outputsPreActive);
+    return outputsPostActive;
+    // return forwardsActivation(outputsPreActive);
 }
 
 template <typename Type>
@@ -299,13 +303,13 @@ Array<Type> Layer<Type>::backwards(Array<Type>& dOutputs /*dOutputs = derivative
 template<typename Type>
 void Layer<Type>::updateWeightsAndBiases(Type learningRate)
 {
-    weights = weights.add(dWeights.customFunc([](Type input, int index)
+    weights = weights.add(dWeights.customFunc([=](Type input, int index)
     {
-        return input * 0.01f; //0.01 is learning rate, change this later
+        return input * learningRate; //0.01 is learning rate, change this later
     }));
-    biases = biases.add(dBiases.customFunc([](Type input, int index)
+    biases = biases.add(dBiases.customFunc([=](Type input, int index)
     {
-        return input * 0.01f;
+        return input * learningRate;
     }));
 }
 
@@ -355,6 +359,12 @@ template <typename Type>
 const Array<Type>& Layer<Type>::getOutputsPreActive() const
 {
     return &outputsPreActive;
+}
+
+template <typename Type>
+const Array<Type>& Layer<Type>::getOutputsPostActive() const
+{
+    return &outputsPostActive;
 }
 
 template <typename Type>
