@@ -117,10 +117,10 @@ namespace ArrayUtils
 	{
 
 		// std::cout << "copy operator used" << std::endl;
-		if (ptr != arr.ptr)
-		{
-			delete[] ptr;
-		}
+		// if (ptr != arr.ptr)
+		// {
+		// 	delete[] ptr;
+		// }
 		C = arr.C;
 		R = arr.R;
 		ptr = arr.ptr;
@@ -128,7 +128,7 @@ namespace ArrayUtils
 	}
 
 	template<typename Type>
-	Array<Type> & Array<Type>::operator=(Array<Type> &&arr)
+	Array<Type>& Array<Type>::operator=(Array<Type> &&arr)
 	{
 		// std::cout << "move operator used, good" << std::endl;
 		delete[] ptr;
@@ -148,6 +148,7 @@ namespace ArrayUtils
 
 	template<typename Type>
 	Array<Type> Array<Type>::deepCopy() const
+
 	{
 		Type* newArrPtr = new Type[R*C];
 		for (int index = 0; index < R * C; index++)

@@ -54,7 +54,7 @@ int main()
 
     // Sleep(5000);
 
-    system("pause");
+    // system("pause");
 
     return 0;
 }

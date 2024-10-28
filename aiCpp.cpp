@@ -19,6 +19,7 @@ public:
     void printLayer(const int layerNum);
 
     Array<Type> forwards(const Array<Type>& inputs);
+    void backwards(const Array<Type>& dInputs);
 };
 
 template<typename Type>
@@ -55,9 +56,9 @@ void neuralnetwork<Type>::printLayer(const int layerNum)
 }
 
 template<typename Type>
-Array<Type> neuralnetwork<Type>::forwards(const Array<Type> &inputs)
+Array<Type> neuralnetwork<Type>::forwards(const Array<Type>& inputs)
 {
-    Array<Type> tempInputs = inputs.deepCopy();
+    Array<Type> tempInputs = inputs.deepCopy();//here you could also just make the first layer run forwards on inputs and etc
 
     for (int layerIndex = 0; layerIndex < numOfLayers; layerIndex++)
     {
@@ -67,9 +68,30 @@ Array<Type> neuralnetwork<Type>::forwards(const Array<Type> &inputs)
     return tempInputs;
 }
 
+template<typename Type>
+void neuralnetwork<Type>::backwards(const Array<Type>& dInputs)
+{
+    Array<Type> tempdInputs = dInputs.deepCopy();
+
+    for (int layerIndex = numOfLayers; layerIndex >= 0; layerIndex--)
+    {
+        tempdInputs = Layers[layerIndex].backwards(tempdInputs);
+    }
+
+}
+
 
 int main()
 {
+    try
+    {
+
+    } catch (testE e1)
+    {
+
+    }
+
+
     int layersVals[] = {1, 2, 3, 4};
     neuralnetwork<float> neurelNet(layersVals, 4, "relu", "sigmoid");
 
@@ -80,6 +102,16 @@ int main()
     Array<float> outputs = neurelNet.forwards(inputsArr);
 
     outputs.print();
+
+    float dInputs[1][4] = {{1, 1, 1, -1}};
+
+    Array<float> dInputsArr(&(dInputs[0][0]), 1, 4);
+
+    neurelNet.backwards(dInputsArr);
+    //
+    // outputs = neurelNet.forwards(inputsArr);
+    //
+    // outputs.print();
 
     return 0;
 }

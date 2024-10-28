@@ -209,7 +209,8 @@ template <typename Type> Array<Type> Layer<Type>::backwardsActivation(Array<Type
 }
 
 
-template <typename Type> Array<Type> Layer<Type>::backwards(Array<Type>& dOutputs /*dOutputs = derivative of outputs*/) const
+template <typename Type>
+Array<Type> Layer<Type>::backwards(Array<Type>& dOutputs /*dOutputs = derivative of outputs*/) const
 {
     /*
     weights derivatives = inputs since y=wx where x is input and w is weights, and derivative of y=wx with respect to w is x, this also means derivative of inputs is weights since d/dx y=wx is w
@@ -264,7 +265,7 @@ template <typename Type> Array<Type> Layer<Type>::backwards(Array<Type>& dOutput
     1.3 + 6.3 + 7.3, 2.6 + 9.6 + 1.1, 3.8 + 1.8 + 3.6*/
 
     //define dActive to be self.activationBackwards()
-    const Array<Type> dActiv = BackwardsActivation(dOutputs); //this gets deleted its temporary
+    const Array<Type> dActiv = backwardsActivation(dOutputs); //this gets deleted its temporary
     // dWeights = selfInputs.Transpose().dotProduct(dActiv.Transpose());
 
     Type* dWeightsPtr = dWeights.GetPtr();

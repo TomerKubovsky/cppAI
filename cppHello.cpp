@@ -1,5 +1,8 @@
 #include <iostream>
 int main()
 {
-    std::cout << "hi\n";
+    int neg = 0;
+    int* j = new int[neg];
+
+    delete[] j;
 }
