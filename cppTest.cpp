@@ -33,16 +33,10 @@ COLORREF interpolateRainbow(float percentage) {
 int main()
 {
 
-    HDC dng = GetDC(NULL);
+    HDC dng = GetDC(0);
 
     const COLORREF testColorABC = RGB(255, 255, 255);
 
-    // for (int i = 603; i < 1396; i+=48)
-    // {
-    //     std::cout << i << std::endl;
-    // }
-
-    // const COLORREF color = RGB(255, 0, 0);
     double j = 0;
     COLORREF c = GetPixel(dng, 10, 150);
     for (int i = 0; i < 100; i++)

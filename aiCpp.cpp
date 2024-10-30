@@ -154,27 +154,21 @@ int main()
     // auto start = std::chrono::high_resolution_clock::now();
 
     int layersVals[] = {1, 1};
-    neuralnetwork<double> neurelNet(layersVals, 2, "none", "none", 0.0000001);
+    neuralnetwork<double> neurelNet(layersVals, 2, "none", "none", -0.001);
 
-    double inputs[8][1] =
+    double inputs[2][1] =
         {{1},
-        {2},
-        {3},
-        {4},
-        {5},
-        {6},
-        {7},
-        {8}};
+        {2}};
 
-    Array<double> inputsArr(&(inputs[0][0]), 8, 1);
+    Array<double> inputsArr(&(inputs[0][0]), 2, 1);
 
     Array<double> outputs = neurelNet.forwards(inputsArr);
 
     outputs.print();
 
-    double corrOutputsPtr[8][1] = {{19.8},{18.5},{17.2},{15.9},{14.6},{14.6},{14.6},{14.6}};
+    double corrOutputsPtr[2][1] = {{19.8},{18.5}};
 
-    Array<double> corrOutputsArr(&(corrOutputsPtr[0][0]), 8, 1);
+    Array<double> corrOutputsArr(&(corrOutputsPtr[0][0]), 2, 1);
 
     Array<double>* corrOutputsArrPtr = &(corrOutputsArr);
     // int numOfTimes = 5000000;
@@ -186,7 +180,7 @@ int main()
         neurelNet.zeroGradient();
         outputs = neurelNet.forwards(inputsArr);
         // outputs.print();
-        if (index % 10 == 0)
+        if (index % 1 == 0)
         {
             std::cout << "current index: " << index;
             outputs.print();

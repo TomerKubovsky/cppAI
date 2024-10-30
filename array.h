@@ -8,9 +8,9 @@ namespace ArrayUtils
 	template <typename Type>
 	class Array
 	{
-		Type* ptr;
 		unsigned int R;
 		unsigned int C;
+		Type* ptr;
 
 	// public:
 	// 	Type* ptr = NULL;
@@ -57,18 +57,20 @@ namespace ArrayUtils
 	};
 
 	template <typename Type> Array<Type>::Array():
-		ptr(nullptr),
 		R(0),
-		C(0)
-	{}
+		C(0),
+		ptr(nullptr)
+	{
+	}
 
 
 	template <typename Type>
 	Array<Type>::Array(Type* arrPtr,const int Rows,const int Columns):
-		ptr(arrPtr),
+		R(Rows),
 		C(Columns),
-		R(Rows)
-	{}
+		ptr(arrPtr)
+	{
+	}
 
 	template <typename Type>
 	Array<Type>::Array(Type& arrPtr)
@@ -80,7 +82,7 @@ namespace ArrayUtils
 	Array<Type>::Array(const int Rows,const int Columns):
 		R(Rows),
 		C(Columns),
-		ptr(new Type[Rows*Columns]())//() makes it intiliaze at 0
+		ptr(new Type[R*C]())//() makes it intiliaze at 0
 	{
 	    // mt19937 gen(chrono::system_clock::now().time_since_epoch().count());
 	    // uniform_real_distribution<> dis(0.0, 1.0);
@@ -94,9 +96,9 @@ namespace ArrayUtils
 
 	template <typename Type>
 	Array<Type>::Array(Array<Type>&& otherArr) noexcept:
-		ptr(otherArr.ptr),
 		R(otherArr.R),
-		C(otherArr.C)
+		C(otherArr.C),
+		ptr(otherArr.ptr)
 	{
 		// std::cout << "move cconsturctor good" << std::endl;
 		otherArr.ptr = nullptr;
@@ -106,11 +108,8 @@ namespace ArrayUtils
 
 	template <typename Type>
 	Array<Type>::Array(const Array<Type>& otherArr)
+		: R(otherArr.R), C(otherArr.C), ptr(otherArr.ptr)
 	{
-		// std::cout << "copy cconstructor used, it is a shalow copy its probably fine" << std::endl;
-		ptr = otherArr.ptr;
-		R = otherArr.R;
-		C = otherArr.C;
 	}
 
 	template <typename Type>
