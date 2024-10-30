@@ -48,9 +48,9 @@ namespace ArrayUtils
 			delete[] ptr;
 		}
 
-		int GetRows() const;
-		int GetColumns() const;
-		Type* GetPtr() const;
+		int getRows() const;
+		int getColumns() const;
+		Type* getPtr() const;
 
 
 
@@ -333,19 +333,19 @@ namespace ArrayUtils
 	}
 
 	template <typename Type>
-	int Array<Type>::GetRows() const
+	int Array<Type>::getRows() const
 	{
 		return R;
 	}
 
 	template <typename Type>
-	int Array<Type>::GetColumns() const
+	int Array<Type>::getColumns() const
 	{
 		return C;
 	}
 
 	template <typename Type>
-	Type* Array<Type>::GetPtr() const
+	Type* Array<Type>::getPtr() const
 	{
 		return ptr;
 	}

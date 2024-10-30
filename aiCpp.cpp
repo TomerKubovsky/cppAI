@@ -1,7 +1,8 @@
 #include "layerClass.h"
-// #include <chrono>
+#include <chrono>
 #include <iostream>
 
+#include <typeinfo>
 
 template <typename Type>
 class neuralnetwork
@@ -10,12 +11,12 @@ class neuralnetwork
 
     int numOfLayers;
 
-    float learningRate = 0.001f;
+    double learningRate = 0.001f;
 
     Layer<Type>* generateLayers(const int layers[], const int sizeOfLayers, const std::string activationFuncHidden, const std::string activationFuncFinal);
 
 public:
-    neuralnetwork(const int layers[], const int sizeOfLayers, const std::string hiddenActivation, const std::string finalActivation);
+    neuralnetwork(const int layers[], const int sizeOfLayers, const std::string hiddenActivation, const std::string finalActivation, Type learningRate);
     ~neuralnetwork();
 
     void printLayer(const int layerNum);
@@ -24,8 +25,11 @@ public:
     void backwards(const Array<Type>& dInputs);
 
     void updateWeightsAndBiases();
+    void zeroGradient();
 
-    template <typename pointerType> Array<Type> calculatedOutputs(std::string lossFunc, pointerType* extraDataVals);
+    template <typename pointerType> Array<Type> calculatedOutputs(std::string lossFunc, pointerType extraDataVals);
+
+    Layer<Type>* getLayers();
 };
 
 template<typename Type>
@@ -42,8 +46,8 @@ Layer<Type>* neuralnetwork<Type>::generateLayers(const int layers[], const int s
 }
 
 template<typename Type>
-neuralnetwork<Type>::neuralnetwork(const int layers[], const int sizeOfLayers, const std::string hiddenActivation, const std::string finalActivation)
-    :Layers(generateLayers(layers, sizeOfLayers, hiddenActivation, finalActivation)), numOfLayers(sizeOfLayers - 1)
+neuralnetwork<Type>::neuralnetwork(const int layers[], const int sizeOfLayers, const std::string hiddenActivation, const std::string finalActivation, Type learningRate)
+    :Layers(generateLayers(layers, sizeOfLayers, hiddenActivation, finalActivation)), numOfLayers(sizeOfLayers - 1), learningRate(learningRate)
 {
 
 }
@@ -95,64 +99,108 @@ void neuralnetwork<Type>::updateWeightsAndBiases()
     }
 }
 
+template<typename Type>
+void neuralnetwork<Type>::zeroGradient()
+{
+    for (int layerIndex = 0; layerIndex < numOfLayers; layerIndex++)
+    {
+        Layers[layerIndex].zeroGradient();
+    }
+}
+
 template <typename Type>
 template <typename pointerType>
-Array<Type> neuralnetwork<Type>::calculatedOutputs(std::string lossFunc, pointerType* extraDataVals)
+Array<Type> neuralnetwork<Type>::calculatedOutputs(std::string lossFunc, pointerType extraDataVals)
 {
-    unsigned int batchCount = Layers[numOfLayers - 1].getOutputsPreActive().GetRows();
-    unsigned int outputCount = Layers[numOfLayers - 1].getOutputsPreActive().GetColumns();
+    // unsigned int batchCount = Layers[numOfLayers - 1].getOutputsPreActive().getRows();
+    int batchCount = 1;
+    unsigned int outputCount = Layers[numOfLayers - 1].getOutputsPreActive().getColumns();
 
     Type* dOutputs = new Type[batchCount * outputCount]();
 
     if (lossFunc == "mse") //extra data vals is assumed to be an Array of type type with the correct / wanted outputs
     {
+
         if (std::is_same<pointerType, Array<Type>*>::value != true)
         {
-            std::cerr << "didnt input Array pointer into calculate doutputs function in neurel network :( " << std::endl;
+            std::cerr << "didnt input Array pointer into calculate doutputs function in neurel network :( its type was: "  << typeid(pointerType).name() << " and " << typeid(extraDataVals).name() << std::endl;
         }
 
         Type* extraDataValsPtr = extraDataVals->getPtr();
-        Type* selfOutputsPtr = Layers[numOfLayers - 1].getOutputsPostActive();
+        Type* selfOutputsPtr = Layers[numOfLayers - 1].getOutputsPostActive().getPtr();
 
         for (int batchIndex = 0; batchIndex < batchCount; batchIndex++) //technically using outputs pre active here isnt the best but the size of the batches and outputs doesnt change after the activation functions so it should be fine
         {
             for (int inputIndex = 0; inputIndex < outputCount; inputIndex++)
             {
-                unsigned int index = inputIndex + batchIndex * outputCount;
+                int index = inputIndex + batchIndex * outputCount;
                 dOutputs[index] += (((extraDataValsPtr[index] - selfOutputsPtr[index]) * -2) / outputCount) / batchCount; //this is derivative for mean squared error, you divide by
             }
         }
     }
+
+    return Array<Type>(dOutputs, batchCount, outputCount);
+}
+
+template<typename Type>
+Layer<Type> * neuralnetwork<Type>::getLayers()
+{
+    return Layers;
 }
 
 
 int main()
 {
+    // auto start = std::chrono::high_resolution_clock::now();
 
-    int layersVals[] = {1, 2, 3, 4};
-    neuralnetwork<float> neurelNet(layersVals, 4, "relu", "sigmoid");
+    int layersVals[] = {1, 1};
+    neuralnetwork<double> neurelNet(layersVals, 2, "none", "none", 0.0000001);
 
-    float inputs[1][1] = {{6}};
+    double inputs[8][1] =
+        {{1},
+        {2},
+        {3},
+        {4},
+        {5},
+        {6},
+        {7},
+        {8}};
 
-    Array<float> inputsArr(&(inputs[0][0]), 1, 1);
+    Array<double> inputsArr(&(inputs[0][0]), 8, 1);
 
-    Array<float> outputs = neurelNet.forwards(inputsArr);
-
-    outputs.print();
-
-    float dInputs[1][4] = {{1, 1, 1, -1}};
-
-    Array<float> dInputsArr(&(dInputs[0][0]), 1, 4);
-
-    neurelNet.backwards(dInputsArr);
-
-    neurelNet.updateWeightsAndBiases();
-
-    outputs = neurelNet.forwards(inputsArr);
+    Array<double> outputs = neurelNet.forwards(inputsArr);
 
     outputs.print();
 
-    std::cout << "test" << std::endl;
+    double corrOutputsPtr[8][1] = {{19.8},{18.5},{17.2},{15.9},{14.6},{14.6},{14.6},{14.6}};
+
+    Array<double> corrOutputsArr(&(corrOutputsPtr[0][0]), 8, 1);
+
+    Array<double>* corrOutputsArrPtr = &(corrOutputsArr);
+    // int numOfTimes = 5000000;
+    int numOfTimes = 500;
+    for (int index = 0; index < numOfTimes; index++)
+    {
+        neurelNet.backwards(neurelNet.calculatedOutputs<Array<double>*>("mse", corrOutputsArrPtr));
+        neurelNet.updateWeightsAndBiases();
+        neurelNet.zeroGradient();
+        outputs = neurelNet.forwards(inputsArr);
+        // outputs.print();
+        if (index % 10 == 0)
+        {
+            std::cout << "current index: " << index;
+            outputs.print();
+            std::cout << std::endl;
+        }
+    }
+
+    outputs.print();
+
+    neurelNet.getLayers()[0].getWeights().print();
+    neurelNet.getLayers()[0].getBiases().print();
+    // auto end = std::chrono::high_resolution_clock::now();
+    // std::chrono::duration<double> elapsed = end - start;
+    // std::cout << "Elapsed time: " << elapsed.count() << " seconds" << std::endl;
 
     return 0;
 }

@@ -64,11 +64,11 @@ template <typename Type> Layer<Type>::Layer(const int Inputs, const int outputs,
     :
     weights(Array<Type>(outputs, Inputs).customFunc([](Type input, int index)
         {
-            return static_cast<Type>(1);
+            return static_cast<Type>(0.1);
         })),
     biases(Array<Type>(1, outputs).customFunc([](Type input, int index)
         {
-            return static_cast<Type>(1);
+            return static_cast<Type>(0);
         })),
     dWeights(Array<Type>(outputs, Inputs)),
     dBiases(Array<Type>(1, outputs)),
@@ -157,22 +157,22 @@ Array<Type> Layer<Type>::forwards(const Array<Type>& Inputs)
     Array<Type> outputs = weights.dotProduct(Inputs);//caclulate inputs * weights
 
     //add biases to output
-    const int outputsCollumns = outputs.GetColumns();
-    const int outputRows = outputs.GetRows();
+    const int outputsCollumns = outputs.getColumns();
+    const int outputRows = outputs.getRows();
 
-    Type* outputsPreActivePtr = new Type[outputs.GetColumns() * outputs.GetRows()];
-    Type* biasesPtr = biases.GetPtr();
+    Type* outputsPreActivePtr = new Type[outputs.getColumns() * outputs.getRows()];
+    Type* biasesPtr = biases.getPtr();
     for (int rowIndex = 0; rowIndex < outputRows; rowIndex++)
     {
         for (int collumnIndex = 0; collumnIndex < outputsCollumns; collumnIndex++)
         {
-            outputsPreActivePtr[collumnIndex + outputsCollumns * rowIndex] = outputs.GetPtr()[collumnIndex + outputsCollumns * rowIndex] + biasesPtr[collumnIndex];
+            outputsPreActivePtr[collumnIndex + outputsCollumns * rowIndex] = outputs.getPtr()[collumnIndex + outputsCollumns * rowIndex] + biasesPtr[collumnIndex];
         }
     }
     outputsPreActive = Array<Type>(outputsPreActivePtr, outputRows, outputsCollumns);
     // Array<Type> finalOutput = ForwardsActivation(outputsPreActive);//activation function
     outputsPostActive = forwardsActivation(outputsPreActive);
-    return outputsPostActive;
+    return std::move(outputsPostActive.deepCopy());
     // return forwardsActivation(outputsPreActive);
 }
 
@@ -272,21 +272,21 @@ Array<Type> Layer<Type>::backwards(Array<Type>& dOutputs /*dOutputs = derivative
     const Array<Type> dActiv = backwardsActivation(dOutputs); //this gets deleted its temporary
     // dWeights = selfInputs.Transpose().dotProduct(dActiv.Transpose());
 
-    Type* dWeightsPtr = dWeights.GetPtr();
-    const Type* inputPtr = selfInputs.GetPtr();
-    const Type* dActivPtr = dActiv.GetPtr();
-    Type* dInputsPtr = new Type[selfInputs.GetRows() * selfInputs.GetColumns()]();//new[a]() makes all values initialize at 0 new[a] makes it have random memory values
-    const Type* weightsPtr = weights.GetPtr();
-    const int inputSize = selfInputs.GetColumns();
+    Type* dWeightsPtr = dWeights.getPtr();
+    const Type* inputPtr = selfInputs.getPtr();
+    const Type* dActivPtr = dActiv.getPtr();
+    Type* dInputsPtr = new Type[selfInputs.getRows() * selfInputs.getColumns()]();//new[a]() makes all values initialize at 0 new[a] makes it have random memory values
+    const Type* weightsPtr = weights.getPtr();
+    const int inputSize = selfInputs.getColumns();
 
-    Type* dBiasPtr = dBiases.GetPtr();
-    const int neuronAmount = dActiv.GetColumns();
+    Type* dBiasPtr = dBiases.getPtr();
+    const int neuronAmount = dActiv.getColumns();
 
-    for (int batchNum = 0; batchNum < selfInputs.GetRows(); batchNum++)
+    for (int batchNum = 0; batchNum < selfInputs.getRows(); batchNum++)
     {
         for (int neuronNum = 0; neuronNum < neuronAmount; neuronNum++)
         {
-            for (int inputNum = 0; inputNum < selfInputs.GetColumns(); inputNum++)
+            for (int inputNum = 0; inputNum < selfInputs.getColumns(); inputNum++)
             {
                 dWeightsPtr[inputNum + neuronNum * inputSize] += inputPtr[inputNum + batchNum * inputSize] * dActivPtr[neuronNum + batchNum * neuronAmount]; //derivative of weight is the input of that batch and weight * derivative of the weights neuron for that batch
                 dInputsPtr[inputNum + batchNum * inputSize] += weightsPtr[inputNum + neuronNum * inputSize] * dActivPtr[neuronNum + batchNum * neuronAmount]; //derivative of input for that batch is the weight * derivative fo that weights neuron for that batch
@@ -296,7 +296,7 @@ Array<Type> Layer<Type>::backwards(Array<Type>& dOutputs /*dOutputs = derivative
         }
     }
 
-    return Array<Type>(dInputsPtr, selfInputs.GetRows(), selfInputs.GetColumns());
+    return Array<Type>(dInputsPtr, selfInputs.getRows(), selfInputs.getColumns());
 
 }
 
@@ -317,8 +317,8 @@ template<typename Type>
 void Layer<Type>::zeroGradient()
 {
 
-    dWeights = Array<Type>(dWeights.GetRows(), dWeights.GetColumns());
-    dBiases = Array<Type>(dBiases.GetRows(), dBiases.GetColumns());
+    dWeights = Array<Type>(dWeights.getRows(), dWeights.getColumns());
+    dBiases = Array<Type>(dBiases.getRows(), dBiases.getColumns());
 }
 
 template <typename Type> void Layer<Type>::setWeights(Array<Type>& weightVals)
@@ -334,43 +334,43 @@ template <typename Type> void Layer<Type>::setBiases(Array<Type>& biasVals)
 template <typename Type>
 const Array<Type>& Layer<Type>::getWeights() const
 {
-    return &weights;
+    return weights;
 }
 
 template <typename Type>
 const Array<Type>& Layer<Type>::getdWeights() const
 {
-    return &dWeights;
+    return dWeights;
 }
 
 template <typename Type>
 const Array<Type>& Layer<Type>::getBiases() const
 {
-    return &biases;
+    return biases;
 }
 
 template <typename Type>
 const Array<Type>& Layer<Type>::getdBiases() const
 {
-    return &dBiases;
+    return dBiases;
 }
 
 template <typename Type>
 const Array<Type>& Layer<Type>::getOutputsPreActive() const
 {
-    return &outputsPreActive;
+    return outputsPreActive;
 }
 
 template <typename Type>
 const Array<Type>& Layer<Type>::getOutputsPostActive() const
 {
-    return &outputsPostActive;
+    return outputsPostActive;
 }
 
 template <typename Type>
 const Array<Type>& Layer<Type>::getSelfInputs() const
 {
-    return &selfInputs;
+    return selfInputs;
 }
 
 template <typename Type>

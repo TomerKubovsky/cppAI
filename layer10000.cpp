@@ -30,11 +30,11 @@ int main()
     for (int i = 0; i < 10000; i++)
     {
         float* dOutputsData = new float[4];
-        for (int rowIndex = 0; rowIndex < Outputs.GetRows(); rowIndex++)
+        for (int rowIndex = 0; rowIndex < Outputs.getRows(); rowIndex++)
         {
-            for (int colIndex = 0; colIndex < Outputs.GetColumns(); colIndex++)
+            for (int colIndex = 0; colIndex < Outputs.getColumns(); colIndex++)
             {
-                *(dOutputsData + (colIndex + rowIndex * Outputs.GetColumns())) = ((correctOutputsData[rowIndex][colIndex] - *(Outputs.GetPtr() + (colIndex + rowIndex * Outputs.GetColumns()))) * 2/Outputs.GetColumns());
+                *(dOutputsData + (colIndex + rowIndex * Outputs.getColumns())) = ((correctOutputsData[rowIndex][colIndex] - *(Outputs.getPtr() + (colIndex + rowIndex * Outputs.getColumns()))) * 2/Outputs.getColumns());
             }
         }
         dOutputs = new Array<float>(dOutputsData, 2, 2);
