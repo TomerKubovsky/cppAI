@@ -43,8 +43,11 @@ int main()
     // }
 
     // const COLORREF color = RGB(255, 0, 0);
+    int h = 1;
+    int h2 = 0;
     double j = 0;
     COLORREF c = GetPixel(dng, 10, 150);
+    int n = 0;
     for (int i = 0; i < 10; i++)
     {
         for (int x = 0 ; x < 1920 ; x++)
@@ -52,7 +55,10 @@ int main()
             for (int y = 0; y < 1080 ; y++)
             {
                 j = (((y + x * 1080)) / 20746.80)/100;
-                SetPixel(dng, x, y, RGB(j*255*(x+y)*10,j*255*(x+y)*10,j*255*(x+y)*0.1));
+                n = j*255*(x+y+h2)*h;
+                SetPixel(dng, x, y, RGB(n,n,n));
+                // if ((y + x * 1080) % 50 == 0)
+                //     std::cout << n << std::endl;
             }
         }
     }
