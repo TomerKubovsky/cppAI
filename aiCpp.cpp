@@ -112,8 +112,8 @@ template <typename Type>
 template <typename pointerType>
 Array<Type> neuralnetwork<Type>::calculatedOutputs(std::string lossFunc, pointerType extraDataVals)
 {
-    // unsigned int batchCount = Layers[numOfLayers - 1].getOutputsPreActive().getRows();
-    int batchCount = 1;
+    unsigned int batchCount = Layers[numOfLayers - 1].getOutputsPreActive().getRows();
+    // int batchCount = 1;
     unsigned int outputCount = Layers[numOfLayers - 1].getOutputsPreActive().getColumns();
 
     Type* dOutputs = new Type[batchCount * outputCount]();
@@ -154,25 +154,25 @@ int main()
     // auto start = std::chrono::high_resolution_clock::now();
 
     int layersVals[] = {1, 1};
-    neuralnetwork<double> neurelNet(layersVals, 2, "none", "none", -0.001);
+    neuralnetwork<double> neurelNet(layersVals, 2, "none", "none", 0.0001);
 
-    double inputs[2][1] =
-        {{1},
-        {2}};
+    double inputs[1][1] =
+        {{1}};
 
-    Array<double> inputsArr(&(inputs[0][0]), 2, 1);
+    Array<double> inputsArr(&(inputs[0][0]), 1, 1);
 
     Array<double> outputs = neurelNet.forwards(inputsArr);
 
     outputs.print();
 
-    double corrOutputsPtr[2][1] = {{19.8},{18.5}};
+    double corrOutputsPtr[1][1] =
+        {{19.8}};
 
-    Array<double> corrOutputsArr(&(corrOutputsPtr[0][0]), 2, 1);
+    Array<double> corrOutputsArr(&(corrOutputsPtr[0][0]), 1, 1);
 
     Array<double>* corrOutputsArrPtr = &(corrOutputsArr);
     // int numOfTimes = 5000000;
-    int numOfTimes = 500;
+    int numOfTimes = 50;
     for (int index = 0; index < numOfTimes; index++)
     {
         neurelNet.backwards(neurelNet.calculatedOutputs<Array<double>*>("mse", corrOutputsArrPtr));
@@ -192,6 +192,9 @@ int main()
 
     neurelNet.getLayers()[0].getWeights().print();
     neurelNet.getLayers()[0].getBiases().print();
+
+    neurelNet.getLayers()[1].getWeights().print();
+    neurelNet.getLayers()[1].getBiases().print();
     // auto end = std::chrono::high_resolution_clock::now();
     // std::chrono::duration<double> elapsed = end - start;
     // std::cout << "Elapsed time: " << elapsed.count() << " seconds" << std::endl;
