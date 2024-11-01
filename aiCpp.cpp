@@ -75,7 +75,7 @@ Array<Type> neuralnetwork<Type>::forwards(const Array<Type>& inputs)
         tempInputs = Layers[layerIndex].forwards(tempInputs);
     }
 
-    return tempInputs;
+    return tempInputs.deepCopy();
 }
 
 template<typename Type>
@@ -176,10 +176,18 @@ int main()
     for (int index = 0; index < numOfTimes; index++)
     {
         neurelNet.backwards(neurelNet.calculatedOutputs<Array<double>*>("mse", corrOutputsArrPtr));
+        std::cout << "dweights:";
+        neurelNet.getLayers()[0].getdWeights().print();
+        std::cout << "dbiases:";
+        neurelNet.getLayers()[0].getdBiases().print();
         neurelNet.updateWeightsAndBiases();
+        std::cout << "weights:";
+        neurelNet.getLayers()[0].getBiases().print();
+        std::cout << "biases:";
+        neurelNet.getLayers()[0].getWeights().print();
         neurelNet.zeroGradient();
         outputs = neurelNet.forwards(inputsArr);
-        // outputs.print();
+        // // outputs.print();
         if (index % 1 == 0)
         {
             std::cout << "current index: " << index;
@@ -190,11 +198,11 @@ int main()
 
     outputs.print();
 
-    neurelNet.getLayers()[0].getWeights().print();
-    neurelNet.getLayers()[0].getBiases().print();
-
-    neurelNet.getLayers()[1].getWeights().print();
-    neurelNet.getLayers()[1].getBiases().print();
+    // neurelNet.getLayers()[0].getWeights().print();
+    // neurelNet.getLayers()[0].getBiases().print();
+    //
+    // neurelNet.getLayers()[1].getWeights().print();
+    // neurelNet.getLayers()[1].getBiases().print();
     // auto end = std::chrono::high_resolution_clock::now();
     // std::chrono::duration<double> elapsed = end - start;
     // std::cout << "Elapsed time: " << elapsed.count() << " seconds" << std::endl;

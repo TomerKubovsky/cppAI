@@ -56,7 +56,7 @@ int main()
             {
                 j = (((y + x * 1080)) / 20746.80)/100;
                 n = j*255*(x+y+h2)*h;
-                SetPixel(dng, x, y, RGB(n,n,n));
+                SetPixel(dng, x, y, interpolateRainbow(j));
                 // if ((y + x * 1080) % 50 == 0)
                 //     std::cout << n << std::endl;
             }

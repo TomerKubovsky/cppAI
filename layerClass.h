@@ -153,7 +153,8 @@ template <typename Type> void Layer<Type>::print() const
 template <typename Type>
 Array<Type> Layer<Type>::forwards(const Array<Type>& Inputs)
 {
-    selfInputs = Inputs; //shallow copy is probably fine because its assumed that this is called from neurel network class and nuerel network class should be doing a deep copy for safety
+    //std move cant work here bc it is a const object
+    selfInputs = Inputs.deepCopy(); //shallow copy is probably fine because its assumed that this is called from neurel network class and nuerel network class should be doing a deep copy for safety
     Array<Type> outputs = weights.dotProduct(Inputs);//caclulate inputs * weights
 
     //add biases to output
@@ -172,7 +173,7 @@ Array<Type> Layer<Type>::forwards(const Array<Type>& Inputs)
     outputsPreActive = Array<Type>(outputsPreActivePtr, outputRows, outputsCollumns);
     // Array<Type> finalOutput = ForwardsActivation(outputsPreActive);//activation function
     outputsPostActive = forwardsActivation(outputsPreActive);
-    return std::move(outputsPostActive.deepCopy());
+    return outputsPostActive;
     // return forwardsActivation(outputsPreActive);
 }
 
