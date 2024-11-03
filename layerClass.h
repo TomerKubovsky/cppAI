@@ -173,8 +173,7 @@ Array<Type> Layer<Type>::forwards(const Array<Type>& Inputs)
     outputsPreActive = Array<Type>(outputsPreActivePtr, outputRows, outputsCollumns);
     // Array<Type> finalOutput = ForwardsActivation(outputsPreActive);//activation function
     outputsPostActive = std::move(forwardsActivation(outputsPreActive));
-    return outputsPostActive;
-    // return forwardsActivation(outputsPreActive);
+    return outputsPostActive.deepCopy(); //if this isnt deepcopied then essentialy what happens is it gets assigned to the tempinputs woith a copy constructer and then tempinputs later gets deleted but outputspostactive pointer isnt null meaning later in the code when the move constructor is called on it (in the line above) u get a double pointer deleteion and or undefined behaviour
 }
 
 template <typename Type>

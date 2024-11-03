@@ -154,7 +154,7 @@ int main()
     // auto start = std::chrono::high_resolution_clock::now();
 
     int layersVals[] = {1, 1};
-    neuralnetwork<double> neurelNet(layersVals, 2, "none", "none", 0.0001);
+    neuralnetwork<double> neurelNet(layersVals, 2, "none", "none", -0.0001);
 
     double inputs[1][1] =
         {{1}};
@@ -175,23 +175,18 @@ int main()
     int numOfTimes = 50;
     for (int index = 0; index < numOfTimes; index++)
     {
-        // neurelNet.backwards(neurelNet.calculatedOutputs<Array<double>*>("mse", corrOutputsArrPtr));
+        neurelNet.backwards(neurelNet.calculatedOutputs<Array<double>*>("mse", corrOutputsArrPtr));
         // std::cout << "dweights:";
         // neurelNet.getLayers()[0].getdWeights().print();
         // std::cout << "dbiases:";
         // neurelNet.getLayers()[0].getdBiases().print();
-        // neurelNet.updateWeightsAndBiases();
+        neurelNet.updateWeightsAndBiases();
         // std::cout << "weights:";
         // neurelNet.getLayers()[0].getBiases().print();
         // std::cout << "biases:";
         // neurelNet.getLayers()[0].getWeights().print();
-        // neurelNet.zeroGradient();
+        neurelNet.zeroGradient();
         outputs = neurelNet.forwards(inputsArr);
-        outputs.print();
-        // double* outputsPtr = outputs.getPtr();
-        // outputsPtr[0] = 3;
-        // std::cout << *outputsPtr << std::endl;
-        // // outputs.print();
         if (index % 1 == 0)
         {
             std::cout << "current index: " << index;
