@@ -172,7 +172,7 @@ Array<Type> Layer<Type>::forwards(const Array<Type>& Inputs)
     }
     outputsPreActive = Array<Type>(outputsPreActivePtr, outputRows, outputsCollumns);
     // Array<Type> finalOutput = ForwardsActivation(outputsPreActive);//activation function
-    outputsPostActive = forwardsActivation(outputsPreActive);
+    outputsPostActive = std::move(forwardsActivation(outputsPreActive));
     return outputsPostActive;
     // return forwardsActivation(outputsPreActive);
 }
@@ -317,7 +317,6 @@ void Layer<Type>::updateWeightsAndBiases(Type learningRate)
 template<typename Type>
 void Layer<Type>::zeroGradient()
 {
-
     dWeights = Array<Type>(dWeights.getRows(), dWeights.getColumns());
     dBiases = Array<Type>(dBiases.getRows(), dBiases.getColumns());
 }

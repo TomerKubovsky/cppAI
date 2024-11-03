@@ -68,24 +68,10 @@ include CMakeFiles/_idea.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/_idea.dir/flags.make
 
-CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.obj: CMakeFiles/_idea.dir/flags.make
-CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.obj: C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp
-CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.obj: CMakeFiles/_idea.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\.idea\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.obj"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.obj -MF CMakeFiles\_idea.dir\C_\Users\tomer\OneDrive\Documents\GitHub\cppAI\findPixelValueTest.cpp.obj.d -o CMakeFiles\_idea.dir\C_\Users\tomer\OneDrive\Documents\GitHub\cppAI\findPixelValueTest.cpp.obj -c C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\findPixelValueTest.cpp
-
-CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.i"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\findPixelValueTest.cpp > CMakeFiles\_idea.dir\C_\Users\tomer\OneDrive\Documents\GitHub\cppAI\findPixelValueTest.cpp.i
-
-CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.s"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\findPixelValueTest.cpp -o CMakeFiles\_idea.dir\C_\Users\tomer\OneDrive\Documents\GitHub\cppAI\findPixelValueTest.cpp.s
-
 CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.obj: CMakeFiles/_idea.dir/flags.make
 CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.obj: C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp
 CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.obj: CMakeFiles/_idea.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\.idea\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\.idea\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.obj"
 	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.obj -MF CMakeFiles\_idea.dir\C_\Users\tomer\OneDrive\Documents\GitHub\cppAI\cppTest.cpp.obj.d -o CMakeFiles\_idea.dir\C_\Users\tomer\OneDrive\Documents\GitHub\cppAI\cppTest.cpp.obj -c C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cppTest.cpp
 
 CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.i: cmake_force
@@ -96,37 +82,19 @@ CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.s"
 	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cppTest.cpp -o CMakeFiles\_idea.dir\C_\Users\tomer\OneDrive\Documents\GitHub\cppAI\cppTest.cpp.s
 
-CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.obj: CMakeFiles/_idea.dir/flags.make
-CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.obj: C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp
-CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.obj: CMakeFiles/_idea.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\.idea\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.obj"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.obj -MF CMakeFiles\_idea.dir\C_\Users\tomer\OneDrive\Documents\GitHub\cppAI\layer10000.cpp.obj.d -o CMakeFiles\_idea.dir\C_\Users\tomer\OneDrive\Documents\GitHub\cppAI\layer10000.cpp.obj -c C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\layer10000.cpp
-
-CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.i"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\layer10000.cpp > CMakeFiles\_idea.dir\C_\Users\tomer\OneDrive\Documents\GitHub\cppAI\layer10000.cpp.i
-
-CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.s"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\layer10000.cpp -o CMakeFiles\_idea.dir\C_\Users\tomer\OneDrive\Documents\GitHub\cppAI\layer10000.cpp.s
-
 # Object files for target _idea
 _idea_OBJECTS = \
-"CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.obj" \
-"CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.obj" \
-"CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.obj"
+"CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.obj"
 
 # External object files for target _idea
 _idea_EXTERNAL_OBJECTS =
 
-_idea.exe: CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.obj
 _idea.exe: CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.obj
-_idea.exe: CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.obj
 _idea.exe: CMakeFiles/_idea.dir/build.make
 _idea.exe: CMakeFiles/_idea.dir/linkLibs.rsp
 _idea.exe: CMakeFiles/_idea.dir/objects1.rsp
 _idea.exe: CMakeFiles/_idea.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\.idea\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable _idea.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\.idea\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable _idea.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\_idea.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

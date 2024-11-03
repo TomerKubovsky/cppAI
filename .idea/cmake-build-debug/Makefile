@@ -152,54 +152,6 @@ C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\_idea.dir\build.make CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.s
 .PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.s
 
-C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.obj: C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.obj
-.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.obj
-
-# target to build an object file
-C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\_idea.dir\build.make CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.obj
-.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.obj
-
-C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.i: C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.i
-.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.i
-
-# target to preprocess a source file
-C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\_idea.dir\build.make CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.i
-.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.i
-
-C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.s: C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.s
-.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.s
-
-# target to generate assembly for a file
-C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\_idea.dir\build.make CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.s
-.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.s
-
-C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.obj: C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.obj
-.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.obj
-
-# target to build an object file
-C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\_idea.dir\build.make CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.obj
-.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.obj
-
-C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.i: C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.i
-.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.i
-
-# target to preprocess a source file
-C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\_idea.dir\build.make CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.i
-.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.i
-
-C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.s: C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.s
-.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.s
-
-# target to generate assembly for a file
-C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\_idea.dir\build.make CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.s
-.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.s
-
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -212,12 +164,6 @@ help:
 	@echo ... C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.obj
 	@echo ... C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.i
 	@echo ... C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.s
-	@echo ... C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.obj
-	@echo ... C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.i
-	@echo ... C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.s
-	@echo ... C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.obj
-	@echo ... C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.i
-	@echo ... C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.s
 .PHONY : help
 
 

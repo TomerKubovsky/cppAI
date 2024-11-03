@@ -107,7 +107,7 @@ namespace ArrayUtils
 	}
 
 	template <typename Type>
-	Array<Type>::Array(const Array<Type>& otherArr)
+	Array<Type>::Array(const Array<Type>& otherArr)//copy constuctor
 		: R(otherArr.R), C(otherArr.C), ptr(otherArr.ptr)
 	{
 	}
@@ -150,7 +150,7 @@ namespace ArrayUtils
 	Array<Type> Array<Type>::deepCopy() const
 
 	{
-		Type* newArrPtr = new Type[R*C];
+		Type* newArrPtr = new Type[R*C]();
 		for (int index = 0; index < R * C; index++)
 		{
 			newArrPtr[index] = ptr[index];
@@ -173,7 +173,8 @@ namespace ArrayUtils
 			{
 				std::cout << ' ';
 			}
-			std::cout << *(ptr+index);
+			// std::cout << *(ptr[index]);
+			std::cout << ptr[0];
 		}
 		std::cout << std::endl;
 	}

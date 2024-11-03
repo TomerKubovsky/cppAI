@@ -3,6 +3,8 @@ project(_idea)
 
 set(CMAKE_CXX_STANDARD 14)
 
+set(CMAKE_BUILD_TYPE Debug)
+
 add_executable(_idea
     codeStyles/codeStyleConfig.xml
     .gitignore
@@ -12,8 +14,6 @@ add_executable(_idea
     modules.xml
     vcs.xml
     workspace.xml
-        ../findPixelValueTest.cpp
-        ../array.hpp
+        ../array.h
         ../cppTest.cpp
-        ../layerClass.h
-        ../layer10000.cpp)
+        ../layerClass.h)

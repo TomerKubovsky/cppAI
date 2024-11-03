@@ -9,8 +9,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp" "CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.obj" "gcc" "CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.obj.d"
-  "C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp" "CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.obj" "gcc" "CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/findPixelValueTest.cpp.obj.d"
-  "C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp" "CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.obj" "gcc" "CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/layer10000.cpp.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
