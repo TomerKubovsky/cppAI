@@ -22,6 +22,7 @@ public:
     void printLayer(const int layerNum);
 
     Array<Type> forwards(const Array<Type>& inputs);
+    Array<Type> forwards(Array<Type>&& inputs);
     void backwards(const Array<Type>& dInputs);
 
     void updateWeightsAndBiases();
@@ -72,7 +73,20 @@ Array<Type> neuralnetwork<Type>::forwards(const Array<Type>& inputs)
 
     for (int layerIndex = 0; layerIndex < numOfLayers; layerIndex++)
     {
-        tempInputs = Layers[layerIndex].forwards(tempInputs);
+        tempInputs = Layers[layerIndex].forwards(std::move(tempInputs));
+    }
+
+    return tempInputs.deepCopy();
+}
+
+template<typename Type>
+Array<Type> neuralnetwork<Type>::forwards(Array<Type>&& inputs)
+{
+    Array<Type> tempInputs = inputs;//here you could also just make the first layer run forwards on inputs and etc, also when you didnt do deep copy, what happened is you ended up calling delete on inputs and since input was created on stack you were deleting stack memrory
+
+    for (int layerIndex = 0; layerIndex < numOfLayers; layerIndex++)
+    {
+        tempInputs = Layers[layerIndex].forwards(std::move(tempInputs));
     }
 
     return tempInputs.deepCopy();
@@ -151,19 +165,19 @@ Layer<Type> * neuralnetwork<Type>::getLayers()
 
 int main()
 {
-    // auto start = std::chrono::high_resolution_clock::now();
+    auto start = std::chrono::high_resolution_clock::now();
 
-    int layersVals[] = {1, 1};
+    int layersVals[] = {2, 1};
     neuralnetwork<double> neurelNet(layersVals, 2, "none", "none", -0.0001);
 
-    double inputs[1][1] =
-        {{1}};
+    double inputs[1][2] =
+        {{1, 6}};
 
-    Array<double> inputsArr(&(inputs[0][0]), 1, 1);
+    Array<double> inputsArr(&(inputs[0][0]), 1, 2);
 
     Array<double> outputs = neurelNet.forwards(inputsArr);
 
-    outputs.print();
+    // outputs.print();
 
     double corrOutputsPtr[1][1] =
         {{19.8}};
@@ -172,39 +186,33 @@ int main()
 
     Array<double>* corrOutputsArrPtr = &(corrOutputsArr);
     // int numOfTimes = 5000000;
-    int numOfTimes = 50;
+    int numOfTimes = 500000;
     for (int index = 0; index < numOfTimes; index++)
     {
         neurelNet.backwards(neurelNet.calculatedOutputs<Array<double>*>("mse", corrOutputsArrPtr));
-        // std::cout << "dweights:";
-        // neurelNet.getLayers()[0].getdWeights().print();
-        // std::cout << "dbiases:";
-        // neurelNet.getLayers()[0].getdBiases().print();
         neurelNet.updateWeightsAndBiases();
-        // std::cout << "weights:";
-        // neurelNet.getLayers()[0].getBiases().print();
-        // std::cout << "biases:";
-        // neurelNet.getLayers()[0].getWeights().print();
         neurelNet.zeroGradient();
         outputs = neurelNet.forwards(inputsArr);
-        if (index % 1 == 0)
-        {
-            std::cout << "current index: " << index;
-            outputs.print();
-            std::cout << std::endl;
-        }
+        // if (index % 1 == 0)
+        // {
+        //     std::cout << "current index: " << index;
+        //     outputs.print();
+        //     std::cout << std::endl;
+        // }
     }
 
-    outputs.print();
+    // outputs.print();
 
     // neurelNet.getLayers()[0].getWeights().print();
     // neurelNet.getLayers()[0].getBiases().print();
     //
     // neurelNet.getLayers()[1].getWeights().print();
     // neurelNet.getLayers()[1].getBiases().print();
-    // auto end = std::chrono::high_resolution_clock::now();
-    // std::chrono::duration<double> elapsed = end - start;
-    // std::cout << "Elapsed time: " << elapsed.count() << " seconds" << std::endl;
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = end - start;
+    std::cout << "Elapsed time: " << elapsed.count() << " seconds" << std::endl;
 
-    return 0;
+    std::cin.get();
+
+    // return 0;
 }

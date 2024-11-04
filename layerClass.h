@@ -36,6 +36,7 @@ public:
     void print() const;
 
     Array<Type> forwards(const Array<Type>& Inputs);
+    Array<Type> forwards(Array<Type>&& Inputs);
     Array<Type> forwardsActivation(const Array<Type>& Inputs) const;
     Array<Type> backwardsActivation(Array<Type>& dOutputs) const;
     Array<Type> backwards(Array<Type>& dOutputs) const; //doutputs isnt const because we use a mvoe constrcutor on it and nullify it after we dont need it anymore
@@ -154,7 +155,8 @@ template <typename Type>
 Array<Type> Layer<Type>::forwards(const Array<Type>& Inputs)
 {
     //std move cant work here bc it is a const object
-    selfInputs = Inputs.deepCopy(); //shallow copy is probably fine because its assumed that this is called from neurel network class and nuerel network class should be doing a deep copy for safety
+    selfInputs = Inputs.deepCopy(); //std move is used here because this is called from neurel network class and tempinputs is deepcopied and thius isnt needed
+    // selfInputs = Inputs.deepCopy(); //std move is used here because this is called from neurel network class and tempinputs is deepcopied and thius isnt needed
     Array<Type> outputs = weights.dotProduct(Inputs);//caclulate inputs * weights
 
     //add biases to output
@@ -176,6 +178,32 @@ Array<Type> Layer<Type>::forwards(const Array<Type>& Inputs)
     return outputsPostActive.deepCopy(); //if this isnt deepcopied then essentialy what happens is it gets assigned to the tempinputs woith a copy constructer and then tempinputs later gets deleted but outputspostactive pointer isnt null meaning later in the code when the move constructor is called on it (in the line above) u get a double pointer deleteion and or undefined behaviour
 }
 
+template <typename Type>
+Array<Type> Layer<Type>::forwards(Array<Type>&& Inputs)
+{
+    //std move cant work here bc it is a const object
+    selfInputs = std::move(Inputs); //std move is used here because this is called from neurel network class and tempinputs is deepcopied and thius isnt needed
+    // selfInputs = Inputs.deepCopy(); //std move is used here because this is called from neurel network class and tempinputs is deepcopied and thius isnt needed
+    Array<Type> outputs = weights.dotProduct(selfInputs);//caclulate inputs * weights
+
+    //add biases to output
+    const int outputsCollumns = outputs.getColumns();
+    const int outputRows = outputs.getRows();
+
+    Type* outputsPreActivePtr = new Type[outputs.getColumns() * outputs.getRows()];
+    Type* biasesPtr = biases.getPtr();
+    for (int rowIndex = 0; rowIndex < outputRows; rowIndex++)
+    {
+        for (int collumnIndex = 0; collumnIndex < outputsCollumns; collumnIndex++)
+        {
+            outputsPreActivePtr[collumnIndex + outputsCollumns * rowIndex] = outputs.getPtr()[collumnIndex + outputsCollumns * rowIndex] + biasesPtr[collumnIndex];
+        }
+    }
+    outputsPreActive = Array<Type>(outputsPreActivePtr, outputRows, outputsCollumns);
+    // Array<Type> finalOutput = ForwardsActivation(outputsPreActive);//activation function
+    outputsPostActive = std::move(forwardsActivation(outputsPreActive));
+    return outputsPostActive.deepCopy(); //if this isnt deepcopied then essentialy what happens is it gets assigned to the tempinputs woith a copy constructer and then tempinputs later gets deleted but outputspostactive pointer isnt null meaning later in the code when the move constructor is called on it (in the line above) u get a double pointer deleteion and or undefined behaviour
+}
 template <typename Type>
 Array<Type> Layer<Type>::forwardsActivation(const Array<Type>& Inputs) const
 {
