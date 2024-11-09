@@ -2,21 +2,13 @@
 
 int main()
 {
-
-    int j = 0;
-    double h = 0;
-    for (int x = 0 ; x < 1920 ; x++)
+    for (int i = 0; i < 100; i++)
     {
-        for (int y = 0; y < 1080 ; y++)
+        std::cout << "f";
+        for (int k = 0; k < i; k++)
         {
-            j = ((y + x * 1080));
-            // h = ((y + x * 1080)) / 2074678;
-            h = (((y + x * 1080)) / 20746.80)/100;
-            // std::cout << h << "\n";
-
+            std::cout << "'";
         }
-        std::cout << h << "\n";
+        std::cout << "(0),";
     }
-
-    return 0;
 }

@@ -55,10 +55,13 @@ int main()
             for (int y = 0; y < 1080 ; y++)
             {
                 j = (((y + x * 1080)) / 20746.80)/100;
+                // std::cout << j << std::endl;
+                // j += std::min((x*y - x), 1);
+                // j += (x*y - x);
                 n = j*255*(x+y+h2)*h;
-                SetPixel(dng, x, y, interpolateRainbow(j));
+                SetPixel(dng, x, y, RGB(j, j*(150+x*y)-x, j*(200-x+3*y)*y)+y-x);
                 // if ((y + x * 1080) % 50 == 0)
-                //     std::cout << n << std::endl;
+                // std::cout << n << std::endl;
             }
         }
     }
