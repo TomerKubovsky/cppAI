@@ -246,10 +246,7 @@ namespace NeurelNetwork
                     softmaxedVals[currentIndex] = exponentiatedVals[currentIndex] / addedVals[rowIndex];
                 }
             }
-
-            delete[] exponentiatedVals;
-            delete[] addedVals;
-
+delete[] exponentiatedVals; delete[] addedVals;
             return ArrayUtils::Array<Type>(softmaxedVals, inputRows, inputColumns);
         } else
         {
@@ -261,7 +258,7 @@ namespace NeurelNetwork
     /*
         dactiv is the derivative of the inputs to the activbation functions so self.activationBackwards(dOutputs) also you gotta multiply it by dOutputs which is why it is passed into the function
     */
-    template <typename Type> ArrayUtils::Array<Type> Layer<Type>::backwardsActivation(ArrayUtils::Array<Type>& dOutputs) const
+    template <typename Type> ArrayUtils::Array<Type> Layer<Type>::backwardsActivation(ArrayUtils::Array<Type>& dOutputs) const //this should return an array with douputs rows batches rows and doutputs collumns collumsn and columns is neurin num
     {
         if (activationFunc == "relu")
         {
@@ -272,7 +269,25 @@ namespace NeurelNetwork
             });
         } else if (activationFunc == "softmax")
         {
+		    const unsigned int* chosenValue = new int[dOutputs.getRows()]; //for now
+		    Type* dActive = new Type[dOutputs.getRows() * dOutputs.getColumns()];
 
+            const Type* selfInputsPtr = selfInputs.getPtr();
+
+            for (int batchNum = 0; batchNum < dOutputs.getRows(); batchNum++)
+            {
+                for (int neuronNum = 0; neuronNum < dOutputs.getColumns(); neuronNum++)
+                {
+                    const unsigned int index = batchNum * dOutputs.getColumns() + neuronNum;
+                    if (neuronNum == chosenValue[batchNum])
+                    {
+                        dActive[index] = selfInputsPtr[index] * (1 - selfInputsPtr[index]);
+                    } else
+                    {
+                        dActive[index] = -selfInputsPtr[batchNum * dOutputs.getColumns() + chosenValue[batchNum]] * selfInputsPtr[index];
+                    }
+                }
+            }
         } else
         {
             // return dOutputs.deepCopy(); //linear activation function derivative is 1 so 1*doutpus so doutputs

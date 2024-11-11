@@ -21,4 +21,6 @@ int main()
     Array<float> outputs = network.forwards(inputsArr);
 
     outputs.print();
+
+    const float* dOutputs = {9, 2, 1, -8};
 }
