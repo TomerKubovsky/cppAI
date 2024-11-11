@@ -68,7 +68,7 @@ namespace NeurelNetwork
         :
         weights(ArrayUtils::Array<Type>(outputs, Inputs).customFunc([](Type input, int index)
             {
-                return static_cast<Type>(1);
+                return static_cast<Type>(index);
             })),
         biases(ArrayUtils::Array<Type>(1, outputs).customFunc([](Type input, int index)
             {
@@ -269,7 +269,7 @@ delete[] exponentiatedVals; delete[] addedVals;
             });
         } else if (activationFunc == "softmax")
         {
-		    const unsigned int* chosenValue = new int[dOutputs.getRows()]; //for now
+		    const unsigned int* chosenValue = new unsigned int[dOutputs.getRows()](); //for now
 		    Type* dActive = new Type[dOutputs.getRows() * dOutputs.getColumns()];
 
             const Type* selfInputsPtr = selfInputs.getPtr();
@@ -288,6 +288,7 @@ delete[] exponentiatedVals; delete[] addedVals;
                     }
                 }
             }
+            return ArrayUtils::Array<Type>(dActive, dOutputs.getRows(), dOutputs.getColumns());
         } else
         {
             // return dOutputs.deepCopy(); //linear activation function derivative is 1 so 1*doutpus so doutputs

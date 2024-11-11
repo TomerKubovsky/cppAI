@@ -22,5 +22,16 @@ int main()
 
     outputs.print();
 
-    const float* dOutputs = {9, 2, 1, -8};
+    float dOutputs[4] = {9, 2, 1, -8};
+
+    Array<float> dOutputsArr(&(dOutputs[0]), 4, 1);
+
+    network.backwards(dOutputsArr);
+    network.updateWeightsAndBiases();
+    network.zeroGradient();
+
+    outputs = network.forwards(inputsArr);
+
+    outputs.print();
+
 }

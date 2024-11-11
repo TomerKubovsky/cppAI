@@ -24,7 +24,7 @@ int main()
 
     Array<double> inputsArr(inputs, 1, 2);
 
-    Array<double> outputs = neurelNet.forwards(inputsArr);
+   Array<double> outputs = neurelNet.forwards(inputsArr);
 
     // outputs.print();
 
