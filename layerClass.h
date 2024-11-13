@@ -232,7 +232,7 @@ namespace NeurelNetwork
                 for (int columnIndex = 0; columnIndex < inputColumns; columnIndex++)
                 {
                     currentIndex = columnIndex + rowIndex * inputColumns;
-                    exponentiatedVals[currentIndex] = static_cast<Type>(std::exp(static_cast<double>(Inputs.getPtr()[currentIndex])));
+                    exponentiatedVals[currentIndex] = std::exp(Inputs.getPtr()[currentIndex]);
                     addedVals[rowIndex] += exponentiatedVals[currentIndex];
                 }
             }
