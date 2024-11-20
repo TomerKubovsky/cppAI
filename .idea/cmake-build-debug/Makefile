@@ -84,6 +84,51 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	"C:\Program Files\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	"C:\Program Files\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	"C:\Program Files\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	"C:\Program Files\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	"C:\Program Files\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	"C:\Program Files\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
 # The main all target
 all: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\.idea\cmake-build-debug\CMakeFiles C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\.idea\cmake-build-debug\\CMakeFiles\progress.marks
@@ -116,6 +161,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named graphingTest
+
+# Build rule for target.
+graphingTest: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 graphingTest
+.PHONY : graphingTest
+
+# fast build rule for target.
+graphingTest/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\graphingTest.dir\build.make CMakeFiles/graphingTest.dir/build
+.PHONY : graphingTest/fast
+
+#=============================================================================
 # Target rules for targets named _idea
 
 # Build rule for target.
@@ -128,29 +186,58 @@ _idea/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\_idea.dir\build.make CMakeFiles/_idea.dir/build
 .PHONY : _idea/fast
 
-C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.obj: C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.obj
-.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.obj
+#=============================================================================
+# Target rules for targets named nodesoup
+
+# Build rule for target.
+nodesoup: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 nodesoup
+.PHONY : nodesoup
+
+# fast build rule for target.
+nodesoup/fast:
+	$(MAKE) $(MAKESILENT) -f matplotplusplus\source\3rd_party\CMakeFiles\nodesoup.dir\build.make matplotplusplus/source/3rd_party/CMakeFiles/nodesoup.dir/build
+.PHONY : nodesoup/fast
+
+#=============================================================================
+# Target rules for targets named matplot
+
+# Build rule for target.
+matplot: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 matplot
+.PHONY : matplot
+
+# fast build rule for target.
+matplot/fast:
+	$(MAKE) $(MAKESILENT) -f matplotplusplus\source\matplot\CMakeFiles\matplot.dir\build.make matplotplusplus/source/matplot/CMakeFiles/matplot.dir/build
+.PHONY : matplot/fast
+
+C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.obj: C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.cpp.obj
+.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.obj
 
 # target to build an object file
-C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\_idea.dir\build.make CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.obj
-.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.obj
+C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\graphingTest.dir\build.make CMakeFiles/graphingTest.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\_idea.dir\build.make CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.cpp.obj
+.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.cpp.obj
 
-C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.i: C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.i
-.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.i
+C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.i: C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.cpp.i
+.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.i
 
 # target to preprocess a source file
-C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\_idea.dir\build.make CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.i
-.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.i
+C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\graphingTest.dir\build.make CMakeFiles/graphingTest.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\_idea.dir\build.make CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.cpp.i
+.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.cpp.i
 
-C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.s: C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.s
-.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.s
+C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.s: C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.cpp.s
+.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.s
 
 # target to generate assembly for a file
-C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\_idea.dir\build.make CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.s
-.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.cpp.s
+C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\graphingTest.dir\build.make CMakeFiles/graphingTest.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\_idea.dir\build.make CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.cpp.s
+.PHONY : C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.cpp.s
 
 # Help Target
 help:
@@ -159,11 +246,18 @@ help:
 	@echo ... clean
 	@echo ... depend
 	@echo ... edit_cache
+	@echo ... install
+	@echo ... install/local
+	@echo ... install/strip
+	@echo ... list_install_components
 	@echo ... rebuild_cache
 	@echo ... _idea
-	@echo ... C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.obj
-	@echo ... C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.i
-	@echo ... C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/cppTest.s
+	@echo ... graphingTest
+	@echo ... matplot
+	@echo ... nodesoup
+	@echo ... C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.obj
+	@echo ... C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.i
+	@echo ... C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.s
 .PHONY : help
 
 

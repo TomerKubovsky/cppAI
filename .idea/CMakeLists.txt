@@ -1,13 +1,19 @@
 cmake_minimum_required(VERSION 3.29)
 project(_idea)
 
-set(CMAKE_CXX_STANDARD 14)
-
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_BUILD_TYPE Debug)
 
+
+add_subdirectory(
+        C:/Users/tomer/matplotplusplus
+        ${CMAKE_BINARY_DIR}/matplotplusplus
+)
+
+
 add_executable(graphingTest ../graphingTest.cpp)
-find_package(Matplot++ CONFIG REQUIRED)
-target_link_libraries(graphingTest PRIVATE Matplot++::cimg  Matplot++::matplot)
+target_link_libraries(graphingTest PUBLIC matplot)
+
 
 
 add_executable(_idea

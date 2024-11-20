@@ -30,7 +30,7 @@ int main()
     network.zeroGradient();
 
     outputs = network.forwards(inputsArr);
-
+	
     outputs.print();
 
 }

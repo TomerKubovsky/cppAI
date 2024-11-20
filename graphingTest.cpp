@@ -1,27 +1,90 @@
-#include <cmath>
+/*#include <cmath>
 #include <matplot/matplot.h>
+#include "neurelNetworkClass.h"
 
+using namespace NeurelNetwork::ArrayUtils;
 
-// void setPythonExecutable()
-// {
-    // _putenv("PYTHON_EXECUTABLE=py");
-// }
+double function(double input)
+{
+    return input * input;
+}
 
+int main()
+{
+    const int layers[] = {1, 4, 4, 1};
+    NeurelNetwork::neuralnetwork<double> neuralnetwork(layers, 4, "relu", "none", 0.01);
+
+    const int size = 100;
+
+    double* inputsPtr = new double[size];
+
+    for (int i = 0; i < size; i++)
+    {
+        inputsPtr[i] = i;
+    }
+
+    double* trueY = new double[size];
+    for (int i = 0; i < size; i++)
+    {
+        trueY[i] = function(inputsPtr[i]);
+    }
+
+   // for (int i = 0; i < size; i++)
+   // {
+   //     std::cout << trueY[i] << std::endl;
+   // }
+
+    // double* outputsPtr = new double[size];
+    Array<double> inputsArr = Array<double>(inputsPtr, size, 1);
+    // Array<double> outputsArr = Array<double>(outputsPtr, size, 1);
+
+    Array<double> outputsArr = neuralnetwork.forwards(inputsArr);
+
+    std::vector<double> outputsVec(outputsArr.getPtr(), outputsArr.getPtr() + outputsArr.getRows());
+
+    std::vector<double> inputsVec(inputsPtr, inputsPtr + size );
+    std::vector<double> trueYVec(trueY, trueY + size );
+
+    matplot::plot(inputsVec, outputsVec, trueYVec, "b");
+    matplot::show();
+}*/
+
+#include <matplot/matplot.h>
+#include <chrono>
+#include <thread>
 
 int main() {
     using namespace matplot;
 
-    // setPythonExecutable();
+    // Create some initial data
+    std::vector<double> x(100), y(100);
+    for (size_t i = 0; i < 100; ++i) {
+        x[i] = i;
+        y[i] = sin(i * 0.1); // Initial y values (sine wave)
+    }
 
-    // std::cout << "PYTHON_EXECUTABLE: " << std::getenv("PYTHON_EXECUTABLE") << std::endl;
+    // Create a plot
+    auto figure = plot(x, y);
 
-    std::vector<double> x = linspace(-2 * pi, 3);
-    std::vector<double> y1 = transform(x, [](auto x) { return sin(x); });
-    std::vector<double> y2 = transform(x, [](auto x) { return cos(x); });
-    auto p = plot(x, y1, x, y2);
-    p[0]->line_width(2);
-    p[1]->marker(line_spec::marker_style::asterisk);
+    // Set plot title
+    title("Dynamic Sine Wave");
 
-    show();
-    // return 0;
+    // Loop to update the graph at runtime
+    for (int i = 0; i < 100; ++i) {
+        // Update y values (change the sine wave over time)
+        for (size_t j = 0; j < 100; ++j) {
+            y[j] = sin((x[j] + i) * 0.1); // Shift sine wave
+        }
+
+        // Update the plot with the new data
+        figure->y(y);
+
+        // Redraw the plot
+        redraw();
+
+        // Wait for a short time (e.g., 100ms) before updating again
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+
+    return 0;
 }

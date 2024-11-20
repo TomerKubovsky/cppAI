@@ -61,7 +61,7 @@ int main()
     std::chrono::duration<double> elapsed = end - start;
     std::cout << "Elapsed time: " << elapsed.count() << " seconds" << std::endl;
 
-    std::cin.get();
+    std::cin.get()  ;
 
     // return 0;
 }
