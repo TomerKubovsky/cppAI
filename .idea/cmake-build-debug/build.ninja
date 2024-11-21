@@ -47,13 +47,13 @@ cmake_ninja_workdir = C$:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-d
 #############################################
 # Order-only phony target for graphingTest
 
-build cmake_object_order_depends_target_graphingTest: phony || .
+build cmake_object_order_depends_target_graphingTest: phony || cmake_object_order_depends_target_matplot cmake_object_order_depends_target_nodesoup
 
 build CMakeFiles/graphingTest.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/graphingTest.cpp.obj: CXX_COMPILER__graphingTest_unscanned_Debug C$:/Users/tomer/OneDrive/Desktop/cppAI/graphingTest.cpp || cmake_object_order_depends_target_graphingTest
-  DEFINES = -DNOMINMAX -Dcimg_display=2
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX
   DEP_FILE = CMakeFiles\graphingTest.dir\C_\Users\tomer\OneDrive\Desktop\cppAI\graphingTest.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -isystem C:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/include
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot
   OBJECT_DIR = CMakeFiles\graphingTest.dir
   OBJECT_FILE_DIR = CMakeFiles\graphingTest.dir\C_\Users\tomer\OneDrive\Desktop\cppAI
 
@@ -65,48 +65,15 @@ build CMakeFiles/graphingTest.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/graphing
 #############################################
 # Link the executable graphingTest.exe
 
-build graphingTest.exe: CXX_EXECUTABLE_LINKER__graphingTest_Debug CMakeFiles/graphingTest.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/graphingTest.cpp.obj | C$:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/debug/lib/libmatplot.a C$:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/debug/lib/libnodesoup.a
+build graphingTest.exe: CXX_EXECUTABLE_LINKER__graphingTest_Debug CMakeFiles/graphingTest.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/graphingTest.cpp.obj | matplotplusplus/source/matplot/libmatplot.a matplotplusplus/source/3rd_party/libnodesoup.a || matplotplusplus/source/3rd_party/libnodesoup.a matplotplusplus/source/matplot/libmatplot.a
   FLAGS = -g
-  LINK_LIBRARIES = C:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/debug/lib/libmatplot.a  -lgdi32  C:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/debug/lib/libnodesoup.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = matplotplusplus/source/matplot/libmatplot.a  -lgdi32  matplotplusplus/source/3rd_party/libnodesoup.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\graphingTest.dir
   POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/tomer/.vcpkg-clion/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/graphingTest.exe -installedDir C:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/debug/bin -OutVariable out"
   PRE_LINK = cd .
   TARGET_FILE = graphingTest.exe
   TARGET_IMPLIB = libgraphingTest.dll.a
   TARGET_PDB = graphingTest.exe.dbg
-
-# =============================================================================
-# Object build statements for EXECUTABLE target _idea
-
-
-#############################################
-# Order-only phony target for _idea
-
-build cmake_object_order_depends_target__idea: phony || .
-
-build CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/graphingTest.cpp.obj: CXX_COMPILER___idea_unscanned_Debug C$:/Users/tomer/OneDrive/Desktop/cppAI/graphingTest.cpp || cmake_object_order_depends_target__idea
-  DEP_FILE = CMakeFiles\_idea.dir\C_\Users\tomer\OneDrive\Desktop\cppAI\graphingTest.cpp.obj.d
-  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\_idea.dir
-  OBJECT_FILE_DIR = CMakeFiles\_idea.dir\C_\Users\tomer\OneDrive\Desktop\cppAI
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target _idea
-
-
-#############################################
-# Link the executable _idea.exe
-
-build _idea.exe: CXX_EXECUTABLE_LINKER___idea_Debug CMakeFiles/_idea.dir/C_/Users/tomer/OneDrive/Desktop/cppAI/graphingTest.cpp.obj
-  FLAGS = -g
-  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\_idea.dir
-  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/tomer/.vcpkg-clion/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/_idea.exe -installedDir C:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/debug/bin -OutVariable out"
-  PRE_LINK = cd .
-  TARGET_FILE = _idea.exe
-  TARGET_IMPLIB = lib_idea.dll.a
-  TARGET_PDB = _idea.exe.dbg
 
 
 #############################################
@@ -131,12 +98,726 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
+
+#############################################
+# Utility command for list_install_components
+
+build list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build CMakeFiles/install.util: CUSTOM_COMMAND all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build install: phony CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build CMakeFiles/install/local.util: CUSTOM_COMMAND all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build install/local: phony CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build install/strip: phony CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# C:/Users/tomer/OneDrive/Desktop/cppAI/.idea/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for edit_cache
+
+build matplotplusplus/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug\matplotplusplus && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build matplotplusplus/edit_cache: phony matplotplusplus/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build matplotplusplus/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug\matplotplusplus && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -SC:\Users\tomer\OneDrive\Desktop\cppAI\.idea -BC:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build matplotplusplus/rebuild_cache: phony matplotplusplus/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build matplotplusplus/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build matplotplusplus/CMakeFiles/install.util: CUSTOM_COMMAND matplotplusplus/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug\matplotplusplus && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build matplotplusplus/install: phony matplotplusplus/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build matplotplusplus/CMakeFiles/install/local.util: CUSTOM_COMMAND matplotplusplus/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug\matplotplusplus && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build matplotplusplus/install/local: phony matplotplusplus/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build matplotplusplus/CMakeFiles/install/strip.util: CUSTOM_COMMAND matplotplusplus/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug\matplotplusplus && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build matplotplusplus/install/strip: phony matplotplusplus/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# C:/Users/tomer/matplotplusplus/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for edit_cache
+
+build matplotplusplus/source/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug\matplotplusplus\source && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build matplotplusplus/source/edit_cache: phony matplotplusplus/source/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build matplotplusplus/source/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug\matplotplusplus\source && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -SC:\Users\tomer\OneDrive\Desktop\cppAI\.idea -BC:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build matplotplusplus/source/rebuild_cache: phony matplotplusplus/source/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build matplotplusplus/source/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build matplotplusplus/source/CMakeFiles/install.util: CUSTOM_COMMAND matplotplusplus/source/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug\matplotplusplus\source && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build matplotplusplus/source/install: phony matplotplusplus/source/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build matplotplusplus/source/CMakeFiles/install/local.util: CUSTOM_COMMAND matplotplusplus/source/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug\matplotplusplus\source && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build matplotplusplus/source/install/local: phony matplotplusplus/source/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build matplotplusplus/source/CMakeFiles/install/strip.util: CUSTOM_COMMAND matplotplusplus/source/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug\matplotplusplus\source && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build matplotplusplus/source/install/strip: phony matplotplusplus/source/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# C:/Users/tomer/matplotplusplus/source/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target nodesoup
+
+
+#############################################
+# Order-only phony target for nodesoup
+
+build cmake_object_order_depends_target_nodesoup: phony || .
+
+build matplotplusplus/source/3rd_party/CMakeFiles/nodesoup.dir/nodesoup/src/algebra.cpp.obj: CXX_COMPILER__nodesoup_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/src/algebra.cpp || cmake_object_order_depends_target_nodesoup
+  DEFINES = -D_USE_MATH_DEFINES
+  DEP_FILE = matplotplusplus\source\3rd_party\CMakeFiles\nodesoup.dir\nodesoup\src\algebra.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fvisibility=hidden -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\3rd_party\CMakeFiles\nodesoup.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\3rd_party\CMakeFiles\nodesoup.dir\nodesoup\src
+
+build matplotplusplus/source/3rd_party/CMakeFiles/nodesoup.dir/nodesoup/src/fruchterman_reingold.cpp.obj: CXX_COMPILER__nodesoup_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/src/fruchterman_reingold.cpp || cmake_object_order_depends_target_nodesoup
+  DEFINES = -D_USE_MATH_DEFINES
+  DEP_FILE = matplotplusplus\source\3rd_party\CMakeFiles\nodesoup.dir\nodesoup\src\fruchterman_reingold.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fvisibility=hidden -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\3rd_party\CMakeFiles\nodesoup.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\3rd_party\CMakeFiles\nodesoup.dir\nodesoup\src
+
+build matplotplusplus/source/3rd_party/CMakeFiles/nodesoup.dir/nodesoup/src/kamada_kawai.cpp.obj: CXX_COMPILER__nodesoup_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/src/kamada_kawai.cpp || cmake_object_order_depends_target_nodesoup
+  DEFINES = -D_USE_MATH_DEFINES
+  DEP_FILE = matplotplusplus\source\3rd_party\CMakeFiles\nodesoup.dir\nodesoup\src\kamada_kawai.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fvisibility=hidden -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\3rd_party\CMakeFiles\nodesoup.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\3rd_party\CMakeFiles\nodesoup.dir\nodesoup\src
+
+build matplotplusplus/source/3rd_party/CMakeFiles/nodesoup.dir/nodesoup/src/layout.cpp.obj: CXX_COMPILER__nodesoup_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/src/layout.cpp || cmake_object_order_depends_target_nodesoup
+  DEFINES = -D_USE_MATH_DEFINES
+  DEP_FILE = matplotplusplus\source\3rd_party\CMakeFiles\nodesoup.dir\nodesoup\src\layout.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fvisibility=hidden -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\3rd_party\CMakeFiles\nodesoup.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\3rd_party\CMakeFiles\nodesoup.dir\nodesoup\src
+
+build matplotplusplus/source/3rd_party/CMakeFiles/nodesoup.dir/nodesoup/src/nodesoup.cpp.obj: CXX_COMPILER__nodesoup_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/src/nodesoup.cpp || cmake_object_order_depends_target_nodesoup
+  DEFINES = -D_USE_MATH_DEFINES
+  DEP_FILE = matplotplusplus\source\3rd_party\CMakeFiles\nodesoup.dir\nodesoup\src\nodesoup.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fvisibility=hidden -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\3rd_party\CMakeFiles\nodesoup.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\3rd_party\CMakeFiles\nodesoup.dir\nodesoup\src
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target nodesoup
+
+
+#############################################
+# Link the static library matplotplusplus\source\3rd_party\libnodesoup.a
+
+build matplotplusplus/source/3rd_party/libnodesoup.a: CXX_STATIC_LIBRARY_LINKER__nodesoup_Debug matplotplusplus/source/3rd_party/CMakeFiles/nodesoup.dir/nodesoup/src/algebra.cpp.obj matplotplusplus/source/3rd_party/CMakeFiles/nodesoup.dir/nodesoup/src/fruchterman_reingold.cpp.obj matplotplusplus/source/3rd_party/CMakeFiles/nodesoup.dir/nodesoup/src/kamada_kawai.cpp.obj matplotplusplus/source/3rd_party/CMakeFiles/nodesoup.dir/nodesoup/src/layout.cpp.obj matplotplusplus/source/3rd_party/CMakeFiles/nodesoup.dir/nodesoup/src/nodesoup.cpp.obj
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = matplotplusplus\source\3rd_party\CMakeFiles\nodesoup.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = matplotplusplus\source\3rd_party\libnodesoup.a
+  TARGET_PDB = nodesoup.a.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build matplotplusplus/source/3rd_party/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug\matplotplusplus\source\3rd_party && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build matplotplusplus/source/3rd_party/edit_cache: phony matplotplusplus/source/3rd_party/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build matplotplusplus/source/3rd_party/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug\matplotplusplus\source\3rd_party && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -SC:\Users\tomer\OneDrive\Desktop\cppAI\.idea -BC:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build matplotplusplus/source/3rd_party/rebuild_cache: phony matplotplusplus/source/3rd_party/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build matplotplusplus/source/3rd_party/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build matplotplusplus/source/3rd_party/CMakeFiles/install.util: CUSTOM_COMMAND matplotplusplus/source/3rd_party/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug\matplotplusplus\source\3rd_party && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build matplotplusplus/source/3rd_party/install: phony matplotplusplus/source/3rd_party/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build matplotplusplus/source/3rd_party/CMakeFiles/install/local.util: CUSTOM_COMMAND matplotplusplus/source/3rd_party/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug\matplotplusplus\source\3rd_party && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build matplotplusplus/source/3rd_party/install/local: phony matplotplusplus/source/3rd_party/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build matplotplusplus/source/3rd_party/CMakeFiles/install/strip.util: CUSTOM_COMMAND matplotplusplus/source/3rd_party/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug\matplotplusplus\source\3rd_party && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build matplotplusplus/source/3rd_party/install/strip: phony matplotplusplus/source/3rd_party/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# C:/Users/tomer/matplotplusplus/source/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target matplot
+
+
+#############################################
+# Order-only phony target for matplot
+
+build cmake_object_order_depends_target_matplot: phony || cmake_object_order_depends_target_nodesoup
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/backend/backend_interface.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/backend/backend_interface.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\backend\backend_interface.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\backend
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/backend/gnuplot.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/backend/gnuplot.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\backend\gnuplot.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\backend
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/backend/backend_registry.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/backend/backend_registry.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\backend\backend_registry.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\backend
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/core/axes_type.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/core/axes_type.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\core\axes_type.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\core
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/core/axes_object.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/core/axes_object.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\core\axes_object.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\core
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/core/axis_type.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/core/axis_type.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\core\axis_type.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\core
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/core/figure_type.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/core/figure_type.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\core\figure_type.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\core
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/core/figure_registry.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/core/figure_registry.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\core\figure_registry.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\core
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/core/legend.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/core/legend.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\core\legend.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\core
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/core/line_spec.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/core/line_spec.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\core\line_spec.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\core
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/colors.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/util/colors.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\util\colors.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\util
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/common.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/util/common.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\util\common.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\util
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/contourc.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/util/contourc.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\util\contourc.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\util
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/popen.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/util/popen.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\util\popen.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\util
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/world_cities.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/util/world_cities.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\util\world_cities.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\util
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/world_map_10m.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/util/world_map_10m.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\util\world_map_10m.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\util
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/world_map_50m.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/util/world_map_50m.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\util\world_map_50m.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\util
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/world_map_110m.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/util/world_map_110m.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\util\world_map_110m.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\util
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/bars.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/axes_objects/bars.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects\bars.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/box_chart.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/axes_objects/box_chart.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects\box_chart.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/circles.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/axes_objects/circles.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects\circles.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/contours.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/axes_objects/contours.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects\contours.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/error_bar.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/axes_objects/error_bar.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects\error_bar.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/filled_area.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/axes_objects/filled_area.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects\filled_area.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/function_line.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/axes_objects/function_line.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects\function_line.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/histogram.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/axes_objects/histogram.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects\histogram.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/labels.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/axes_objects/labels.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects\labels.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/line.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/axes_objects/line.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects\line.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/matrix.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/axes_objects/matrix.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects\matrix.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/network.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/axes_objects/network.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects\network.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/parallel_lines.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/axes_objects/parallel_lines.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects\parallel_lines.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/stair.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/axes_objects/stair.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects\stair.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/string_function.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/axes_objects/string_function.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects\string_function.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/surface.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/axes_objects/surface.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects\surface.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/vectors.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/axes_objects/vectors.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects\vectors.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\axes_objects
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/freestanding/axes_functions.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/freestanding/axes_functions.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\freestanding\axes_functions.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\freestanding
+
+build matplotplusplus/source/matplot/CMakeFiles/matplot.dir/freestanding/histcounts.cpp.obj: CXX_COMPILER__matplot_unscanned_Debug C$:/Users/tomer/matplotplusplus/source/matplot/freestanding/histcounts.cpp || cmake_object_order_depends_target_matplot
+  DEFINES = -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -Dcimg_display=2
+  DEP_FILE = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\freestanding\histcounts.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always -Wall -Wextra -pedantic -Werror
+  INCLUDES = -IC:/Users/tomer/matplotplusplus/source -IC:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/cimg -isystem C:/Users/tomer/matplotplusplus/source/3rd_party/nodesoup/include
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  OBJECT_FILE_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir\freestanding
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target matplot
+
+
+#############################################
+# Link the static library matplotplusplus\source\matplot\libmatplot.a
+
+build matplotplusplus/source/matplot/libmatplot.a: CXX_STATIC_LIBRARY_LINKER__matplot_Debug matplotplusplus/source/matplot/CMakeFiles/matplot.dir/backend/backend_interface.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/backend/gnuplot.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/backend/backend_registry.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/core/axes_type.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/core/axes_object.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/core/axis_type.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/core/figure_type.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/core/figure_registry.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/core/legend.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/core/line_spec.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/colors.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/common.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/contourc.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/popen.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/world_cities.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/world_map_10m.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/world_map_50m.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/world_map_110m.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/bars.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/box_chart.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/circles.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/contours.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/error_bar.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/filled_area.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/function_line.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/histogram.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/labels.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/line.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/matrix.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/network.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/parallel_lines.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/stair.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/string_function.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/surface.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/vectors.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/freestanding/axes_functions.cpp.obj matplotplusplus/source/matplot/CMakeFiles/matplot.dir/freestanding/histcounts.cpp.obj || matplotplusplus/source/3rd_party/libnodesoup.a
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = matplotplusplus\source\matplot\CMakeFiles\matplot.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = matplotplusplus\source\matplot\libmatplot.a
+  TARGET_PDB = matplot.a.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build matplotplusplus/source/matplot/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug\matplotplusplus\source\matplot && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build matplotplusplus/source/matplot/edit_cache: phony matplotplusplus/source/matplot/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build matplotplusplus/source/matplot/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug\matplotplusplus\source\matplot && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -SC:\Users\tomer\OneDrive\Desktop\cppAI\.idea -BC:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build matplotplusplus/source/matplot/rebuild_cache: phony matplotplusplus/source/matplot/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build matplotplusplus/source/matplot/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build matplotplusplus/source/matplot/CMakeFiles/install.util: CUSTOM_COMMAND matplotplusplus/source/matplot/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug\matplotplusplus\source\matplot && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build matplotplusplus/source/matplot/install: phony matplotplusplus/source/matplot/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build matplotplusplus/source/matplot/CMakeFiles/install/local.util: CUSTOM_COMMAND matplotplusplus/source/matplot/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug\matplotplusplus\source\matplot && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build matplotplusplus/source/matplot/install/local: phony matplotplusplus/source/matplot/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build matplotplusplus/source/matplot/CMakeFiles/install/strip.util: CUSTOM_COMMAND matplotplusplus/source/matplot/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\tomer\OneDrive\Desktop\cppAI\.idea\cmake-build-debug\matplotplusplus\source\matplot && "C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build matplotplusplus/source/matplot/install/strip: phony matplotplusplus/source/matplot/CMakeFiles/install/strip.util
+
 # =============================================================================
 # Target aliases.
 
-build _idea: phony _idea.exe
-
 build graphingTest: phony graphingTest.exe
+
+build libmatplot.a: phony matplotplusplus/source/matplot/libmatplot.a
+
+build libnodesoup.a: phony matplotplusplus/source/3rd_party/libnodesoup.a
+
+build matplot: phony matplotplusplus/source/matplot/libmatplot.a
+
+build nodesoup: phony matplotplusplus/source/3rd_party/libnodesoup.a
 
 # =============================================================================
 # Folder targets.
@@ -146,7 +827,35 @@ build graphingTest: phony graphingTest.exe
 #############################################
 # Folder: C:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug
 
-build all: phony graphingTest.exe _idea.exe
+build all: phony graphingTest.exe matplotplusplus/all
+
+# =============================================================================
+
+#############################################
+# Folder: C:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus
+
+build matplotplusplus/all: phony matplotplusplus/source/all
+
+# =============================================================================
+
+#############################################
+# Folder: C:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source
+
+build matplotplusplus/source/all: phony matplotplusplus/source/3rd_party/all matplotplusplus/source/matplot/all
+
+# =============================================================================
+
+#############################################
+# Folder: C:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/3rd_party
+
+build matplotplusplus/source/3rd_party/all: phony matplotplusplus/source/3rd_party/libnodesoup.a
+
+# =============================================================================
+
+#############################################
+# Folder: C:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot
+
+build matplotplusplus/source/matplot/all: phony matplotplusplus/source/matplot/libmatplot.a
 
 # =============================================================================
 # Built-in targets
@@ -155,14 +864,14 @@ build all: phony graphingTest.exe _idea.exe
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | C$:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/share/matplot++/Matplot++Config.cmake C$:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/share/matplot++/Matplot++ConfigVersion.cmake C$:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/share/matplot++/Matplot++Targets-debug.cmake C$:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/share/matplot++/Matplot++Targets-release.cmake C$:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/share/matplot++/Matplot++Targets.cmake C$:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/share/nodesoup/nodesoup-config-debug.cmake C$:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/share/nodesoup/nodesoup-config-release.cmake C$:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/share/nodesoup/nodesoup-config.cmake C$:/Users/tomer/.vcpkg-clion/vcpkg/scripts/buildsystems/vcpkg.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCInformation.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDependentOption.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeFindDependencyMacro.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeRCInformation.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU-C.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU-CXX.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-C.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-Initialize.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-windres.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/WindowsPaths.cmake C$:/Users/tomer/OneDrive/Desktop/cppAI/.idea/CMakeLists.txt CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeRCCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | C$:/Users/tomer/.vcpkg-clion/vcpkg/scripts/buildsystems/vcpkg.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCInformation.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDependentOption.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakePackageConfigHelpers.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeRCInformation.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckCCompilerFlag.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckCSourceCompiles.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckCXXCompilerFlag.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckCXXSourceCompiles.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckCompilerFlag.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckFunctionExists.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckIncludeFile.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckLibraryExists.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckSourceCompiles.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckSymbolExists.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU-C.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU-CXX.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/ExternalProject/shared_internal_commands.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/FetchContent.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/FindBLAS.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/FindJPEG.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/FindLAPACK.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/FindPackageHandleStandardArgs.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/FindPackageMessage.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/FindPkgConfig.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/FindTIFF.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/FindThreads.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/FindZLIB.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/GNUInstallDirs.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/GenerateExportHeader.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Internal/CheckCompilerFlag.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Internal/CheckFlagCommonConfig.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-C.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-Initialize.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-windres.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/WindowsPaths.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/SelectLibraryConfigurations.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/WriteBasicConfigVersionFile.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/exportheader.cmake.in C$:/Users/tomer/OneDrive/Desktop/cppAI/.idea/CMakeLists.txt C$:/Users/tomer/matplotplusplus/CMakeLists.txt C$:/Users/tomer/matplotplusplus/cmake/FindFFTW.cmake C$:/Users/tomer/matplotplusplus/cmake/FindOpenCV.cmake C$:/Users/tomer/matplotplusplus/cmake/functions.cmake C$:/Users/tomer/matplotplusplus/cmake/functions/ensure_build_type.cmake C$:/Users/tomer/matplotplusplus/cmake/functions/link_external_libraries.cmake C$:/Users/tomer/matplotplusplus/cmake/functions/project_flags.cmake C$:/Users/tomer/matplotplusplus/cmake/functions/sanitizers.cmake C$:/Users/tomer/matplotplusplus/cmake/functions/target_options.cmake C$:/Users/tomer/matplotplusplus/source/3rd_party/CMakeLists.txt C$:/Users/tomer/matplotplusplus/source/CMakeLists.txt C$:/Users/tomer/matplotplusplus/source/matplot/CMakeLists.txt CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeRCCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build C$:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/share/matplot++/Matplot++Config.cmake C$:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/share/matplot++/Matplot++ConfigVersion.cmake C$:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/share/matplot++/Matplot++Targets-debug.cmake C$:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/share/matplot++/Matplot++Targets-release.cmake C$:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/share/matplot++/Matplot++Targets.cmake C$:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/share/nodesoup/nodesoup-config-debug.cmake C$:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/share/nodesoup/nodesoup-config-release.cmake C$:/Users/tomer/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/share/nodesoup/nodesoup-config.cmake C$:/Users/tomer/.vcpkg-clion/vcpkg/scripts/buildsystems/vcpkg.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCInformation.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDependentOption.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeFindDependencyMacro.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeRCInformation.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU-C.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU-CXX.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-C.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-Initialize.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-windres.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/WindowsPaths.cmake C$:/Users/tomer/OneDrive/Desktop/cppAI/.idea/CMakeLists.txt CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeRCCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake: phony
+build C$:/Users/tomer/.vcpkg-clion/vcpkg/scripts/buildsystems/vcpkg.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCInformation.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDependentOption.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakePackageConfigHelpers.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeRCInformation.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckCCompilerFlag.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckCSourceCompiles.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckCXXCompilerFlag.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckCXXSourceCompiles.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckCompilerFlag.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckFunctionExists.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckIncludeFile.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckLibraryExists.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckSourceCompiles.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckSymbolExists.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU-C.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU-CXX.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/ExternalProject/shared_internal_commands.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/FetchContent.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/FindBLAS.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/FindJPEG.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/FindLAPACK.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/FindPackageHandleStandardArgs.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/FindPackageMessage.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/FindPkgConfig.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/FindTIFF.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/FindThreads.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/FindZLIB.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/GNUInstallDirs.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/GenerateExportHeader.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Internal/CheckCompilerFlag.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Internal/CheckFlagCommonConfig.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-C.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-Initialize.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-windres.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/WindowsPaths.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/SelectLibraryConfigurations.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/WriteBasicConfigVersionFile.cmake C$:/Users/tomer/AppData/Local/JetBrains/CLion$ 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/exportheader.cmake.in C$:/Users/tomer/OneDrive/Desktop/cppAI/.idea/CMakeLists.txt C$:/Users/tomer/matplotplusplus/CMakeLists.txt C$:/Users/tomer/matplotplusplus/cmake/FindFFTW.cmake C$:/Users/tomer/matplotplusplus/cmake/FindOpenCV.cmake C$:/Users/tomer/matplotplusplus/cmake/functions.cmake C$:/Users/tomer/matplotplusplus/cmake/functions/ensure_build_type.cmake C$:/Users/tomer/matplotplusplus/cmake/functions/link_external_libraries.cmake C$:/Users/tomer/matplotplusplus/cmake/functions/project_flags.cmake C$:/Users/tomer/matplotplusplus/cmake/functions/sanitizers.cmake C$:/Users/tomer/matplotplusplus/cmake/functions/target_options.cmake C$:/Users/tomer/matplotplusplus/source/3rd_party/CMakeLists.txt C$:/Users/tomer/matplotplusplus/source/CMakeLists.txt C$:/Users/tomer/matplotplusplus/source/matplot/CMakeLists.txt CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeRCCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake: phony
 
 
 #############################################

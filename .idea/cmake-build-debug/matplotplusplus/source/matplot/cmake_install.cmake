@@ -34,10 +34,10 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "C:/Program Files/JetBrains/CLion 2024.2.2/bin/mingw/bin/objdump.exe")
+  set(CMAKE_OBJDUMP "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/mingw/bin/objdump.exe")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/matplot/detail" TYPE FILE FILES "C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot/matplot/detail/exports.h")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/matplot/detail" TYPE FILE FILES "C:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot/matplot/detail/exports.h")
 endif()
 

@@ -1,90 +1,38 @@
-/*#include <cmath>
-#include <matplot/matplot.h>
-#include "neurelNetworkClass.h"
-
-using namespace NeurelNetwork::ArrayUtils;
-
-double function(double input)
-{
-    return input * input;
-}
-
-int main()
-{
-    const int layers[] = {1, 4, 4, 1};
-    NeurelNetwork::neuralnetwork<double> neuralnetwork(layers, 4, "relu", "none", 0.01);
-
-    const int size = 100;
-
-    double* inputsPtr = new double[size];
-
-    for (int i = 0; i < size; i++)
-    {
-        inputsPtr[i] = i;
-    }
-
-    double* trueY = new double[size];
-    for (int i = 0; i < size; i++)
-    {
-        trueY[i] = function(inputsPtr[i]);
-    }
-
-   // for (int i = 0; i < size; i++)
-   // {
-   //     std::cout << trueY[i] << std::endl;
-   // }
-
-    // double* outputsPtr = new double[size];
-    Array<double> inputsArr = Array<double>(inputsPtr, size, 1);
-    // Array<double> outputsArr = Array<double>(outputsPtr, size, 1);
-
-    Array<double> outputsArr = neuralnetwork.forwards(inputsArr);
-
-    std::vector<double> outputsVec(outputsArr.getPtr(), outputsArr.getPtr() + outputsArr.getRows());
-
-    std::vector<double> inputsVec(inputsPtr, inputsPtr + size );
-    std::vector<double> trueYVec(trueY, trueY + size );
-
-    matplot::plot(inputsVec, outputsVec, trueYVec, "b");
-    matplot::show();
-}*/
-
-#include <matplot/matplot.h>
-#include <chrono>
-#include <thread>
+#include <opencv2/opencv.hpp>
+#include <cmath>
 
 int main() {
-    using namespace matplot;
+    // Create an empty image, 800x600 pixels, with 3 color channels (BGR), initialized to white
+    cv::Mat image = cv::Mat::ones(600, 800, CV_8UC3) * 255;
 
-    // Create some initial data
-    std::vector<double> x(100), y(100);
-    for (size_t i = 0; i < 100; ++i) {
-        x[i] = i;
-        y[i] = sin(i * 0.1); // Initial y values (sine wave)
-    }
+    // Scaling factors
+    int width = image.cols;
+    int height = image.rows;
+    double scale_x = 0.01;  // Adjust to scale the x axis
+    double scale_y = 0.01;  // Adjust to scale the y axis
 
-    // Create a plot
-    auto figure = plot(x, y);
+    // Draw the x and y axes
+    cv::line(image, cv::Point(0, height / 2), cv::Point(width, height / 2), cv::Scalar(0, 0, 0), 1);
+    cv::line(image, cv::Point(width / 2, 0), cv::Point(width / 2, height), cv::Scalar(0, 0, 0), 1);
 
-    // Set plot title
-    title("Dynamic Sine Wave");
+    // Plot the function y = x^2
+    for (int x_pixel = 0; x_pixel < width; ++x_pixel) {
+        double x = (x_pixel - width / 2) * scale_x;  // Convert pixel to coordinate system
+        double y = x * x;
 
-    // Loop to update the graph at runtime
-    for (int i = 0; i < 100; ++i) {
-        // Update y values (change the sine wave over time)
-        for (size_t j = 0; j < 100; ++j) {
-            y[j] = sin((x[j] + i) * 0.1); // Shift sine wave
+        int y_pixel = height / 2 - static_cast<int>(y / scale_y);  // Convert y coordinate to pixel
+
+        // Check if y_pixel is within the image bounds
+        if (y_pixel >= 0 && y_pixel < height) {
+            image.at<cv::Vec3b>(y_pixel, x_pixel) = cv::Vec3b(0, 0, 255);  // Plot the point in red
         }
-
-        // Update the plot with the new data
-        figure->y(y);
-
-        // Redraw the plot
-        redraw();
-
-        // Wait for a short time (e.g., 100ms) before updating again
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
+
+    // Display the image in a window
+    cv::imshow("Plot y = x^2", image);
+
+    // Wait for a key press indefinitely or for a specific amount of time in milliseconds
+    cv::waitKey(0);
 
     return 0;
 }

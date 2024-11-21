@@ -1,0 +1,197 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "graphingTest.exe"
+		},
+		{
+			"path" : "graphingTest.pdb"
+		}
+	],
+	"backtrace" : 2,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"_add_executable",
+			"add_executable",
+			"target_link_libraries",
+			"target_link_libraries_system"
+		],
+		"files" : 
+		[
+			"C:/Users/tomer/.vcpkg-clion/vcpkg/scripts/buildsystems/vcpkg.cmake",
+			"CMakeLists.txt",
+			"C:/Users/tomer/matplotplusplus/source/3rd_party/CMakeLists.txt",
+			"C:/Users/tomer/matplotplusplus/cmake/functions/link_external_libraries.cmake",
+			"C:/Users/tomer/matplotplusplus/source/matplot/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 14,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 598,
+				"parent" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 15,
+				"parent" : 0
+			},
+			{
+				"file" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 149,
+				"parent" : 4
+			},
+			{
+				"file" : 4
+			},
+			{
+				"command" : 3,
+				"file" : 4,
+				"line" : 115,
+				"parent" : 6
+			},
+			{
+				"command" : 2,
+				"file" : 3,
+				"line" : 23,
+				"parent" : 7
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -std=gnu++23 -fdiagnostics-color=always"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 3,
+					"define" : "MATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "NOMINMAX"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/tomer/matplotplusplus/source"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/tomer/OneDrive/Desktop/cppAI/.idea/cmake-build-debug/matplotplusplus/source/matplot"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					3
+				],
+				"standard" : "23"
+			},
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 3,
+			"id" : "nodesoup::@c12dc8f6f399c06ad5fb"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "matplot::@900000785becdfd3715c"
+		}
+	],
+	"id" : "graphingTest::@6890427a1f51a3e7e1df",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-g",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "matplotplusplus\\source\\matplot\\libmatplot.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 5,
+				"fragment" : "-lgdi32",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 8,
+				"fragment" : "matplotplusplus\\source\\3rd_party\\libnodesoup.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "graphingTest",
+	"nameOnDisk" : "graphingTest.exe",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "C:/Users/tomer/OneDrive/Desktop/cppAI/graphingTest.cpp",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}
