@@ -1,6 +1,7 @@
 #ifndef arrayUtils_H
 #define arrayUtils_H
 #include <functional>
+#include <iomanip>
 #include <iostream>
 namespace NeurelNetwork
 {
@@ -34,7 +35,10 @@ public:
 	Array add(const Array<Type>& inputs) const;
 	Array operator-(const Array<Type>& arr);
 	Array subtract(const Array<Type>& inputs) const;
-	Array multiply(Array<Type>& inputs) const;
+	Array multiply(const Array<Type>& inputs) const;
+	Array operator*(const Array<Type>& arr);
+	Array operator*(const Type val);
+	Array divide(Array<Type>& inputs) const;
 	Array Transpose() const; //returns transposed array
 	Array customFunc(std::function<Type(Type, int)> func) const;
 	Array customFunc2Arr(const Array<Type>& arr2, std::function<Type(Type, Type, int)> func) const;
@@ -169,8 +173,7 @@ void Array<Type>::print() const
 		{
 			std::cout << ' ';
 		}
-		// std::cout << *(ptr[index]);
-		std::cout << ptr[0];
+		std::cout << ptr[index];
 	}
 	std::cout << std::endl;
 }
@@ -224,8 +227,9 @@ Array<Type> Array<Type>::dotProduct(const Array<Type>& inputArray) const
 template<typename Type>
 Array<Type> Array<Type>::operator+(const Array<Type> &arr)
 {
-	Array<Type>& addedArrRef = add(arr);
-	return Array<Type>(addedArrRef.ptr, addedArrRef.R, addedArrRef.C);
+	// Array<Type>& addedArrRef = add(arr);
+	// return Array<Type>(addedArrRef.ptr, addedArrRef.R, addedArrRef.C);
+	return add(arr);
 }
 
 
@@ -269,7 +273,7 @@ Array<Type> Array<Type>::subtract(const Array<Type>& inputs) const
 }
 
 template <typename Type>
-Array<Type> Array<Type>::multiply(Array<Type>& inputs) const
+Array<Type> Array<Type>::multiply(const Array<Type>& inputs) const
 {
 	if (inputs.R != R) {throw std::invalid_argument("inputs rows is not equal to self rows in mult arr");}
 	if (inputs.C != C) {throw std::invalid_argument("inputs columns is not equal to self columns in mult arr");}
@@ -281,7 +285,38 @@ Array<Type> Array<Type>::multiply(Array<Type>& inputs) const
 		*(outputs + index) = *(ptr + index) * *(inputPtr + index);
 	}
 
-	return new Array<Type>(outputs, R, C);
+	return Array<Type>(outputs, R, C);
+}
+
+template<typename Type>
+Array<Type> Array<Type>::operator*(const Array<Type> &arr)
+{
+	return multiply(arr);
+}
+
+template <typename Type>
+Array<Type> Array<Type>::operator*(const Type val)
+{
+	return customFunc([=](Type thisArrVal, int index)
+	{
+		return val * thisArrVal;
+	});
+}
+
+template <typename Type>
+Array<Type> Array<Type>::divide(Array<Type>& inputs) const
+{
+	if (inputs.R != R) {throw std::invalid_argument("inputs rows is not equal to self rows in divide arr");}
+	if (inputs.C != C) {throw std::invalid_argument("inputs columns is not equal to self columns in divide arr");}
+
+	Type* outputs = new Type[R*C];
+	Type* inputPtr = inputs.ptr;
+	for (int index = 0; index < R*C; index++)
+	{
+		*(outputs + index) = *(ptr + index) / *(inputPtr + index);
+	}
+
+	return Array<Type>(outputs, R, C);
 }
 
 

@@ -12,12 +12,14 @@ namespace NeurelNetwork
 
         int numOfLayers;
 
+        std::string optimizer;
+
         double learningRate = 0.001f;
 
-        Layer<Type>* generateLayers(const int layers[], const int sizeOfLayers, const std::string activationFuncHidden, const std::string activationFuncFinal);
+        Layer<Type>* generateLayers(const int layers[],  int sizeOfLayers,  std::string activationFuncHidden, std::string activationFuncFinall, std::string optimizer);
 
     public:
-        neuralnetwork(const int layers[], const int sizeOfLayers, const std::string hiddenActivation, const std::string finalActivation, Type learningRate);
+        neuralnetwork(const int layers[], const int sizeOfLayers, const std::string hiddenActivation, const std::string finalActivation, Type learningRate, std::string optimizer);
         ~neuralnetwork();
 
         void printLayer(const int layerNum);
@@ -35,21 +37,21 @@ namespace NeurelNetwork
     };
 
     template<typename Type>
-    Layer<Type>* neuralnetwork<Type>::generateLayers(const int layers[], const int sizeOfLayers, const std::string activationFuncHidden, const std::string activationFuncFinal)
+    Layer<Type>* neuralnetwork<Type>::generateLayers(const int layers[], const int sizeOfLayers, const std::string activationFuncHidden, const std::string activationFuncFinal, const std::string optimizer)
     {
         const int numOfLayers = sizeOfLayers - 1;
         Layer<Type>* Layers = new Layer<Type>[numOfLayers];
         for (int index = 0; index < numOfLayers; index++) // we want it to loop through every layer but last one bc first layer inputs = first layer, layer outputs = index + 1 so we want to stop 1 before the last one to make the last one it makes sense to me rn
         {
-            Layers[index] = Layer<Type>(layers[index], layers[index + 1], (index != numOfLayers - 1) ? activationFuncHidden : activationFuncFinal);
+            Layers[index] = Layer<Type>(layers[index], layers[index + 1], ((index != numOfLayers - 1) ? activationFuncHidden : activationFuncFinal), optimizer);
         }
 
         return Layers;
     }
 
     template<typename Type>
-    neuralnetwork<Type>::neuralnetwork(const int layers[], const int sizeOfLayers, const std::string hiddenActivation, const std::string finalActivation, Type learningRate)
-        :Layers(generateLayers(layers, sizeOfLayers, hiddenActivation, finalActivation)), numOfLayers(sizeOfLayers - 1), learningRate(learningRate)
+    neuralnetwork<Type>::neuralnetwork(const int layers[], const int sizeOfLayers, const std::string hiddenActivation, const std::string finalActivation, Type learningRate, std::string optimizer)
+        :Layers(generateLayers(layers, sizeOfLayers, hiddenActivation, finalActivation, optimizer)), numOfLayers(sizeOfLayers - 1), learningRate(learningRate), optimizer(optimizer)
     {
 
     }
@@ -149,7 +151,7 @@ namespace NeurelNetwork
                 for (int inputIndex = 0; inputIndex < outputCount; inputIndex++)
                 {
                     int index = inputIndex + batchIndex * outputCount;
-                    dOutputs[index] += (((extraDataValsPtr[index] - selfOutputsPtr[index]) * -2) / outputCount) / batchCount; //this is derivative for mean squared error, you divide by
+                    dOutputs[index] += (((extraDataValsPtr[index] - selfOutputsPtr[index]) * -2) / outputCount); //this is derivative for mean squared error, you divide by
                 }
             }
         }

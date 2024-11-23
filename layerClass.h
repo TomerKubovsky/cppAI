@@ -4,7 +4,9 @@
 
 #include <cmath>
 #include <complex>
-
+#include <iostream>
+#include <random>
+#include <chrono>
 #include "array.h"
 
 
@@ -28,9 +30,18 @@ namespace NeurelNetwork
         ArrayUtils::Array<Type> selfInputs;
 
         std::string activationFunc;
+        std::string optimizer;
 
+        ArrayUtils::Array<Type> weightMomentums;
+        ArrayUtils::Array<Type> weightCache;
+        ArrayUtils::Array<Type> biasMomentums;
+        ArrayUtils::Array<Type> biasCache;
+        Type beta1 = static_cast<Type>(0.9);
+        Type beta2 = static_cast<Type>(0.999);
+        Type epsilon = static_cast<Type>(0.0000001);
+        int iterations = 0;
     public:
-        Layer(int Inputs, int outputs /*outputs = neurons*/, std::string activationFunc = "none");
+        Layer(int Inputs, int outputs /*outputs = neurons*/, std::string activationFunc = "none", std::string optimizer = "none");
         Layer();
         Layer(const Layer<Type>& other);
         Layer& operator=(const Layer<Type>& other);
@@ -65,23 +76,41 @@ namespace NeurelNetwork
 
 
 
-    template <typename Type> Layer<Type>::Layer(const int Inputs, const int outputs, std::string activationFunc)
+    template <typename Type> Layer<Type>::Layer(const int Inputs, const int outputs, std::string activationFunc, std::string optimizer)
         :
         weights(ArrayUtils::Array<Type>(outputs, Inputs).customFunc([](Type input, int index)
             {
-                return static_cast<Type>(index);
+                // return static_cast<Type>(0.1);
+                // return static_cast<Type>(index * 0.01);
+                unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+                std::mt19937 rng(seed);
+                std::normal_distribution<> distribution(0.0, 1.0);
+                return static_cast<Type>(distribution(rng) * 1);
             })),
         biases(ArrayUtils::Array<Type>(1, outputs).customFunc([](Type input, int index)
             {
+                // unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+                // std::mt19937 rng(seed);
+                // std::normal_distribution<> distribution(0.0, 1.0);
+                // return static_cast<Type>(distribution(rng));
                 return static_cast<Type>(0);
             })),
         dWeights(ArrayUtils::Array<Type>(outputs, Inputs)),
         dBiases(ArrayUtils::Array<Type>(1, outputs)),
         // biases(ArrayUtils::Array<Type>(1, outputs)), //1 bias for each neuron and there should be a bias for each neuron and outputs = num of neurons
-        activationFunc(std::move(activationFunc))
+        activationFunc(std::move(activationFunc)),
+        optimizer(std::move(optimizer))
         // {{neuron1weight1, neuron1weight2, neuron1weight3},
         //  {neuron2weight1, neuron2weight2, neuron2weight3}} ammount of rows = amount of outputs, amount of columns = amount of inputs
-        {}
+    {
+        if (this->optimizer == "adam")
+        {
+            weightMomentums = ArrayUtils::Array<Type>(outputs, Inputs);
+            weightCache = ArrayUtils::Array<Type>(outputs, Inputs); //should be 0 size of weights same as above
+            biasMomentums = ArrayUtils::Array<Type>(1, outputs);
+            biasCache = ArrayUtils::Array<Type>(1, outputs);//should be 0s like biases
+        }
+    }
 
     template <typename Type>
     Layer<Type>::Layer()
@@ -139,6 +168,12 @@ namespace NeurelNetwork
         outputsPreActive = std::move(other.outputsPreActive);
         selfInputs = std::move(other.selfInputs);
         activationFunc = std::move(other.activationFunc);
+        optimizer = std::move(other.optimizer);
+
+        weightMomentums = std::move(other.weightMomentums);
+        weightCache = std::move(other.weightCache);
+        biasMomentums = std::move(other.biasMomentums);
+        biasCache = std::move(other.biasCache);
         return *this;
     }
 
@@ -218,6 +253,12 @@ namespace NeurelNetwork
                 return (input > 0) ? input : 0;
             });
             //makes a lambda function for relu and passess it into inputs custom func
+        } else if (activationFunc == "leakyRelu")
+        {
+            return Inputs.customFunc([](Type input, int index)
+            {
+                return (input > 0.1 * input) ? input : 0.1 * input; //could maybe be optimized by calculating input * 0.1 once and setting ti const?
+            });
         } else if (activationFunc == "softmax")
         {
             const unsigned int inputRows = Inputs.getRows();
@@ -268,6 +309,14 @@ delete[] exponentiatedVals; delete[] addedVals;
                 // return ((preActivArrVal > 0) ? 1 : 0) * dOutputsArrVal;
                 return (preActivArrVal > 0) ? dOutputsArrVal : 0; //these two lines of code do the EXACT SAME THING just bottom one is faster and looks nicer, top one easier to understand tho
             });
+        } else if (activationFunc == "leakyRelu")
+        {
+            return outputsPreActive.customFunc2Arr(dOutputs, [](Type preActivArrVal, Type dOutputsArrVal, int index)
+            {
+                // return ((preActivArrVal > 0) ? 1 : 0.1) * dOutputsArrVal;
+                return (preActivArrVal > 0) ? dOutputsArrVal : 0.1 * dOutputsArrVal; //these two lines of code do the EXACT SAME THING just bottom one is faster and looks nicer, top one easier to understand tho
+            });
+
         } else if (activationFunc == "softmax")
         {
 		    const unsigned int* chosenValue = new unsigned int[dOutputs.getRows()](); //for now
@@ -388,14 +437,44 @@ delete[] exponentiatedVals; delete[] addedVals;
     template<typename Type>
     void Layer<Type>::updateWeightsAndBiases(Type learningRate)
     {
-        weights = weights.add(dWeights.customFunc([=](Type input, int index)
+        if (optimizer == "adam")
         {
-            return input * learningRate; //0.01 is learning rate, change this later
-        }));
-        biases = biases.add(dBiases.customFunc([=](Type input, int index)
+            weightMomentums = weightMomentums * beta1 + dWeights * (1 - beta1);
+            biasMomentums = biasMomentums * beta1 + dBiases * (1 - beta1);
+
+            ArrayUtils::Array<Type> weightMomentumsCorrected = weightMomentums * (1 / (1 - std::pow(beta1, iterations + 1))); //this should be weights / x but since i dont have / as a operator func in array.h its easier to do weights * (1/x)
+            ArrayUtils::Array<Type> biasMomentumsCorrected = biasMomentums * (1 / (1 - std::pow(beta1, iterations + 1)));
+
+            weightCache =  weightCache * beta2 + dWeights * dWeights * (1 - beta2); //meant to be dweights ^ 2 but easier to do dweights * dweights
+            biasCache =  biasCache * beta2 + dBiases * dBiases * (1 - beta2);
+
+            ArrayUtils::Array<Type> weightCacheCorrected = weightCache * (1 / (1 - std::pow(beta2, iterations + 1)));
+            ArrayUtils::Array<Type> biasCacheCorrected = biasCache * (1 / (1 - std::pow(beta2, iterations + 1)));
+
+            ArrayUtils::Array<Type> weightsCacheRooted = weightCacheCorrected.customFunc([&](Type thisVal, int index)
+            {
+                return std::sqrt(thisVal) + epsilon;
+            });
+            ArrayUtils::Array<Type> biasCacheRooted = biasCacheCorrected.customFunc([&](Type thisVal, int index)
+            {
+                return std::sqrt(thisVal) + epsilon;
+            });
+
+            weights = weights + ((weightMomentumsCorrected.divide(weightsCacheRooted)) * learningRate);//epsilon is added above
+            biases = biases + ((biasMomentumsCorrected.divide(biasCacheRooted)) * learningRate);//epsilon is added above
+        }
+        else
         {
-            return input * learningRate;
-        }));
+            weights = weights.add(dWeights.customFunc([=](Type input, int index)
+            {
+                return input * learningRate; //0.01 is learning rate, change this later
+            }));
+            biases = biases.add(dBiases.customFunc([=](Type input, int index)
+            {
+                return input * learningRate;
+            }));
+        }
+        iterations++;
     }
 
     template<typename Type>

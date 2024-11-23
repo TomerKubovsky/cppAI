@@ -1,19 +1,21 @@
-#include "array.hpp"
+#include "array.h"
 
-void disruptStack()
-{
-	int arrSize = 400000;
-    int largeArray[arrSize]; // Larger array
-    for (int i = 0; i < arrSize; ++i)
-        largeArray[i] = i; // Force memory usage
-}
+using namespace NeurelNetwork::ArrayUtils;
 
 int main()
 {
-	Array<float> testArr = Array<float>(2,3);
+	Array<double> arr = Array<double>(10,10).customFunc([](double val, int index)
+	{
+		return 2.0;
+	});
 
-	disruptStack();
+	Array<double> arr2 = Array<double>(10,10).customFunc([](double val, int index)
+	{
+		return 3.0;
+	});
 
-	testArr.print();
+	arr.print();
 
+	Array<double> newArrr = arr * arr2;
+	newArrr.print();
 }

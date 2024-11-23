@@ -302,3 +302,7 @@ C:/tools/opencv/build/include/opencv2/stitching/detail/blenders.hpp
 C:/tools/opencv/build/include/opencv2/video.hpp
 C:/tools/opencv/build/include/opencv2/video/tracking.hpp
 C:/tools/opencv/build/include/opencv2/video/background_segm.hpp
+C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/neurelNetworkClass.h
+C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/layerClass.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.40.33807/include/random
+C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/array.h

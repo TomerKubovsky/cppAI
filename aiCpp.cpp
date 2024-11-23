@@ -1,6 +1,7 @@
 #include "layerClass.h"
 #include <chrono>
 #include <iostream>
+#include <set>
 
 #include <typeinfo>
 
@@ -14,43 +15,56 @@ int main()
 {
     auto start = std::chrono::high_resolution_clock::now();
 
-    int layersVals[] = {2, 1};
-    neuralnetwork<double> neurelNet(layersVals, 2, "none", "softmax", -0.0001);
+    int layersVals[] = {1, 1};
+    neuralnetwork<double> neurelNet(layersVals, 2, "leakyRelu", "none", -0.001, "adam");
 
-    double* inputs = new double[1 * 2];
+    double* inputs = new double[100 * 1];
 
-    inputs[0] = 0.3;
-    inputs[1] = 0.9;
+    for (int i = 0; i < 100; i++)
+    {
+        inputs[i] = -i;
+    }
 
-    Array<double> inputsArr(inputs, 1, 2);
 
-   Array<double> outputs = neurelNet.forwards(inputsArr);
 
+    Array<double> inputsArr(inputs, 100, 1);
+
+    // Array<double> outputs = neurelNet.forwards(inputsArr);
+    Array<double> outputs;
     // outputs.print();
 
-    double corrOutputsPtr[1][1] =
-        {{19.8}};
+    // double corrOutputsPtr[1][2] =
+        // {{0, 1}};
 
-    Array<double> corrOutputsArr(&(corrOutputsPtr[0][0]), 1, 1);
+    // Array<double> corrOutputsArr(&(corrOutputsPtr[0][0]), 1, 1);
+    Array<double> corrOutputsArr(inputs, 100, 1);
 
     Array<double>* corrOutputsArrPtr = &(corrOutputsArr);
     // int numOfTimes = 5000000;
-    int numOfTimes = 500000;
+    int numOfTimes = 3;
+    std::cout << std::setprecision(17);
     for (int index = 0; index < numOfTimes; index++)
     {
+        outputs = neurelNet.forwards(inputsArr);
+        outputs.print();
+        // neurelNet.calculatedOutputs<Array<double>*>("mse", corrOutputsArrPtr).print();
         neurelNet.backwards(neurelNet.calculatedOutputs<Array<double>*>("mse", corrOutputsArrPtr));
+        // neurelNet
+        // neurelNet.getLayers()[0].getdWeights().print();
+        // neurelNet.getLayers()[0].getWeights().print();
+        // neurelNet.getLayers()[0].getBiases().print();
+        // neurelNet.getLayers()[0].getdBiases().print();
         neurelNet.updateWeightsAndBiases();
         neurelNet.zeroGradient();
-        outputs = neurelNet.forwards(inputsArr);
-        if (index % 1 == 0)
-        {
-            std::cout << "current index: " << index;
-            outputs.print();
-            std::cout << std::endl;
-        }
+        // if (index % 1 == 0)
+        // {
+            // std::cout << "current index: " << index;
+            // outputs.print();
+            // std::cout << std::endl;
+        // }
     }
 
-    // outputs.print();
+    outputs.print();
 
     // neurelNet.getLayers()[0].getWeights().print();
     // neurelNet.getLayers()[0].getBiases().print();
