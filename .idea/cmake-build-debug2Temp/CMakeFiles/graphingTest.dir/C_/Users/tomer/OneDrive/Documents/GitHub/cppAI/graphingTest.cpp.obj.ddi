@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "CMakeFiles\\graphingTest.dir\\C_\\Users\\tomer\\OneDrive\\Documents\\GitHub\\cppAI\\graphingTest.cpp.obj",
+            "outputs": [
+                "C:\\Users\\tomer\\OneDrive\\Documents\\GitHub\\cppAI\\.idea\\cmake-build-debug\\vc140.pdb",
+                "CMakeFiles\\graphingTest.dir\\C_\\Users\\tomer\\OneDrive\\Documents\\GitHub\\cppAI\\graphingTest.cpp.obj.ddi"
+            ],
+            "requires": []
+        }
+    ]
+}

@@ -1,0 +1,3 @@
+C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/.idea/cmake-build-debug2/CMakeFiles/graphingTest.dir
+C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/.idea/cmake-build-debug2/CMakeFiles/ALL_BUILD.dir
+C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/.idea/cmake-build-debug2/CMakeFiles/ZERO_CHECK.dir

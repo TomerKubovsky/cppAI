@@ -1,0 +1,12 @@
+# ninja log v6
+169	316	7515229692302954	_idea.exe	cb78629c09b06c15
+2	97	7541421024878275	build.ninja	97e908c2ef646953
+2915	3100	7541419910056508	graphingTest.exe	25723b71a29c5b46
+3	26	7541420817190888	CMakeFiles/graphingTest.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.cpp.obj.modmap	278d6945b1a8468c
+3	26	7541420817190888	C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/.idea/cmake-build-debug/CMakeFiles/graphingTest.dir/CXXModules.json	278d6945b1a8468c
+267	2915	7541419883569801	CMakeFiles/graphingTest.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.cpp.obj	c745477d796309c4
+4	240	7541419880939743	CMakeFiles/graphingTest.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.cpp.obj.ddi	199fc2a33ecf8c19
+3	26	7541420817190888	CMakeFiles/graphingTest.dir/CXX.dd	278d6945b1a8468c
+3	27	7541421049503826	CMakeFiles/graphingTest.dir/CXX.dd	278d6945b1a8468c
+3	27	7541421049503826	C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/.idea/cmake-build-debug/CMakeFiles/graphingTest.dir/CXXModules.json	278d6945b1a8468c
+3	27	7541421049503826	CMakeFiles/graphingTest.dir/C_/Users/tomer/OneDrive/Documents/GitHub/cppAI/graphingTest.cpp.obj.modmap	278d6945b1a8468c

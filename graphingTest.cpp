@@ -42,8 +42,17 @@ Type funcToLearn(Type input)
     // std::cout << std::sin(input) << std::endl;
     // return 1 - (std::pow(input, 2)/2) + (std::pow(input, 4)/24);
     // return 1 - (std::pow(input, 2)/2);
-    return std::sin(input);
+    // return std::sin(input);
     // return (input*input*input*input)/24;
+    // return std::log(input+1);asd
+    // return std::pow(input, 2);
+    if (input < 0)
+    {
+        return std::pow(input, 2);
+    } else
+    {
+        return sin(input) * std::exp(-input);
+    }
     // return 1 - (std::pow(input, 2.0) / 2) + (std::pow(input,4.0)/24);
 
 }
@@ -56,8 +65,8 @@ int main()
     const int height = 1080;
     const int margin = 10;
     // const int size = width - 2 * margin;
-    const int size = 50;
-    const double spacing = 0.3;
+    const int size = 20;
+    const double spacing = 0.2;
     // const double spacing = 1;
     constexpr int inputsSize = size / spacing;
 
@@ -66,6 +75,7 @@ int main()
 
     int k = 0;
     for (int i = -inputsSize/2; i < inputsSize/2; i++)
+    // for (int i = 0; i < inputsSize; i++)
     {
         const double currentIndex = i * spacing;
         inputsPtr[k] = currentIndex;
@@ -78,7 +88,7 @@ int main()
 
     Array<double> outputsArr;
 
-    const int layers[] = {1, 16, 16, 1};
+    const int layers[] = {1, 64, 64, 1};
     NeurelNetwork::neuralnetwork<double> network(layers, 4, "leakyRelu", "none", -0.005, "adam");
     // NeurelNetwork::neuralnetwork<double> network(layers, 4, "relu", "none", 0);
 
@@ -112,7 +122,9 @@ int main()
         {
             cv::Mat img = cv::Mat::zeros(height, width, CV_8UC3);
             drawFunc<double>(funcToLearnInput, initPoint, img, size, spacing, -size/2, cv::Scalar(255, 0, 0), 1, cv::LINE_8, fWidth, fHeight);
+            // drawFunc<double>(funcToLearnInput, initPoint, img, size, spacing, 0, cv::Scalar(255, 0, 0), 1, cv::LINE_8, fWidth, fHeight);
             drawFunc<double>(func, initPoint, img, size, spacing, -size/2, cv::Scalar(0, 255, 0), 1, cv::LINE_8, fWidth, fHeight);
+            // drawFunc<double>(func, initPoint, img, size, spacing, 0, cv::Scalar(0, 255, 0), 1, cv::LINE_8, fWidth, fHeight);
             // drawFunc<double>(funcToLearnInput, initPoint, img, 1000, spacing, -size/2, cv::Scalar(255, 0, 0), 1, cv::LINE_8, 1);
             // drawFunc<double>(func, initPoint, img, 1000, spacing, 0, cv::Scalar(0, 0, 255), 1, cv::LINE_8, 1);
             cv::imshow("img", img);

@@ -1,0 +1,10 @@
+^C:\USERS\TOMER\ONEDRIVE\DOCUMENTS\GITHUB\CPPAI\.IDEA\CMAKE-BUILD-DEBUG2\CMAKEFILES\B4C2E1A93455D9DFD4E09F3F4DBB068A\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/tomer/OneDrive/Documents/GitHub/cppAI/.idea -BC:/Users/tomer/OneDrive/Documents/GitHub/cppAI/.idea/cmake-build-debug2 --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/.idea/cmake-build-debug2/_idea.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
