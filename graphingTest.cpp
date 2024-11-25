@@ -42,11 +42,11 @@ Type funcToLearn(Type input)
     // std::cout << std::sin(input) << std::endl;
     // return 1 - (std::pow(input, 2)/2) + (std::pow(input, 4)/24);
     // return 1 - (std::pow(input, 2)/2);
-    // return std::sin(input);
+    return std::sin(input);
     // return (input*input*input*input)/24;
     // return std::log(input);
 
-    return std::pow(input, 3);
+    // return std::pow(input, 3);
     // if (input < 0)
     // {
         // return std::pow(input, 2);
@@ -67,8 +67,9 @@ int main()
     const int margin = 10;
     // const int size = width - 2 * margin;
     const int size = 20;
-    const double spacing = 0.1;
-    const double funcInitPoint = -size/2;
+    const double spacing = 1;
+    // const double funcInitPoint = -size/2;
+    const double funcInitPoint = 0;
     // const double spacing = 1;
     constexpr int inputsSize = (size / spacing);
 
