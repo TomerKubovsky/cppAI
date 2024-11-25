@@ -44,15 +44,16 @@ Type funcToLearn(Type input)
     // return 1 - (std::pow(input, 2)/2);
     // return std::sin(input);
     // return (input*input*input*input)/24;
-    // return std::log(input+1);asd
-    // return std::pow(input, 2);
-    if (input < 0)
-    {
-        return std::pow(input, 2);
-    } else
-    {
-        return sin(input) * std::exp(-input);
-    }
+    return std::log(input);
+
+    // return std::pow(input, 3);
+    // if (input < 0)
+    // {
+        // return std::pow(input, 2);
+    // } else
+    // {
+        // return sin(input) * std::exp(-input);
+    // }
     // return 1 - (std::pow(input, 2.0) / 2) + (std::pow(input,4.0)/24);
 
 }
@@ -67,19 +68,20 @@ int main()
     // const int size = width - 2 * margin;
     const int size = 20;
     const double spacing = 0.2;
+    const double funcInitPoint = 1;
     // const double spacing = 1;
-    constexpr int inputsSize = size / spacing;
+    constexpr int inputsSize = (size / spacing) + funcInitPoint;
 
     double* inputsPtr = new double[inputsSize];
     double* corrOutputsPtr = new double[inputsSize]; //same amount of outputs as inputs
 
     int k = 0;
-    for (int i = -inputsSize/2; i < inputsSize/2; i++)
-    // for (int i = 0; i < inputsSize; i++)
+    // for (int i = -inputsSize/2; i < inputsSize/2; i++)
+    for (double i = funcInitPoint; i < size + funcInitPoint; i+=spacing)
     {
-        const double currentIndex = i * spacing;
-        inputsPtr[k] = currentIndex;
-        corrOutputsPtr[k] = funcToLearn(currentIndex);
+        // const double currentIndex = i * spacing;
+        inputsPtr[k] = i;
+        corrOutputsPtr[k] = funcToLearn(i);
         k++;
     }
 
@@ -92,11 +94,11 @@ int main()
     NeurelNetwork::neuralnetwork<double> network(layers, 4, "leakyRelu", "none", -0.005, "adam");
     // NeurelNetwork::neuralnetwork<double> network(layers, 4, "relu", "none", 0);
 
-    double fWidth = 1;
-    double fHeight = 1;
+    double fWidth = 64;
+    double fHeight = 96;
     // cv::namedWindow("img", cv::WINDOW_AUTOSIZE);
     cv::Mat img = cv::Mat::zeros(height, width, CV_8UC3);
-    cv::Point2d initPoint((width/2) - (size * fWidth)/2, (height/2)-(size*fHeight)/2);
+    cv::Point2d initPoint((width/2) - (size * fWidth)/2, 980);
     // cv::Point2d initPoint(0, height - margin);
 
     std::function<double(double)> func = [&network](double input)
@@ -121,10 +123,10 @@ int main()
         if (i % 10 == 0 && i != 0)
         {
             cv::Mat img = cv::Mat::zeros(height, width, CV_8UC3);
-            drawFunc<double>(funcToLearnInput, initPoint, img, size, spacing, -size/2, cv::Scalar(255, 0, 0), 1, cv::LINE_8, fWidth, fHeight);
-            // drawFunc<double>(funcToLearnInput, initPoint, img, size, spacing, 0, cv::Scalar(255, 0, 0), 1, cv::LINE_8, fWidth, fHeight);
-            drawFunc<double>(func, initPoint, img, size, spacing, -size/2, cv::Scalar(0, 255, 0), 1, cv::LINE_8, fWidth, fHeight);
-            // drawFunc<double>(func, initPoint, img, size, spacing, 0, cv::Scalar(0, 255, 0), 1, cv::LINE_8, fWidth, fHeight);
+            // drawFunc<double>(funcToLearnInput, initPoint, img, size, spacing, -size/2, cv::Scalar(255, 0, 0), 1, cv::LINE_8, fWidth, fHeight);
+            drawFunc<double>(funcToLearnInput, initPoint, img, size, spacing, funcInitPoint, cv::Scalar(255, 0, 0), 1, cv::LINE_8, fWidth, fHeight);
+            // drawFunc<double>(func, initPoint, img, size, spacing, -size/2, cv::Scalar(0, 255, 0), 1, cv::LINE_8, fWidth, fHeight);
+            drawFunc<double>(func, initPoint, img, size, spacing, funcInitPoint, cv::Scalar(0, 255, 0), 1, cv::LINE_8, fWidth, fHeight);
             // drawFunc<double>(funcToLearnInput, initPoint, img, 1000, spacing, -size/2, cv::Scalar(255, 0, 0), 1, cv::LINE_8, 1);
             // drawFunc<double>(func, initPoint, img, 1000, spacing, 0, cv::Scalar(0, 0, 255), 1, cv::LINE_8, 1);
             cv::imshow("img", img);
@@ -210,6 +212,10 @@ int main()
             // std::cout << outputsArr.getPtr()[1] << " " << outputsArr.getPtr()[999] << std::endl;
             // std::cout << corrOutputsArr.getPtr()[499] << " " << outputsArr.getPtr()[499] << std::endl;
         }
+        if (tBreak == true)
+        {
+            break;
+        }
 
         outputsArr = network.forwards(inputsArr);
 
@@ -220,13 +226,8 @@ int main()
         network.updateWeightsAndBiases();
         network.zeroGradient();
 
-        if (tBreak == true)
-        {
-            break;
-        }
         i++;
     }
-    outputsArr.print();
 }
 
 

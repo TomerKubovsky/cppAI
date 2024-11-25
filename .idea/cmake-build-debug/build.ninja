@@ -53,7 +53,7 @@ build CMakeFiles\graphingTest.dir\C_\Users\tomer\OneDrive\Documents\GitHub\cppAI
   DEFINES = -DOPENCV_STATIC
   DEP_FILE = CMakeFiles\graphingTest.dir\C_\Users\tomer\OneDrive\Documents\GitHub\cppAI\graphingTest.cpp.obj.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles\graphingTest.dir\C_\Users\tomer\OneDrive\Documents\GitHub\cppAI\graphingTest.cpp.obj.ddi
-  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++latest -MDd -Zi
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++latest -MDd -Zi /MTd
   INCLUDES = -external:IC:\tools\opencv\build\include -external:W0
   OBJ_FILE = CMakeFiles\graphingTest.dir\C_\Users\tomer\OneDrive\Documents\GitHub\cppAI\graphingTest.cpp.obj
   PREPROCESSED_OUTPUT_FILE = CMakeFiles\graphingTest.dir\C_\Users\tomer\OneDrive\Documents\GitHub\cppAI\graphingTest.cpp.obj.ddi.i
@@ -61,7 +61,7 @@ build CMakeFiles\graphingTest.dir\C_\Users\tomer\OneDrive\Documents\GitHub\cppAI
 build CMakeFiles\graphingTest.dir\C_\Users\tomer\OneDrive\Documents\GitHub\cppAI\graphingTest.cpp.obj: CXX_COMPILER__graphingTest_scanned_Debug C$:\Users\tomer\OneDrive\Documents\GitHub\cppAI\graphingTest.cpp | CMakeFiles\graphingTest.dir\C_\Users\tomer\OneDrive\Documents\GitHub\cppAI\graphingTest.cpp.obj.modmap || cmake_object_order_depends_target_graphingTest CMakeFiles\graphingTest.dir\CXX.dd
   DEFINES = -DOPENCV_STATIC
   DYNDEP_MODULE_MAP_FILE = CMakeFiles\graphingTest.dir\C_\Users\tomer\OneDrive\Documents\GitHub\cppAI\graphingTest.cpp.obj.modmap
-  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++latest -MDd -Zi
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++latest -MDd -Zi /MTd
   INCLUDES = -external:IC:\tools\opencv\build\include -external:W0
   OBJECT_DIR = CMakeFiles\graphingTest.dir
   OBJECT_FILE_DIR = CMakeFiles\graphingTest.dir\C_\Users\tomer\OneDrive\Documents\GitHub\cppAI

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.29)
 project(_idea)
 
 set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_BUILD_TYPE Debug)
+#set(CMAKE_BUILD_TYPE Debug)
 
 
 add_definitions(-DOPENCV_STATIC)
@@ -17,6 +17,7 @@ find_package(OpenCV REQUIRED)
 add_executable(graphingTest ../graphingTest.cpp)
 target_link_libraries(graphingTest ${OpenCV_LIBS})
 
+
 target_link_directories(graphingTest PUBLIC ${OpenCV_LINK_DIRECTORIES})
 #target_link_options(graphingTest PUBLIC pkg-config --cflags --libs opencv)
-#target_compile_options(graphingTest PUBLIC /MT)
+target_compile_options(graphingTest PUBLIC /MTd)
