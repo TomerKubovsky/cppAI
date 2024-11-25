@@ -67,7 +67,7 @@ int main()
     const int margin = 10;
     // const int size = width - 2 * margin;
     const int size = 20;
-    const double spacing = 0.5;
+    const double spacing = 0.1;
     const double funcInitPoint = 1;
     // const double spacing = 1;
     constexpr int inputsSize = (size / spacing) + funcInitPoint;
