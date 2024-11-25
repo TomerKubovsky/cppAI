@@ -85,7 +85,7 @@ namespace NeurelNetwork
                 unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
                 std::mt19937 rng(seed);
                 std::normal_distribution<> distribution(0.0, 1.0);
-                return static_cast<Type>(distribution(rng) * 0.01);
+                return static_cast<Type>(distribution(rng) * 0.002);
             })),
         biases(ArrayUtils::Array<Type>(1, outputs).customFunc([](Type input, int index)
             {

@@ -67,7 +67,7 @@ int main()
     const int margin = 10;
     // const int size = width - 2 * margin;
     const int size = 20;
-    const double spacing = 0.2;
+    const double spacing = 0.5;
     const double funcInitPoint = 1;
     // const double spacing = 1;
     constexpr int inputsSize = (size / spacing) + funcInitPoint;
@@ -77,13 +77,14 @@ int main()
 
     int k = 0;
     // for (int i = -inputsSize/2; i < inputsSize/2; i++)
-    for (double i = funcInitPoint; i < size + funcInitPoint; i+=spacing)
+    for (double i = funcInitPoint; i <= size + funcInitPoint; i+=spacing)
     {
         // const double currentIndex = i * spacing;
         inputsPtr[k] = i;
         corrOutputsPtr[k] = funcToLearn(i);
         k++;
     }
+    std::cout << inputsPtr[inputsSize-1] << " " << inputsPtr[inputsSize] << std::endl;
 
     Array<double> inputsArr(inputsPtr, inputsSize, 1);
     Array<double> corrOutputsArr(corrOutputsPtr, inputsSize, 1);

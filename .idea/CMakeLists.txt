@@ -20,4 +20,4 @@ target_link_libraries(graphingTest ${OpenCV_LIBS})
 
 target_link_directories(graphingTest PUBLIC ${OpenCV_LINK_DIRECTORIES})
 #target_link_options(graphingTest PUBLIC pkg-config --cflags --libs opencv)
-target_compile_options(graphingTest PUBLIC /MTd)
+#target_compile_options(graphingTest PUBLIC /MTd)
