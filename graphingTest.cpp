@@ -70,14 +70,14 @@ int main()
     const double spacing = 0.1;
     const double funcInitPoint = -size/2;
     // const double spacing = 1;
-    constexpr int inputsSize = (size / spacing) + funcInitPoint;
+    constexpr int inputsSize = (size / spacing);
 
     double* inputsPtr = new double[inputsSize];
     double* corrOutputsPtr = new double[inputsSize]; //same amount of outputs as inputs
 
     int k = 0;
     // for (int i = -inputsSize/2; i < inputsSize/2; i++)
-    for (int i = funcInitPoint * 100; i <= (size + funcInitPoint) * 100; i+=spacing*100)
+    for (int i = funcInitPoint * 100; i < (size + funcInitPoint) * 100; i+=spacing*100)
     {
         // const double currentIndex = i * spacing;
         inputsPtr[k] = static_cast<double>(i)/100; //to aboid floating point errors use i*100
