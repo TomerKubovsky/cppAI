@@ -44,9 +44,9 @@ Type funcToLearn(Type input)
     // return 1 - (std::pow(input, 2)/2);
     // return std::sin(input);
     // return (input*input*input*input)/24;
-    return std::log(input);
+    // return std::log(input);
 
-    // return std::pow(input, 3);
+    return std::pow(input, 3);
     // if (input < 0)
     // {
         // return std::pow(input, 2);
@@ -68,7 +68,7 @@ int main()
     // const int size = width - 2 * margin;
     const int size = 20;
     const double spacing = 0.1;
-    const double funcInitPoint = 1;
+    const double funcInitPoint = -size/2;
     // const double spacing = 1;
     constexpr int inputsSize = (size / spacing) + funcInitPoint;
 
@@ -77,11 +77,11 @@ int main()
 
     int k = 0;
     // for (int i = -inputsSize/2; i < inputsSize/2; i++)
-    for (double i = funcInitPoint; i <= size + funcInitPoint; i+=spacing)
+    for (int i = funcInitPoint * 100; i <= (size + funcInitPoint) * 100; i+=spacing*100)
     {
         // const double currentIndex = i * spacing;
-        inputsPtr[k] = i;
-        corrOutputsPtr[k] = funcToLearn(i);
+        inputsPtr[k] = static_cast<double>(i)/100; //to aboid floating point errors use i*100
+        corrOutputsPtr[k] = funcToLearn(static_cast<double>(i)/100);
         k++;
     }
     std::cout << inputsPtr[inputsSize-1] << " " << inputsPtr[inputsSize] << std::endl;
