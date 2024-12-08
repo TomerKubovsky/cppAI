@@ -66,8 +66,8 @@ int main()
     const int height = 1080;
     const int margin = 10;
     // const int size = width - 2 * margin;
-    const int size = 20;
-    const double spacing = 1;
+    const int size = 40;
+    const double spacing = 0.5;
     // const double funcInitPoint = -size/2;
     const double funcInitPoint = 0;
     // const double spacing = 1;
@@ -77,6 +77,7 @@ int main()
     double* corrOutputsPtr = new double[inputsSize]; //same amount of outputs as inputs
 
     int k = 0;
+    const double movementSpeed = 50;
     // for (int i = -inputsSize/2; i < inputsSize/2; i++)
     for (int i = funcInitPoint * 100; i < (size + funcInitPoint) * 100; i+=spacing*100)
     {
@@ -126,9 +127,9 @@ int main()
         {
             cv::Mat img = cv::Mat::zeros(height, width, CV_8UC3);
             // drawFunc<double>(funcToLearnInput, initPoint, img, size, spacing, -size/2, cv::Scalar(255, 0, 0), 1, cv::LINE_8, fWidth, fHeight);
-            drawFunc<double>(funcToLearnInput, initPoint, img, size, spacing, funcInitPoint, cv::Scalar(255, 0, 0), 1, cv::LINE_8, fWidth, fHeight);
+            drawFunc<double>(funcToLearnInput, initPoint, img, size, spacing * 0.1, funcInitPoint, cv::Scalar(255, 0, 0), 1, cv::LINE_8, fWidth, fHeight);
             // drawFunc<double>(func, initPoint, img, size, spacing, -size/2, cv::Scalar(0, 255, 0), 1, cv::LINE_8, fWidth, fHeight);
-            drawFunc<double>(func, initPoint, img, size, spacing, funcInitPoint, cv::Scalar(0, 255, 0), 1, cv::LINE_8, fWidth, fHeight);
+            drawFunc<double>(func, initPoint, img, size, spacing * 0.1, funcInitPoint, cv::Scalar(0, 255, 0), 1, cv::LINE_8, fWidth, fHeight);
             // drawFunc<double>(funcToLearnInput, initPoint, img, 1000, spacing, -size/2, cv::Scalar(255, 0, 0), 1, cv::LINE_8, 1);
             // drawFunc<double>(func, initPoint, img, 1000, spacing, 0, cv::Scalar(0, 0, 255), 1, cv::LINE_8, 1);
             cv::imshow("img", img);
@@ -148,19 +149,19 @@ int main()
                 }
                 else if (key == 'w')
                 {
-                    initPoint.y -= 5;
+                    initPoint.y -= movementSpeed;
                 }
                 else if (key == 'a')
                 {
-                    initPoint.x -= 5;
+                    initPoint.x -= movementSpeed;
                 }
                 else if (key == 's')
                 {
-                    initPoint.y += 5;
+                    initPoint.y += movementSpeed;
                 }
                 else if (key == 'd')
                 {
-                    initPoint.x += 5;
+                    initPoint.x += movementSpeed;
                 }
                 else if (key == 'z')
                 {

@@ -14,7 +14,7 @@ namespace NeurelNetwork
 
         std::string optimizer;
 
-        double learningRate = 0.001f;
+        double learningRate = static_cast<Type>(0.001);
 
         Layer<Type>* generateLayers(const int layers[],  int sizeOfLayers,  std::string activationFuncHidden, std::string activationFuncFinall, std::string optimizer);
 

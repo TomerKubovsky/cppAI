@@ -1094,6 +1094,18 @@
 			"value" : "[C:/tools/opencv/build][v4.10.0()]"
 		},
 		{
+			"name" : "OpenCV_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for OpenCV."
+				}
+			],
+			"type" : "PATH",
+			"value" : "OpenCV_DIR-NOTFOUND"
+		},
+		{
 			"name" : "VCPKG_APPLOCAL_DEPS",
 			"properties" : 
 			[
