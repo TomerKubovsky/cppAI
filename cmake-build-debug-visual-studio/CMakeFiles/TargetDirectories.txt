@@ -1,0 +1,5 @@
+C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/cmake-build-debug-visual-studio/CMakeFiles/MainProg.dir
+C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/cmake-build-debug-visual-studio/CMakeFiles/MainCuda.dir
+C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/cmake-build-debug-visual-studio/CMakeFiles/MainAI.dir
+C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/cmake-build-debug-visual-studio/CMakeFiles/edit_cache.dir
+C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/cmake-build-debug-visual-studio/CMakeFiles/rebuild_cache.dir

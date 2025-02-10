@@ -1,3 +1,0 @@
-C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/.idea/cmake-build-debug/CMakeFiles/graphingTest.dir
-C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/.idea/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/.idea/cmake-build-debug/CMakeFiles/rebuild_cache.dir

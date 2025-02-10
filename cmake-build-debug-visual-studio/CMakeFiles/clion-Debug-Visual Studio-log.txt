@@ -1,0 +1,4 @@
+"C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.3\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "NMake Makefiles" -S C:\Users\tomer\OneDrive\Documents\GitHub\cppAI -B C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/cmake-build-debug-visual-studio
