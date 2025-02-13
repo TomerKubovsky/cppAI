@@ -54,6 +54,7 @@ CMAKE_BINARY_DIR = C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-de
 # The main recursive "all" target.
 all: CMakeFiles\MainProg.dir\all
 all: CMakeFiles\MainCuda.dir\all
+all: CMakeFiles\CudaTests.dir\all
 all: CMakeFiles\MainAI.dir\all
 .PHONY : all
 
@@ -64,6 +65,7 @@ preinstall:
 # The main recursive "clean" target.
 clean: CMakeFiles\MainProg.dir\clean
 clean: CMakeFiles\MainCuda.dir\clean
+clean: CMakeFiles\CudaTests.dir\clean
 clean: CMakeFiles\MainAI.dir\clean
 .PHONY : clean
 
@@ -74,7 +76,7 @@ clean: CMakeFiles\MainAI.dir\clean
 CMakeFiles\MainProg.dir\all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MainProg.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\MainProg.dir\depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MainProg.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\MainProg.dir\build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio\CMakeFiles --progress-num=6,7 "Built target MainProg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio\CMakeFiles --progress-num=9,10 "Built target MainProg"
 .PHONY : CMakeFiles\MainProg.dir\all
 
 # Build rule for subdir invocation for target.
@@ -100,7 +102,7 @@ CMakeFiles\MainProg.dir\clean:
 CMakeFiles\MainCuda.dir\all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MainCuda.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\MainCuda.dir\depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MainCuda.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\MainCuda.dir\build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio\CMakeFiles --progress-num=3,4,5 "Built target MainCuda"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio\CMakeFiles --progress-num=6,7,8 "Built target MainCuda"
 .PHONY : CMakeFiles\MainCuda.dir\all
 
 # Build rule for subdir invocation for target.
@@ -120,13 +122,39 @@ CMakeFiles\MainCuda.dir\clean:
 .PHONY : CMakeFiles\MainCuda.dir\clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/CudaTests.dir
+
+# All Build rule for target.
+CMakeFiles\CudaTests.dir\all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CudaTests.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\CudaTests.dir\depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CudaTests.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\CudaTests.dir\build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio\CMakeFiles --progress-num=1,2,3 "Built target CudaTests"
+.PHONY : CMakeFiles\CudaTests.dir\all
+
+# Build rule for subdir invocation for target.
+CMakeFiles\CudaTests.dir\rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio\CMakeFiles 3
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 /nologo -$(MAKEFLAGS) CMakeFiles\CudaTests.dir\all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio\CMakeFiles 0
+.PHONY : CMakeFiles\CudaTests.dir\rule
+
+# Convenience name for target.
+CudaTests: CMakeFiles\CudaTests.dir\rule
+.PHONY : CudaTests
+
+# clean rule for target.
+CMakeFiles\CudaTests.dir\clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CudaTests.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\CudaTests.dir\clean
+.PHONY : CMakeFiles\CudaTests.dir\clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/MainAI.dir
 
 # All Build rule for target.
 CMakeFiles\MainAI.dir\all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MainAI.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\MainAI.dir\depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MainAI.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\MainAI.dir\build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio\CMakeFiles --progress-num=1,2 "Built target MainAI"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio\CMakeFiles --progress-num=4,5 "Built target MainAI"
 .PHONY : CMakeFiles\MainAI.dir\all
 
 # Build rule for subdir invocation for target.

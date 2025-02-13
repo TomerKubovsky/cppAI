@@ -4,7 +4,7 @@ project(cudaTest LANGUAGES CUDA CXX)
 set(CMAKE_CUDA_STANDARD 14)
 set(CMAKE_CXX_STANDARD  20)
 #add_executable(cudaMain kernel.cu)
-add_executable(test cudaTestCpp.cpp)
+add_executable(test cudaTestCpp.cu)
 
 set_target_properties(
         untitiled

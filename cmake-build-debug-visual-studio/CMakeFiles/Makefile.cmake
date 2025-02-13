@@ -49,5 +49,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/MainProg.dir/DependInfo.cmake"
   "CMakeFiles/MainCuda.dir/DependInfo.cmake"
+  "CMakeFiles/CudaTests.dir/DependInfo.cmake"
   "CMakeFiles/MainAI.dir/DependInfo.cmake"
   )

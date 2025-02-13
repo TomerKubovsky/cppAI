@@ -132,6 +132,19 @@ MainCuda\fast:
 .PHONY : MainCuda\fast
 
 #=============================================================================
+# Target rules for targets named CudaTests
+
+# Build rule for target.
+CudaTests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 /nologo -$(MAKEFLAGS) CudaTests
+.PHONY : CudaTests
+
+# fast build rule for target.
+CudaTests\fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CudaTests.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\CudaTests.dir\build
+.PHONY : CudaTests\fast
+
+#=============================================================================
 # Target rules for targets named MainAI
 
 # Build rule for target.
@@ -143,6 +156,30 @@ MainAI: cmake_check_build_system
 MainAI\fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MainAI.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\MainAI.dir\build
 .PHONY : MainAI\fast
+
+cudaTests\cudaTestCpp.obj: cudaTests\cudaTestCpp.cu.obj
+.PHONY : cudaTests\cudaTestCpp.obj
+
+# target to build an object file
+cudaTests\cudaTestCpp.cu.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CudaTests.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\CudaTests.dir\cudaTests\cudaTestCpp.cu.obj
+.PHONY : cudaTests\cudaTestCpp.cu.obj
+
+cudaTests\cudaTestCpp.i: cudaTests\cudaTestCpp.cu.i
+.PHONY : cudaTests\cudaTestCpp.i
+
+# target to preprocess a source file
+cudaTests\cudaTestCpp.cu.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CudaTests.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\CudaTests.dir\cudaTests\cudaTestCpp.cu.i
+.PHONY : cudaTests\cudaTestCpp.cu.i
+
+cudaTests\cudaTestCpp.s: cudaTests\cudaTestCpp.cu.s
+.PHONY : cudaTests\cudaTestCpp.s
+
+# target to generate assembly for a file
+cudaTests\cudaTestCpp.cu.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CudaTests.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\CudaTests.dir\cudaTests\cudaTestCpp.cu.s
+.PHONY : cudaTests\cudaTestCpp.cu.s
 
 cudaTests\main.obj: cudaTests\main.cu.obj
 .PHONY : cudaTests\main.obj
@@ -224,9 +261,13 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... CudaTests
 	@echo ... MainAI
 	@echo ... MainCuda
 	@echo ... MainProg
+	@echo ... cudaTests/cudaTestCpp.obj
+	@echo ... cudaTests/cudaTestCpp.i
+	@echo ... cudaTests/cudaTestCpp.s
 	@echo ... cudaTests/main.obj
 	@echo ... cudaTests/main.i
 	@echo ... cudaTests/main.s
