@@ -157,6 +157,19 @@ MainAI\fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MainAI.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\MainAI.dir\build
 .PHONY : MainAI\fast
 
+#=============================================================================
+# Target rules for targets named glTests
+
+# Build rule for target.
+glTests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 /nologo -$(MAKEFLAGS) glTests
+.PHONY : glTests
+
+# fast build rule for target.
+glTests\fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\glTests.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\glTests.dir\build
+.PHONY : glTests\fast
+
 cudaTests\cudaTestCpp.obj: cudaTests\cudaTestCpp.cu.obj
 .PHONY : cudaTests\cudaTestCpp.obj
 
@@ -253,6 +266,30 @@ mainAi\aiTests.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MainAI.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\MainAI.dir\mainAi\aiTests.cpp.s
 .PHONY : mainAi\aiTests.cpp.s
 
+openGlTests\openGlTests.obj: openGlTests\openGlTests.cpp.obj
+.PHONY : openGlTests\openGlTests.obj
+
+# target to build an object file
+openGlTests\openGlTests.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\glTests.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\glTests.dir\openGlTests\openGlTests.cpp.obj
+.PHONY : openGlTests\openGlTests.cpp.obj
+
+openGlTests\openGlTests.i: openGlTests\openGlTests.cpp.i
+.PHONY : openGlTests\openGlTests.i
+
+# target to preprocess a source file
+openGlTests\openGlTests.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\glTests.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\glTests.dir\openGlTests\openGlTests.cpp.i
+.PHONY : openGlTests\openGlTests.cpp.i
+
+openGlTests\openGlTests.s: openGlTests\openGlTests.cpp.s
+.PHONY : openGlTests\openGlTests.s
+
+# target to generate assembly for a file
+openGlTests\openGlTests.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\glTests.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\glTests.dir\openGlTests\openGlTests.cpp.s
+.PHONY : openGlTests\openGlTests.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -265,6 +302,7 @@ help:
 	@echo ... MainAI
 	@echo ... MainCuda
 	@echo ... MainProg
+	@echo ... glTests
 	@echo ... cudaTests/cudaTestCpp.obj
 	@echo ... cudaTests/cudaTestCpp.i
 	@echo ... cudaTests/cudaTestCpp.s
@@ -277,6 +315,9 @@ help:
 	@echo ... mainAi/aiTests.obj
 	@echo ... mainAi/aiTests.i
 	@echo ... mainAi/aiTests.s
+	@echo ... openGlTests/openGlTests.obj
+	@echo ... openGlTests/openGlTests.i
+	@echo ... openGlTests/openGlTests.s
 .PHONY : help
 
 

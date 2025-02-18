@@ -56,6 +56,7 @@ all: CMakeFiles\MainProg.dir\all
 all: CMakeFiles\MainCuda.dir\all
 all: CMakeFiles\CudaTests.dir\all
 all: CMakeFiles\MainAI.dir\all
+all: CMakeFiles\glTests.dir\all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -67,6 +68,7 @@ clean: CMakeFiles\MainProg.dir\clean
 clean: CMakeFiles\MainCuda.dir\clean
 clean: CMakeFiles\CudaTests.dir\clean
 clean: CMakeFiles\MainAI.dir\clean
+clean: CMakeFiles\glTests.dir\clean
 .PHONY : clean
 
 #=============================================================================
@@ -172,6 +174,32 @@ MainAI: CMakeFiles\MainAI.dir\rule
 CMakeFiles\MainAI.dir\clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MainAI.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\MainAI.dir\clean
 .PHONY : CMakeFiles\MainAI.dir\clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/glTests.dir
+
+# All Build rule for target.
+CMakeFiles\glTests.dir\all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\glTests.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\glTests.dir\depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\glTests.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\glTests.dir\build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio\CMakeFiles --progress-num=11,12 "Built target glTests"
+.PHONY : CMakeFiles\glTests.dir\all
+
+# Build rule for subdir invocation for target.
+CMakeFiles\glTests.dir\rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio\CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 /nologo -$(MAKEFLAGS) CMakeFiles\glTests.dir\all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio\CMakeFiles 0
+.PHONY : CMakeFiles\glTests.dir\rule
+
+# Convenience name for target.
+glTests: CMakeFiles\glTests.dir\rule
+.PHONY : glTests
+
+# clean rule for target.
+CMakeFiles\glTests.dir\clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\glTests.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\glTests.dir\clean
+.PHONY : CMakeFiles\glTests.dir\clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

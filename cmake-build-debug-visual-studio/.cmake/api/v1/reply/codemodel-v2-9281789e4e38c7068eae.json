@@ -18,7 +18,8 @@
 						0,
 						1,
 						2,
-						3
+						3,
+						4
 					]
 				}
 			],
@@ -36,7 +37,8 @@
 						0,
 						1,
 						2,
-						3
+						3,
+						4
 					]
 				}
 			],
@@ -68,6 +70,13 @@
 					"id" : "MainProg::@6890427a1f51a3e7e1df",
 					"jsonFile" : "target-MainProg-Debug-2a39d933a69212f9dd7c.json",
 					"name" : "MainProg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "glTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-glTests-Debug-a929d754d4c35edc045c.json",
+					"name" : "glTests",
 					"projectIndex" : 0
 				}
 			]
