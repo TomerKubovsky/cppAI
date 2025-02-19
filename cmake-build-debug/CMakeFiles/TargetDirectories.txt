@@ -1,0 +1,5 @@
+C:/Users/tomer/OneDrive/Desktop/cppAI/cmake-build-debug/CMakeFiles/MainProg.dir
+C:/Users/tomer/OneDrive/Desktop/cppAI/cmake-build-debug/CMakeFiles/MainAI.dir
+C:/Users/tomer/OneDrive/Desktop/cppAI/cmake-build-debug/CMakeFiles/glTests.dir
+C:/Users/tomer/OneDrive/Desktop/cppAI/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/tomer/OneDrive/Desktop/cppAI/cmake-build-debug/CMakeFiles/rebuild_cache.dir

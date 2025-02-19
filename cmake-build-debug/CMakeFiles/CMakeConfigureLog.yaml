@@ -1,0 +1,153 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineSystem.cmake:205 (message)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      The system is: Windows - 10.0.22631 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x64/cl.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      Microsoft (R) C/C++ Optimizing Compiler Version 19.42.34435 for x64
+      Copyright (C) Microsoft Corporation.  All rights reserved.
+      
+      CMakeCXXCompilerId.cpp
+      Microsoft (R) Incremental Linker Version 14.42.34435.0
+      Copyright (C) Microsoft Corporation.  All rights reserved.
+      
+      /out:CMakeCXXCompilerId.exe 
+      CMakeCXXCompilerId.obj 
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.exe"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.obj"
+      
+      The CXX compiler identification is MSVC, found in:
+        C:/Users/tomer/OneDrive/Desktop/cppAI/cmake-build-debug/CMakeFiles/3.29.6/CompilerIdCXX/CMakeCXXCompilerId.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:1216 (message)"
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:250 (CMAKE_DETERMINE_MSVC_SHOWINCLUDES_PREFIX)"
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Detecting CXX compiler /showIncludes prefix:
+        main.c
+        Note: including file: C:\\Users\\tomer\\OneDrive\\Desktop\\cppAI\\cmake-build-debug\\CMakeFiles\\ShowIncludes\\foo.h
+        
+      Found prefix "Note: including file: "
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:1178 (message)"
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCUDACompiler.cmake:75 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Checking whether the CUDA compiler is NVIDIA using "" did not match "nvcc: NVIDIA \\(R\\) Cuda compiler driver":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:1178 (message)"
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCUDACompiler.cmake:75 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Checking whether the CUDA compiler is Clang using "" did not match "(clang version)":
+...
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:1178 (message)"
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCUDACompiler.cmake:75 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Checking whether the CUDA compiler is NVIDIA using "" did not match "nvcc: NVIDIA \\(R\\) Cuda compiler driver":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:1178 (message)"
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCUDACompiler.cmake:75 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Checking whether the CUDA compiler is Clang using "" did not match "(clang version)":
+...
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:1178 (message)"
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCUDACompiler.cmake:75 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Checking whether the CUDA compiler is NVIDIA using "" did not match "nvcc: NVIDIA \\(R\\) Cuda compiler driver":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:1178 (message)"
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCUDACompiler.cmake:75 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Checking whether the CUDA compiler is Clang using "" did not match "(clang version)":
+...
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:1178 (message)"
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCUDACompiler.cmake:75 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Checking whether the CUDA compiler is NVIDIA using "" did not match "nvcc: NVIDIA \\(R\\) Cuda compiler driver":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:1178 (message)"
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCUDACompiler.cmake:75 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Checking whether the CUDA compiler is Clang using "" did not match "(clang version)":
+...
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:1178 (message)"
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCUDACompiler.cmake:75 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Checking whether the CUDA compiler is NVIDIA using "" did not match "nvcc: NVIDIA \\(R\\) Cuda compiler driver":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:1178 (message)"
+      - "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCUDACompiler.cmake:75 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Checking whether the CUDA compiler is Clang using "" did not match "(clang version)":
+...
