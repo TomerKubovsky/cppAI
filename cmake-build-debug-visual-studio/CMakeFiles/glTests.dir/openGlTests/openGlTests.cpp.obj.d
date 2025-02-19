@@ -106,3 +106,5 @@ C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.3443
 C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/ctype.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/include/clocale
 C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/locale.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/include/vector
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/include/__msvc_bit_utils.hpp

@@ -100,6 +100,8 @@ public:
 	void render();
 
 	vector2 getSPos(unsigned int screenWidth, unsigned int screenHeight);
+	vector2 getSPosWithOff(unsigned int screenWidth, unsigned int screenHeight);
+	vector2 getSPosDOff(unsigned int screenWidth, unsigned int screenHeight);
 };
 
 agent::agent()
@@ -114,9 +116,18 @@ void agent::render()
 
 vector2 agent::getSPos(const unsigned int screenWidth, const unsigned int screenHeight)
 {
-	return vector2((pos.x + 1) * screenWidth, (pos.y + 1) * screenHeight);
+	return vector2((pos.x + 1) * screenWidth/2, (pos.y + 1) * screenHeight/2);
 }
 
+vector2 agent::getSPosWithOff(const unsigned int screenWidth, const unsigned int screenHeight)
+{
+	return vector2((offsetExtra.x + offset.x + pos.x + 1) * screenWidth/2, (offsetExtra.y + offset.y + pos.y + 1) * screenHeight/2);
+}
+
+vector2 agent::getSPosDOff(unsigned int screenWidth, unsigned int screenHeight)
+{
+	return vector2((offset.x + pos.x + 1) * screenWidth/2, (offset.y + pos.y + 1) * screenHeight/2);
+}
 
 
 struct extraData
@@ -137,27 +148,36 @@ void scrollCallBack(GLFWwindow* window, double xOffset, double yOffset)
 {
 	void* exDataP = glfwGetWindowUserPointer(window);
 	extraData* dataP = (extraData*)exDataP;
-	dataP->zoom = std::max(dataP->zoom + yOffset * ZOOM_STRENGTH, 0.1);
 
-	for (int i = 0; i < dataP->agents.size(); i++)
+	// dataP->zoom = std::min(std::max(dataP->zoom + yOffset * ZOOM_STRENGTH, 0.6), 5.0);
+	double yOffsetTrue = (yOffset > 0) ? 1/yOffset : yOffset - 1;
+	dataP->zoom = dataP->zoom * yOffset * ZOOM_STRENGTH;
+
+	// if (dataP->zoom > 0.7 && 4.9 > dataP->zoom)
 	{
-		agent* obj = dataP->agents[i];
-		vector2 objSPos = obj->getSPos(dataP->screenSize.x, dataP->screenSize.y);
-		vector2 mousePos(0, 0);
-		double mouseX; double mouseY;
-		glfwGetCursorPos(window, &mouseX,&mouseY);
-		mousePos.x = mouseX;
-		mousePos.y = mouseY;
-		vector2 vecToMouse = mousePos - objSPos;
-		// std::cout << "offset pre: " << obj->offsetExtra.x << std::endl;
-		// obj->offsetExtra = obj->offsetExtra + vecToMouse * 0.0001 * std::max(yOffset * ZOOM_STRENGTH, 0.1);
-		obj->offsetExtra = obj->offsetExtra + (vecToMouse * (0.0001 * yOffset * ZOOM_STRENGTH * -1));
-		// std::cout << (obj->offsetExtra + vecToMouse * (yOffset * ZOOM_STRENGTH * -1)).x << " , " << (obj->offsetExtra + vecToMouse * (5yOffset * ZOOM_STRENGTH * -1)).y << std::endl;
-		// obj->offsetExtra = vector2(1000, 1000);
-		// std::cout << "offset post: " << obj->offsetExtra.x << std::endl;
-		// std::cout << "offset post: " << &obj << std::endl;
-		// std::cout << obj.offset.x << " " << obj.offset.y << std::endl;
-		// std::cout << (vecToMouse * std::max(yOffset * ZOOM_STRENGTH, 0.1)).x << " " << (vecToMouse * std::max(yOffset * ZOOM_STRENGTH, 0.1)).y<< std::endl;
+		for (int i = 0; i < dataP->agents.size(); i++)
+		{
+			agent* obj = dataP->agents[i];
+			vector2 objSPos = obj->getSPosWithOff(dataP->screenSize.x, dataP->screenSize.y);
+			vector2 mousePos(0, 0);
+			double mouseX; double mouseY;
+			glfwGetCursorPos(window, &mouseX,&mouseY);
+			mousePos.x = mouseX;
+			mousePos.y = mouseY;
+			vector2 vecToMouse = mousePos - objSPos;
+			// float hyp(std::sqrt(vecToMouse.x * vecToMouse.x + vecToMouse.y * vecToMouse.y));
+			// vecToMouse.x = (vecToMouse.x) / (hyp);
+			// vecToMouse.y = (vecToMouse.y) / (hyp);
+
+			// printf("mouseX: %f, mouseY: %f, objSPos: %f, objsposy  %f, vecTo %f, vecToY %f \n", mouseX, mouseY, objSPos.x, objSPos.y, vecToMouse.x, vecToMouse.y);
+
+			// vecToMouse = vector2(0, 0);
+			vector2 vectorOffsetPreAdj = objSPos - (vecToMouse * (yOffset / (yOffset - 1)));
+			vectorOffsetPreAdj.x = -vectorOffsetPreAdj.x / dataP->screenSize.x;
+			vectorOffsetPreAdj.y = vectorOffsetPreAdj.y / dataP->screenSize.y;
+			obj->offsetExtra = obj->offsetExtra + vectorOffsetPreAdj;
+
+		}
 	}
 
 }
@@ -222,16 +242,18 @@ int main()
 	glfwSetMouseButtonCallback(window, mouseButtonCallBack);
 	glfwSetCursorPosCallback(window, mouseMoveCallBack);
 
-	float size = 100;
+	float size = 0.1;
 	agent AI = agent();
 	AI.color = vector3(1, 0, 0);
 	AI.pos = vector2(0, 0);
-	AI.size = vector2((size * data.zoom)/width, (size * data.zoom)/height);
+	// AI.size = vector2((size * data.zoom)/width, (size * data.zoom)/height);
+	AI.size = vector2((size * data.zoom), (size * data.zoom));
 
 	agent npc = agent();
 	npc.color = vector3(0, 1, 0);
 	npc.pos = vector2(0.5, 0);
-	npc.size = vector2((size * data.zoom)/width, (size * data.zoom)/height);
+	npc.size = vector2((size * data.zoom)/(width*0.01), (size * data.zoom)/(height*0.01));
+	// npc.size = vector2((size * data.zoom), (size * data.zoom));
 
 	data.agents.push_back(&AI);
 	data.agents.push_back(&npc);
@@ -244,11 +266,13 @@ int main()
 
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		AI.size = vector2((size * data.zoom)/width, (size * data.zoom)/height);
+		AI.size = vector2((size * data.zoom)/(width*0.01), (size * data.zoom)/(height*0.01));
+		// AI.size = vector2((size * data.zoom), (size * data.zoom));
 		AI.offset = data.offset;
 
 
-		npc.size = vector2((size * data.zoom)/width, (size * data.zoom)/height);
+		npc.size = vector2((size * data.zoom)/(width*0.01), (size * data.zoom)/(height*0.01));
+		// npc.size = vector2((size * data.zoom), (size * data.zoom));
 		npc.offset = data.offset;
 
 

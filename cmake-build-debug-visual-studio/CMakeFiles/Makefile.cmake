@@ -7,7 +7,6 @@ set(CMAKE_DEPENDS_GENERATOR "NMake Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
-  "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.3/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeCUDAInformation.cmake"
   "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.3/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeCXXInformation.cmake"
   "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.3/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeCommonLanguageInclude.cmake"
   "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.3/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeGenericSystem.cmake"
@@ -19,16 +18,12 @@ set(CMAKE_MAKEFILE_DEPENDS
   "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Compiler/CMakeCommonCompilerMacros.cmake"
   "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Compiler/MSVC-CXX.cmake"
   "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Compiler/MSVC.cmake"
-  "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Compiler/NVIDIA-CUDA.cmake"
-  "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Compiler/NVIDIA.cmake"
   "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows-Initialize.cmake"
   "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows-MSVC-CXX.cmake"
   "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows-MSVC.cmake"
-  "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows-NVIDIA-CUDA.cmake"
   "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows.cmake"
   "C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.3/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/WindowsPaths.cmake"
   "C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/CMakeLists.txt"
-  "CMakeFiles/3.30.5/CMakeCUDACompiler.cmake"
   "CMakeFiles/3.30.5/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.30.5/CMakeRCCompiler.cmake"
   "CMakeFiles/3.30.5/CMakeSystem.cmake"
@@ -48,8 +43,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/MainProg.dir/DependInfo.cmake"
-  "CMakeFiles/MainCuda.dir/DependInfo.cmake"
-  "CMakeFiles/CudaTests.dir/DependInfo.cmake"
   "CMakeFiles/MainAI.dir/DependInfo.cmake"
   "CMakeFiles/glTests.dir/DependInfo.cmake"
   )
