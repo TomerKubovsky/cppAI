@@ -150,7 +150,8 @@ void scrollCallBack(GLFWwindow* window, double xOffset, double yOffset)
 	extraData* dataP = (extraData*)exDataP;
 
 	// dataP->zoom = std::min(std::max(dataP->zoom + yOffset * ZOOM_STRENGTH, 0.6), 5.0);
-	double adjY = std::pow(2, yOffset * ZOOM_STRENGTH);
+	// double adjY = std::pow(2, yOffset * ZOOM_STRENGTH);
+	double adjY = std::pow(2, yOffset);
 	dataP->zoom = dataP->zoom * adjY;
 
 	// if (dataP->zoom > 0.7 && 4.9 > dataP->zoom)
@@ -166,23 +167,24 @@ void scrollCallBack(GLFWwindow* window, double xOffset, double yOffset)
 			mousePos.y = mouseY;
 			vector2 vecFromMouse = objSPos - mousePos;
 
-			vector2 vectorOffsetPreAdj = (obj->offset - ((objSPos) - (vecFromMouse) * adjY));
 
-			printf("vectoroffsetprex = %f   y = %f  \n", vectorOffsetPreAdj.x, vectorOffsetPreAdj.y);
-			// float hyp(std::sqrt(vecToMouse.x * vecToMouse.x + vecToMouse.y * vecToMouse.y));
-			// vecToMouse.x = (vecToMouse.x) / (hyp);
-			// vecToMouse.y = (vecToMouse.y) / (hyp);
+			vector2 objOffsetExtraAdjusted = vector2(obj->offsetExtra.x * dataP->screenSize.x, obj->offsetExtra.y * dataP->screenSize.y * -1); //adjusts -1->1 to 0->screenWidth and height stuff
+			vector2 vectorOffsetPreAdj = objOffsetExtraAdjusted + (mousePos + (objSPos - mousePos) * adjY) - objSPos;
 
-			// printf("mouseX: %f, mouseY: %f, objSPos: %f, objsposy  %f, vecTo %f, vecToY %f \n", mouseX, mouseY, objSPos.x, objSPos.y, vecToMouse.x, vecToMouse.y);
+			printf("\n 12 321 vectoroffsetprex = %f   y = %f  \n", vectorOffsetPreAdj.x, vectorOffsetPreAdj.y);
+			printf("obj off extra adj x %f   y %f \n", objOffsetExtraAdjusted.x, objOffsetExtraAdjusted.y);
 
-			// vecToMouse = vector2(0, 0);
-			// vector2 vectorOffsetPreAdj = objSPos - (vecToMouse * (yOffset / (yOffset - 1)));
+			printf("mousex = %f  mousey = %f  \n", mousePos.x, mousePos.y);
+			printf("objSpos %f, %f \n", objSPos.x, objSPos.y);
+			// printf("obj x %f y %f \n", obj->offset.x, obj->offset.y);
+			printf("obj regPos %f, %f \n", obj->getSPos(dataP->screenSize.x, dataP->screenSize.y).x, obj->getSPos(dataP->screenSize.x, dataP->screenSize.y).y);
+			printf("offsetExtra x: %f, offsetExtra y: %f \n", obj->offsetExtra.x, obj->offsetExtra.y);
+
 			vectorOffsetPreAdj.x = vectorOffsetPreAdj.x / dataP->screenSize.x;
-			vectorOffsetPreAdj.y = vectorOffsetPreAdj.y / dataP->screenSize.y;
-			vectorOffsetPreAdj = vector2(0.5, 0.5);
+			vectorOffsetPreAdj.y = -vectorOffsetPreAdj.y / dataP->screenSize.y;
 			printf("vectoroffsetprex = %f   y = %f  \n", vectorOffsetPreAdj.x, vectorOffsetPreAdj.y);
 			obj->offsetExtra = vectorOffsetPreAdj;
-
+			printf("offsetExtra x: %f, offsetExtra y: %f \n", obj->offsetExtra.x, obj->offsetExtra.y);
 		}
 	}
 
@@ -274,7 +276,7 @@ int main()
 
 		AI.size = vector2((size * data.zoom)/(width*0.01), (size * data.zoom)/(height*0.01));
 		// AI.size = vector2((size * data.zoom), (size * data.zoom));
-		AI.offset = data.offset;
+		// AI.offset = data.offset;
 
 
 		npc.size = vector2((size * data.zoom)/(width*0.01), (size * data.zoom)/(height*0.01));
