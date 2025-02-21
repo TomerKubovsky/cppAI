@@ -159,6 +159,7 @@ void scrollCallBack(GLFWwindow* window, double xOffset, double yOffset)
 		for (int i = 0; i < dataP->agents.size() - 1; i++)
 		{
 			agent* obj = dataP->agents[i];
+			printf("\n obj x %f obj offx %f obj offexX %f, y %f  yoff %f yOffex %f \n", obj->pos.x, obj->offset.x, obj->offsetExtra.x, obj->pos.y, obj->offset.y, obj->offsetExtra.y);
 			vector2 objSPos = obj->getSPosWithOff(dataP->screenSize.x, dataP->screenSize.y);
 			vector2 mousePos(0, 0);
 			double mouseX; double mouseY;
@@ -172,7 +173,10 @@ void scrollCallBack(GLFWwindow* window, double xOffset, double yOffset)
 			vector2 vectorOffsetPreAdj = objOffsetExtraAdjusted + (mousePos + (objSPos - mousePos) * adjY) - objSPos;
 
 			printf("\n 12 321 vectoroffsetprex = %f   y = %f  \n", vectorOffsetPreAdj.x, vectorOffsetPreAdj.y);
+			printf("yOffset: %f \n", yOffset);
+			printf("width %f height %f \n", dataP->screenSize.x, dataP->screenSize.y);
 			printf("obj off extra adj x %f   y %f \n", objOffsetExtraAdjusted.x, objOffsetExtraAdjusted.y);
+			printf("offsetExtra x: %f, offsetExtra y: %f \n", obj->offsetExtra.x, obj->offsetExtra.y);
 
 			printf("mousex = %f  mousey = %f  \n", mousePos.x, mousePos.y);
 			printf("objSpos %f, %f \n", objSPos.x, objSPos.y);
