@@ -121,7 +121,7 @@ vector2 agent::getSPos(const unsigned int screenWidth, const unsigned int screen
 
 vector2 agent::getSPosWithOff(const unsigned int screenWidth, const unsigned int screenHeight)
 {
-	return vector2((offsetExtra.x + offset.x + pos.x + 1) * screenWidth/2, (offsetExtra.y + offset.y + pos.y + 1) * screenHeight/2);
+	return vector2((offsetExtra.x + offset.x + pos.x + 1) * screenWidth/2, (-offsetExtra.y - offset.y + pos.y + 1) * screenHeight/2);
 }
 
 vector2 agent::getSPosDOff(unsigned int screenWidth, unsigned int screenHeight)
@@ -156,7 +156,7 @@ void scrollCallBack(GLFWwindow* window, double xOffset, double yOffset)
 
 	// if (dataP->zoom > 0.7 && 4.9 > dataP->zoom)
 	{
-		for (int i = 0; i < dataP->agents.size() - 1; i++)
+		for (int i = 0; i < dataP->agents.size(); i++)
 		{
 			agent* obj = dataP->agents[i];
 			printf("\n obj x %f obj offx %f obj offexX %f, y %f  yoff %f yOffex %f \n", obj->pos.x, obj->offset.x, obj->offsetExtra.x, obj->pos.y, obj->offset.y, obj->offsetExtra.y);
@@ -169,7 +169,7 @@ void scrollCallBack(GLFWwindow* window, double xOffset, double yOffset)
 			vector2 vecFromMouse = objSPos - mousePos;
 
 
-			vector2 objOffsetExtraAdjusted = vector2(obj->offsetExtra.x * dataP->screenSize.x, obj->offsetExtra.y * dataP->screenSize.y * -1); //adjusts -1->1 to 0->screenWidth and height stuff
+			vector2 objOffsetExtraAdjusted = vector2(obj->offsetExtra.x * dataP->screenSize.x/2, obj->offsetExtra.y * dataP->screenSize.y/2 * -1); //adjusts -1->1 to 0->screenWidth and height stuff
 			vector2 vectorOffsetPreAdj = objOffsetExtraAdjusted + (mousePos + (objSPos - mousePos) * adjY) - objSPos;
 
 			printf("\n 12 321 vectoroffsetprex = %f   y = %f  \n", vectorOffsetPreAdj.x, vectorOffsetPreAdj.y);
@@ -184,8 +184,9 @@ void scrollCallBack(GLFWwindow* window, double xOffset, double yOffset)
 			printf("obj regPos %f, %f \n", obj->getSPos(dataP->screenSize.x, dataP->screenSize.y).x, obj->getSPos(dataP->screenSize.x, dataP->screenSize.y).y);
 			printf("offsetExtra x: %f, offsetExtra y: %f \n", obj->offsetExtra.x, obj->offsetExtra.y);
 
-			vectorOffsetPreAdj.x = vectorOffsetPreAdj.x / dataP->screenSize.x;
-			vectorOffsetPreAdj.y = -vectorOffsetPreAdj.y / dataP->screenSize.y;
+			vectorOffsetPreAdj.x = vectorOffsetPreAdj.x / (dataP->screenSize.x/2);
+			vectorOffsetPreAdj.y = -vectorOffsetPreAdj.y / (dataP->screenSize.y/2);
+			// vectorOffsetPreAdj = vector2(1.0, 1.0);
 			printf("vectoroffsetprex = %f   y = %f  \n", vectorOffsetPreAdj.x, vectorOffsetPreAdj.y);
 			obj->offsetExtra = vectorOffsetPreAdj;
 			printf("offsetExtra x: %f, offsetExtra y: %f \n", obj->offsetExtra.x, obj->offsetExtra.y);
@@ -259,13 +260,23 @@ int main()
 	AI.color = vector3(1, 0, 0);
 	AI.pos = vector2(0, 0);
 	// AI.size = vector2((size * data.zoom)/width, (size * data.zoom)/height);
-	AI.size = vector2((size * data.zoom), (size * data.zoom));
+	AI.size = vector2((size * data.zoom)/(width*0.01), (size * data.zoom)/(height*0.01));
+
+	agent ref = agent();
+	ref.color = vector3(0, 0, 1);
+	ref.pos = vector2(0, 0);
+	ref.size = vector2((size * data.zoom)/(width*0.01), (size * data.zoom)/(height*0.01));
 
 	agent npc = agent();
 	npc.color = vector3(0, 1, 0);
 	npc.pos = vector2(0.5, 0);
 	npc.size = vector2((size * data.zoom)/(width*0.01), (size * data.zoom)/(height*0.01));
 	// npc.size = vector2((size * data.zoom), (size * data.zoom));
+
+	agent ref2 = agent();
+	ref2.color = vector3(0, 0, 1);
+	ref2.pos = vector2(0.5, 0);
+	ref2.size = vector2((size * data.zoom)/(width*0.01), (size * data.zoom)/(height*0.01));
 
 	data.agents.push_back(&AI);
 	data.agents.push_back(&npc);
@@ -280,7 +291,8 @@ int main()
 
 		AI.size = vector2((size * data.zoom)/(width*0.01), (size * data.zoom)/(height*0.01));
 		// AI.size = vector2((size * data.zoom), (size * data.zoom));
-		// AI.offset = data.offset;
+		AI.offset = data.offset;
+
 
 
 		npc.size = vector2((size * data.zoom)/(width*0.01), (size * data.zoom)/(height*0.01));
@@ -290,6 +302,8 @@ int main()
 
 		npc.render();
 		AI.render();
+		ref.render();
+		ref2.render();
 
 		// if (data.mouseLeftHeld)
 		// {
