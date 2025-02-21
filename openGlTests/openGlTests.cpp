@@ -3,15 +3,15 @@
 #include <iostream>
 #include <vector>
 
-#define ZOOM_STRENGTH 0.2
-
+#define ZOOM_STRENGTH 0.1
+#define decimalType long double
 
 struct vector2
 {
-	float x;
-	float y;
+	decimalType x;
+	decimalType y;
 
-	vector2(float xI, float yI)
+	vector2(decimalType xI, decimalType yI)
 		: x(xI), y(yI)
 	{}
 
@@ -34,17 +34,17 @@ struct vector2
 		return vector2(x / other.x, y / other.y);
 	}
 
-	vector2 operator+(float other) const
+	vector2 operator+(decimalType other) const
 	{
 		return vector2(x+other, y+other);
 	}
 
-	vector2 operator*(float other) const
+	vector2 operator*(decimalType other) const
 	{
 		return vector2(x * other, y * other);
 	}
 
-	vector2 operator/(float other) const
+	vector2 operator/(decimalType other) const
 	{
 		return vector2(x / other, y / other);
 	}
@@ -64,11 +64,11 @@ struct vector2
 
 struct vector3
 {
-	float x;
-	float y;
-	float z;
+	decimalType x;
+	decimalType y;
+	decimalType z;
 
-	vector3(float xI, float yI, float zI)
+	vector3(decimalType xI, decimalType yI, decimalType zI)
 		: x(xI), y(yI), z(zI)
 	{}
 };
@@ -132,7 +132,7 @@ vector2 agent::getSPosDOff(unsigned int screenWidth, unsigned int screenHeight)
 
 struct extraData
 {
-	float zoom = 1;
+	decimalType zoom = 1;
 	vector2 offset = vector2(0, 0);
 	vector2 screenSize = vector2(0, 0);
 	bool mouseLeftHeld = false;
@@ -150,8 +150,8 @@ void scrollCallBack(GLFWwindow* window, double xOffset, double yOffset)
 	extraData* dataP = (extraData*)exDataP;
 
 	// dataP->zoom = std::min(std::max(dataP->zoom + yOffset * ZOOM_STRENGTH, 0.6), 5.0);
-	// double adjY = std::pow(2, yOffset * ZOOM_STRENGTH);
-	double adjY = std::pow(2, yOffset);
+	decimalType adjY = std::pow(2, yOffset * ZOOM_STRENGTH);
+	// decimalType adjY = std::pow(2, yOffset);
 	dataP->zoom = dataP->zoom * adjY;
 
 	// if (dataP->zoom > 0.7 && 4.9 > dataP->zoom)
@@ -240,8 +240,8 @@ int main()
 	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
 
-	const double width = static_cast<double>(mode->width);
-	const double height = static_cast<double>(mode->height);
+	const decimalType width = static_cast<decimalType>(mode->width);
+	const decimalType height = static_cast<decimalType>(mode->height);
 
 	window = glfwCreateWindow(width, height, "Tomer's Ais Window :)", monitor, NULL);
 
@@ -255,7 +255,7 @@ int main()
 	glfwSetMouseButtonCallback(window, mouseButtonCallBack);
 	glfwSetCursorPosCallback(window, mouseMoveCallBack);
 
-	float size = 0.1;
+	decimalType size = 1;
 	agent AI = agent();
 	AI.color = vector3(1, 0, 0);
 	AI.pos = vector2(0, 0);
