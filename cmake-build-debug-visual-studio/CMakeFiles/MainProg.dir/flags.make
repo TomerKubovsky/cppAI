@@ -4,7 +4,7 @@
 # compile CXX with C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x64/cl.exe
 CXX_DEFINES = 
 
-CXX_INCLUDES = 
+CXX_INCLUDES = -IC:\Users\tomer\Downloads\glfw-3.4.bin.WIN64\glfw-3.4.bin.WIN64\include
 
 CXX_FLAGS = /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -MDd -Zi
 

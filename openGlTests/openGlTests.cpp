@@ -1,3 +1,5 @@
+#ifndef openGlUtils_H
+#define openGlUtils_H
 #include <GLFW/glfw3.h>
 //#include <GLFW
 #include <iostream>
@@ -231,6 +233,7 @@ void mouseMoveCallBack(GLFWwindow* window, double xPos, double yPos)
 		dataP->mousePositionOld = newPos;
 	}
 }
+#endif
 
 int main()
 {

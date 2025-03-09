@@ -1,10 +1,17 @@
-//
-// Created by tomer on 15/01/2025.
-//
-
 #include <iostream>
+#include "openGlTests/utilsHeader.h"
+#include "mainAi/neurelNetworkClass.h"
+
+void initGLThings()
+{
+	GLFWwindow* window = nullptr;
+	glUtils::initWindow(window, "AI Window");
+
+
+}
 
 int main()
 {
-	std::cout << "Hello World!\n";
+	initGLThings();
+	return 0;
 }
