@@ -161,7 +161,6 @@ void scrollCallBack(GLFWwindow* window, double xOffset, double yOffset)
 		for (int i = 0; i < dataP->agents.size(); i++)
 		{
 			agent* obj = dataP->agents[i];
-			printf("\n obj x %f obj offx %f obj offexX %f, y %f  yoff %f yOffex %f \n", obj->pos.x, obj->offset.x, obj->offsetExtra.x, obj->pos.y, obj->offset.y, obj->offsetExtra.y);
 			vector2 objSPos = obj->getSPosWithOff(dataP->screenSize.x, dataP->screenSize.y);
 			vector2 mousePos(0, 0);
 			double mouseX; double mouseY;
@@ -174,24 +173,9 @@ void scrollCallBack(GLFWwindow* window, double xOffset, double yOffset)
 			vector2 objOffsetExtraAdjusted = vector2(obj->offsetExtra.x * dataP->screenSize.x/2, obj->offsetExtra.y * dataP->screenSize.y/2 * -1); //adjusts -1->1 to 0->screenWidth and height stuff
 			vector2 vectorOffsetPreAdj = objOffsetExtraAdjusted + (mousePos + (objSPos - mousePos) * adjY) - objSPos;
 
-			printf("\n 12 321 vectoroffsetprex = %f   y = %f  \n", vectorOffsetPreAdj.x, vectorOffsetPreAdj.y);
-			printf("yOffset: %f \n", yOffset);
-			printf("width %f height %f \n", dataP->screenSize.x, dataP->screenSize.y);
-			printf("obj off extra adj x %f   y %f \n", objOffsetExtraAdjusted.x, objOffsetExtraAdjusted.y);
-			printf("offsetExtra x: %f, offsetExtra y: %f \n", obj->offsetExtra.x, obj->offsetExtra.y);
-
-			printf("mousex = %f  mousey = %f  \n", mousePos.x, mousePos.y);
-			printf("objSpos %f, %f \n", objSPos.x, objSPos.y);
-			// printf("obj x %f y %f \n", obj->offset.x, obj->offset.y);
-			printf("obj regPos %f, %f \n", obj->getSPos(dataP->screenSize.x, dataP->screenSize.y).x, obj->getSPos(dataP->screenSize.x, dataP->screenSize.y).y);
-			printf("offsetExtra x: %f, offsetExtra y: %f \n", obj->offsetExtra.x, obj->offsetExtra.y);
-
-			vectorOffsetPreAdj.x = vectorOffsetPreAdj.x / (dataP->screenSize.x/2);
 			vectorOffsetPreAdj.y = -vectorOffsetPreAdj.y / (dataP->screenSize.y/2);
 			// vectorOffsetPreAdj = vector2(1.0, 1.0);
-			printf("vectoroffsetprex = %f   y = %f  \n", vectorOffsetPreAdj.x, vectorOffsetPreAdj.y);
 			obj->offsetExtra = vectorOffsetPreAdj;
-			printf("offsetExtra x: %f, offsetExtra y: %f \n", obj->offsetExtra.x, obj->offsetExtra.y);
 		}
 	}
 

@@ -107,7 +107,7 @@ C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/shared/winapifamily.
 C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/shared/winpackagefamily.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.38.33130/include/vector
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.38.33130/include/__msvc_bit_utils.hpp
-C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/mainAi/neurelNetworkClass.h
+C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/openGlTests/../mainAi/neurelNetworkClass.h
 C:/Users/tomer/OneDrive/Documents/GitHub/cppAI/mainAi/layerClass.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.38.33130/include/complex
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.38.33130/include/sstream

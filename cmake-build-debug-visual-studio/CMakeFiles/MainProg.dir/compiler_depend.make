@@ -111,7 +111,7 @@ CMakeFiles\MainProg.dir\main.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\in
 CMakeFiles\MainProg.dir\main.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\winpackagefamily.h"
 CMakeFiles\MainProg.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\vector"
 CMakeFiles\MainProg.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\__msvc_bit_utils.hpp"
-CMakeFiles\MainProg.dir\main.cpp.obj: C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\mainAi\neurelNetworkClass.h
+CMakeFiles\MainProg.dir\main.cpp.obj: C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\openGlTests\..\mainAi\neurelNetworkClass.h
 CMakeFiles\MainProg.dir\main.cpp.obj: C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\mainAi\layerClass.h
 CMakeFiles\MainProg.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\complex"
 CMakeFiles\MainProg.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\sstream"
@@ -366,7 +366,7 @@ C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\openGlTests\utilsHeader.h:
 
 "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\__msvc_bit_utils.hpp":
 
-C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\mainAi\neurelNetworkClass.h:
+C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\openGlTests\..\mainAi\neurelNetworkClass.h:
 
 C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\mainAi\layerClass.h:
 

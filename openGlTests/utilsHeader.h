@@ -6,9 +6,12 @@
 #include <iostream>
 #include <vector>
 
+#include "../mainAi/neurelNetworkClass.h"
+
 #define ZOOM_STRENGTH 0.1
 #define decimalType long double
-#define ZOOM_BOOL false
+// #define ZOOM_BOOL false
+#define ZOOM_BOOL true
 
 namespace glUtils
 {
@@ -117,7 +120,7 @@ namespace glUtils
 	void agent::render()
 	{
 		DrawSquare(pos + (offset + offsetExtra) - size/2, pos + (offset + offsetExtra) + size/2, color);
-		// printf("offset dx %f, offset dy %f, offsetEx %f, offsetEy %f \n", offset.x, offset.y, offsetExtra.x, offsetExtra.y);
+		// std::cout << "test" << std::endl;
 	}
 
 	vector2 agent::getSPos(const unsigned int screenWidth, const unsigned int screenHeight)
@@ -139,12 +142,14 @@ namespace glUtils
 	struct extraData
 	{
 		decimalType zoom = 1;
+		decimalType size;
 		vector2 offset = vector2(0, 0);
 		vector2 screenSize = vector2(0, 0);
 		bool mouseLeftHeld = false;
 		vector2 mousePositionOld = vector2(0, 0);
 
 		std::vector<agent*> agents;
+		std::vector<NeurelNetwork::neuralnetwork<decimalType>*> neuralnetworks;
 
 		extraData()
 		{}
@@ -152,13 +157,18 @@ namespace glUtils
 
 	void scrollCallBack(GLFWwindow* window, double xOffset, double yOffset)
 	{
-		void* exDataP = glfwGetWindowUserPointer(window);
+		/*void* exDataP = glfwGetWindowUserPointer(window);
 		extraData* dataP = (extraData*)exDataP;
 
 		// dataP->zoom = std::min(std::max(dataP->zoom + yOffset * ZOOM_STRENGTH, 0.6), 5.0);
 		decimalType adjY = std::pow(2, yOffset * ZOOM_STRENGTH);
 		// decimalType adjY = std::pow(2, yOffset);
 		dataP->zoom = dataP->zoom * adjY;
+
+		for (auto agent : dataP->agents)
+		{
+			agent->size = vector2((dataP->size * dataP->zoom)/(dataP->screenSize.x*0.01), (dataP->size * dataP->zoom)/(dataP->screenSize.y*0.01));
+		}
 
 		if (ZOOM_BOOL)
 		{
@@ -181,7 +191,7 @@ namespace glUtils
 				vectorOffsetPreAdj.y = -vectorOffsetPreAdj.y / (dataP->screenSize.y/2);
 				obj->offsetExtra = vectorOffsetPreAdj;
 			}
-		}
+		}*/
 
 	}
 
@@ -219,11 +229,15 @@ namespace glUtils
 				// std::cout << newPos.x << ", " << newPos.y << std::endl;
 			}
 			dataP->mousePositionOld = newPos;
+
+			for (auto agent : dataP->agents)
+			{
+				agent->offset = dataP->offset;
+			}
 		}
 	}
 
-
-	void initWindow (GLFWwindow* window, const char* title)
+	void initWindow (GLFWwindow** window, const char* title)
 	{
 		glfwInit();
 
@@ -233,16 +247,35 @@ namespace glUtils
 		const decimalType width = static_cast<decimalType>(mode->width);
 		const decimalType height = static_cast<decimalType>(mode->height);
 
-		window = glfwCreateWindow(width, height, title, monitor, NULL);
-
-		glfwMakeContextCurrent(window);
-
-		extraData data;
-		data.screenSize = vector2(width, height);
-		glfwSetWindowUserPointer(window, &data);
-
-		glfwSetScrollCallback(window, scrollCallBack);
-		glfwSetMouseButtonCallback(window, mouseButtonCallBack);
+		*window = glfwCreateWindow(width, height, "Tomer's Ais Window :)", monitor, NULL);
 	}
+
+	// void initWindow (GLFWwindow** window, const char* title)
+	// {
+	// 	glfwInit();
+	//
+	// 	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+	// 	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+	//
+	// 	const decimalType width = static_cast<decimalType>(mode->width);
+	// 	const decimalType height = static_cast<decimalType>(mode->height);
+	//
+	// 	*window = glfwCreateWindow(width, height, "Tomer's Ais Window :)", monitor, NULL);
+	//
+	// 	// glfwMakeContextCurrent(window);
+	//
+	//
+	// 	// while (!glfwWindowShouldClose(window))
+	// 	// {
+	// 	// 	glfwPollEvents();
+	// 	//
+	// 	// 	glClear(GL_COLOR_BUFFER_BIT);
+	// 	//
+	// 	// 	glfwSwapBuffers(window);
+	// 	// }
+	// 	//
+	// 	// glfwDestroyWindow(window);
+	// 	// glfwTerminate();
+	// }
 }
 #endif

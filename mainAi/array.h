@@ -15,6 +15,9 @@ class Array
 	Type* ptr;
 
 public:
+	bool autoDeleteMem;
+
+public:
 	Array();//defult constructor shouldnt be used UNLESS you assign the array immedietly after, use with EXTREME CAUTION
 	Array(Type* arrPtr, unsigned int Rows, unsigned int Columns);
 	Array(Type& arrPtr);
@@ -45,7 +48,8 @@ public:
 
 	~Array()
 	{
-		delete[] ptr;
+		if (autoDeleteMem)
+			delete[] ptr;
 	}
 
 	int getRows() const;
@@ -59,7 +63,8 @@ public:
 template <typename Type> Array<Type>::Array():
 	R(0),
 	C(0),
-	ptr(nullptr)
+	ptr(nullptr),
+	autoDeleteMem(true)
 {
 }
 
@@ -68,7 +73,8 @@ template <typename Type>
 Array<Type>::Array(Type* arrPtr,unsigned const int Rows,unsigned const int Columns):
 	R(Rows),
 	C(Columns),
-	ptr(arrPtr)
+	ptr(arrPtr),
+	autoDeleteMem(true)
 {
 }
 
@@ -82,7 +88,8 @@ template <typename Type>
 Array<Type>::Array(unsigned const int Rows, unsigned const int Columns):
 	R(Rows),
 	C(Columns),
-	ptr(new Type[R*C]())//() makes it intiliaze at 0
+	ptr(new Type[R*C]()),//() makes it intiliaze at 0
+	autoDeleteMem(true)
 {
 	// mt19937 gen(chrono::system_clock::now().time_since_epoch().count());
 	// uniform_real_distribution<> dis(0.0, 1.0);
