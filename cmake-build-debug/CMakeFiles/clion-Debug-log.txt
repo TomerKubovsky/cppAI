@@ -1,4 +1,10 @@
-"C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/ninja/win/x64/ninja.exe" -DCMAKE_TOOLCHAIN_FILE=C:\Users\tomer\.vcpkg-clion\vcpkg\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-mingw-dynamic -G Ninja -S C:\Users\tomer\OneDrive\Desktop\cppAI -B C:\Users\tomer\OneDrive\Desktop\cppAI\cmake-build-debug
--- Configuring done (0.1s)
+"C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Users/tomer/AppData/Local/JetBrains/CLion 2024.2.2/bin/ninja/win/x64/ninja.exe" "-DCMAKE_CXX_COMPILER=C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/cl.exe" -DCMAKE_TOOLCHAIN_FILE=C:\Users\tomer\.vcpkg-clion\vcpkg\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-mingw-dynamic -G Ninja -S C:\Users\tomer\OneDrive\Desktop\cppAI -B C:\Users\tomer\OneDrive\Desktop\cppAI\cmake-build-debug
+-- The CXX compiler identification is MSVC 19.43.34808.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/cl.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (5.2s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/tomer/OneDrive/Desktop/cppAI/cmake-build-debug

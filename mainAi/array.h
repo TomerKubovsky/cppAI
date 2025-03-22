@@ -3,6 +3,8 @@
 #include <functional>
 #include <iomanip>
 #include <iostream>
+
+
 namespace NeurelNetwork
 {
 	namespace ArrayUtils
@@ -105,7 +107,8 @@ template <typename Type>
 Array<Type>::Array(Array<Type>&& otherArr) noexcept:
 	R(otherArr.R),
 	C(otherArr.C),
-	ptr(otherArr.ptr)
+	ptr(otherArr.ptr),
+	autoDeleteMem(true)
 {
 	// std::cout << "move cconsturctor good" << std::endl;
 	otherArr.ptr = nullptr;
@@ -115,7 +118,7 @@ Array<Type>::Array(Array<Type>&& otherArr) noexcept:
 
 template <typename Type>
 Array<Type>::Array(const Array<Type>& otherArr)//copy constuctor
-	: R(otherArr.R), C(otherArr.C), ptr(otherArr.ptr)
+	: R(otherArr.R), C(otherArr.C), ptr(otherArr.ptr), autoDeleteMem(true)
 {
 }
 
@@ -131,6 +134,7 @@ Array<Type>& Array<Type>::operator=(const Array<Type>& arr)
 	C = arr.C;
 	R = arr.R;
 	ptr = arr.ptr;
+	autoDeleteMem = true;
 	return *this;
 }
 
@@ -142,6 +146,7 @@ Array<Type>& Array<Type>::operator=(Array<Type> &&arr)
 	ptr = arr.ptr;
 	R = arr.R;
 	C = arr.C;
+	autoDeleteMem = true;
 
 	arr.ptr = nullptr;
 	return *this;

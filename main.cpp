@@ -1,6 +1,7 @@
 #include <iostream>
 #include "openGlTests/utilsHeader.h"
 #include "mainAi/neurelNetworkClass.h"
+#include <windows.h>
 
 
 
@@ -40,7 +41,8 @@ void initGLThings(void (*mainPreFunc)(glUtils::extraData*, GLFWwindow*), void (*
 	const decimalType width = static_cast<decimalType>(mode->width);
 	const decimalType height = static_cast<decimalType>(mode->height);
 	dataPointer->screenSize = { width, height };
-	dataPointer->size = static_cast<decimalType>(0.1);
+	dataPointer->size = static_cast<decimalType>(0.5);
+	dataPointer->count = 0;
 
 	mainPreFunc(dataPointer, window);
 
@@ -86,39 +88,58 @@ void mainFuncPre(glUtils::extraData* dataPointer, GLFWwindow* window)
 
 	const int layers[] = {2, 16, 16, 4};
 	dataPointer->neuralnetworks.push_back(&NeurelNetwork::neuralnetwork<decimalType>(layers, 4, "relu", "sigmoid", 0.01, "adam"));
+	// (((dataPointer->neuralnetworks)[0]->getLayers())[0]).getWeights().print();
+	std::cout << (((((dataPointer->neuralnetworks)[0])->getLayers())[0]).getWeights()).getPtr() << std::endl;
 }
 
 void mainFuncLoop(glUtils::extraData* dataP, GLFWwindow* window)
 {
-	using namespace NeurelNetwork::ArrayUtils;
-	constexpr double speed = 0.01;
-	glUtils::agent* aiAgent = dataP->agents[0];
-	glUtils::agent* enemyAgent = dataP->agents[1];
-
-	glUtils::vector2 vectorToEnemy = enemyAgent->pos - aiAgent->pos;
-	const decimalType hyp = std::sqrt(vectorToEnemy.x * vectorToEnemy.x + vectorToEnemy.y  * vectorToEnemy.y); //find hypotenuse of vector
-	vectorToEnemy = glUtils::vector2(vectorToEnemy.x/hyp, vectorToEnemy.y/hyp); //normalize vector by dividing by hypotenuse, also did this math in head without help ;)
-	enemyAgent->pos = enemyAgent->pos + (vectorToEnemy * dataP->size * speed);
-
-	NeurelNetwork::neuralnetwork<decimalType>* agentNet = dataP->neuralnetworks[0];
-	Array<decimalType> inputArr = vectorToArray(vectorToEnemy);
-	Array<decimalType> outputArr = agentNet->forwards(inputArr);
-
-	glUtils::vector2 outputVec(0, 0);
-
-	for (int i = 0; i < 4; i++)
+	// dataP->count++;
+	// if (dataP->count >= 1)
 	{
-		switch (outputArr.getPtr()[i])
+		using namespace NeurelNetwork::ArrayUtils;
+		double speed = 0.002;
+		glUtils::agent* aiAgent = dataP->agents[0];
+		glUtils::agent* enemyAgent = dataP->agents[1];
+
+		glUtils::vector2 vectorToEnemy = enemyAgent->pos - aiAgent->pos;
+		const decimalType hyp = std::sqrt(vectorToEnemy.x * vectorToEnemy.x + vectorToEnemy.y  * vectorToEnemy.y); //find hypotenuse of vector
+		vectorToEnemy = glUtils::vector2(vectorToEnemy.x/hyp, vectorToEnemy.y/hyp); //normalize vector by dividing by hypotenuse, also did this math in head without help ;)
+		enemyAgent->pos = enemyAgent->pos + (vectorToEnemy * dataP->size * speed);
+
+		NeurelNetwork::neuralnetwork<decimalType>* agentNet = (dataP->neuralnetworks)[0];
+		Array<decimalType> inputArr = vectorToArray(vectorToEnemy);
+		Array<decimalType> outputArr = agentNet->forwards(inputArr);
+
+		glUtils::vector2 outputVec(0, 0);
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::uniform_real_distribution<> dis(0.0,1.0);
+		for (int i = 0; i < 4; i++)
 		{
-			case 0:
-				outputVec.x += 1;
-			case 1:
-				outputVec.y += 1;
-			case 2:
-				outputVec.x -= 1;
-			case 3:
-				outputVec.y -= 1;
+			const double tempVal = dis(gen);
+			// std::cout << (outputArr.getPtr())[i] << std::endl;
+			if (tempVal < (outputArr.getPtr())[i])
+			{
+				switch (i)
+				{
+					case 0:
+						// std::cout << "0" << std::endl;
+							outputVec.x += 1;
+					case 1:
+						// std::cout << "1" << std::endl;
+							outputVec.x -= 1;
+					case 2:
+						// std::cout << "2" << std::endl;
+							outputVec.y += 1;
+					case 3:
+						// std::cout << "3" << std::endl;
+							outputVec.y -= 1;
+				}
+			}
 		}
+		aiAgent->pos = aiAgent->pos + (outputVec * dataP->size * speed);
+		// dataP->count = 0;
 	}
 }
 
