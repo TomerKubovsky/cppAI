@@ -20,6 +20,10 @@ namespace glUtils
 		decimalType x;
 		decimalType y;
 
+		vector2()
+			: x(0), y(0)
+		{}
+
 		vector2(decimalType xI, decimalType yI)
 			: x(xI), y(yI)
 		{}
@@ -242,7 +246,18 @@ namespace glUtils
 	{
 		glfwInit();
 
-		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+		// GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+		int amountOfMon;
+		GLFWmonitor** monitors = glfwGetMonitors(&amountOfMon);
+
+		GLFWmonitor* monitor;
+		if (amountOfMon >= 2)
+		{
+			monitor = monitors[1];
+		} else
+		{
+			monitor = monitors[0];
+		}
 		const GLFWvidmode* mode = glfwGetVideoMode(monitor);
 
 		const decimalType width = static_cast<decimalType>(mode->width);

@@ -187,7 +187,7 @@ void Array<Type>::print() const
 		}
 		std::cout << ptr[index];
 	}
-	std::cout << std::endl;
+	// std::cout << std::endl;
 }
 
 template<typename Type>

@@ -89,11 +89,12 @@ namespace NeurelNetwork
             })),
         biases(ArrayUtils::Array<Type>(1, outputs).customFunc([](Type input, int index)
             {
-                // unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-                // std::mt19937 rng(seed);
-                // std::normal_distribution<> distribution(0.0, 1.0);
-                // return static_cast<Type>(distribution(rng));
-                return static_cast<Type>(0);
+                unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+                std::mt19937 rng(seed);
+                std::normal_distribution<> distribution(0.0, 1.0);
+                return static_cast<Type>(distribution(rng));
+                // return static_cast<Type>(0);
+                // return static_cast<Type>(1);
             })),
         dWeights(ArrayUtils::Array<Type>(outputs, Inputs)),
         dBiases(ArrayUtils::Array<Type>(1, outputs)),
@@ -290,6 +291,12 @@ namespace NeurelNetwork
             }
 delete[] exponentiatedVals; delete[] addedVals;
             return ArrayUtils::Array<Type>(softmaxedVals, inputRows, inputColumns);
+        } else if (activationFunc == "sigmoid")
+        {
+            return Inputs.customFunc([](Type input, int index)
+            {
+                return 1/(1+exp(-input));
+            });
         } else
         {
             return Inputs.deepCopy();
@@ -339,6 +346,14 @@ delete[] exponentiatedVals; delete[] addedVals;
                 }
             }
             return ArrayUtils::Array<Type>(dActive, dOutputs.getRows(), dOutputs.getColumns());
+        } else if (activationFunc == "sigmoid")
+        {
+            return outputsPreActive.customFunc2Arr(dOutputs, [](Type preActivArrVal, Type dOutputsArrVal, int index)
+            {
+                const Type sigmoided = 1/(1+std::exp(-preActivArrVal)) * dOutputsArrVal;
+                return sigmoided * (1-sigmoided);
+            });
+
         } else
         {
             // return dOutputs.deepCopy(); //linear activation function derivative is 1 so 1*doutpus so doutputs
