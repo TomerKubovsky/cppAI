@@ -30,7 +30,7 @@ void trainNet(const unsigned int agentsToTrain, unsigned int time, const glUtils
 
 	for (unsigned int i = 0; i < agentsToTrain; i++)
 	{
-		glUtils::vector2 outputVec(0, 0);
+		// glUtils::vector2 outputVec(0, 0);
 		std::random_device rd;
 		std::mt19937 gen(rd());
 		std::uniform_real_distribution<> dis(-0.5, 0.5);
@@ -39,93 +39,98 @@ void trainNet(const unsigned int agentsToTrain, unsigned int time, const glUtils
 	glUtils::vector2 enemyAgentPos = glUtils::vector2(0, 0);
 	decimalType* distOlds = new decimalType[agentsToTrain];
 	decimalType* inputsPtr = new decimalType[agentsToTrain * 2]; //2 inputs for each agent
-	for (unsigned int i = 0; i < agentsToTrain; i++)
+	for (unsigned int k = 0; k < time; k++)
 	{
-		const glUtils::vector2 vecToEnemy = enemyAgentPos - agentsPos[i];
-		distOlds[i] = std::sqrt(vecToEnemy.x * vecToEnemy.x + vecToEnemy.y * vecToEnemy.y);
-		const glUtils::vector2 normalizedVecToEnemy = vecToEnemy / distOlds[i]; //dist olds[i] is hypotenuse of triangle vectoenemy.x,vectoenemy.y
-		inputsPtr[i * 2] = normalizedVecToEnemy.x;
-		inputsPtr[i * 2 + 1] = normalizedVecToEnemy.y;
-	}
-	Array<decimalType> inputsArr(inputsPtr, agentsToTrain, 2);
-	Array<decimalType> outputs = aiNet->forwards(inputsArr);
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_real_distribution<> dis(0.0, 1.0);
-	int* actionsArrs = new int[agentsToTrain * 4];
-	double speed = 0.002;
-	for (unsigned int agentNum = 0; agentNum < agentsToTrain; agentNum++)
-	{
-		for (int i = 0; i < 4; i++)
+		for (unsigned int i = 0; i < agentsToTrain; i++)
 		{
-			const double tempVal = dis(gen);
-			if (tempVal < outputs.getPtr()[i + agentNum * 4])
+			const glUtils::vector2 vecToEnemy = enemyAgentPos - agentsPos[i];
+			distOlds[i] = std::sqrt(vecToEnemy.x * vecToEnemy.x + vecToEnemy.y * vecToEnemy.y);
+			const glUtils::vector2 normalizedVecToEnemy = vecToEnemy / distOlds[i]; //dist olds[i] is hypotenuse of triangle vectoenemy.x,vectoenemy.y
+			inputsPtr[i * 2] = normalizedVecToEnemy.x;
+			inputsPtr[i * 2 + 1] = normalizedVecToEnemy.y;
+		}
+		Array<decimalType> inputsArr(inputsPtr, agentsToTrain, 2);
+		inputsArr.autoDeleteMem = false;
+		Array<decimalType> outputs = aiNet->forwards(inputsArr);
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::uniform_real_distribution<> dis(0.0, 1.0);
+		int* actionsArrs = new int[agentsToTrain * 4];
+		for (unsigned int agentNum = 0; agentNum < agentsToTrain; agentNum++)
+		{
+			for (int i = 0; i < 4; i++)
 			{
-				switch (i)
+				const double tempVal = dis(gen);
+				if (tempVal < outputs.getPtr()[i + agentNum * 4])
 				{
+					switch (i)
+					{
 					case 0:
-						agentsPos[agentNum].x += speed * dataP->size;
+						agentsPos[agentNum].x += dataP->aiSpeed * dataP->size;
 						actionsArrs[i + agentNum * 4] = 1;
 						break;
 					case 1:
-						agentsPos[agentNum].x -= speed * dataP->size;
+						agentsPos[agentNum].x -= dataP->aiSpeed * dataP->size;
 						actionsArrs[i + agentNum * 4] = 1;
 						break;
 					case 2:
-						agentsPos[agentNum].y += speed * dataP->size;
+						agentsPos[agentNum].y += dataP->aiSpeed * dataP->size;
 						actionsArrs[i + agentNum * 4] = 1;
 						break;
 					case 3:
-						agentsPos[agentNum].y -= speed * dataP->size;
+						agentsPos[agentNum].y -= dataP->aiSpeed * dataP->size;
 						actionsArrs[i + agentNum * 4] = 1;
 						break;
-				}
-			} else
-			{
-				switch (i)
+					}
+				} else
 				{
-				case 0:
-					actionsArrs[i + agentNum * 4] = -1;
-					break;
-				case 1:
-					actionsArrs[i + agentNum * 4] = -1;
-					break;
-				case 2:
-					actionsArrs[i + agentNum * 4] = -1;
-					break;
-				case 3:
-					actionsArrs[i + agentNum * 4] = -1;
-					break;
+					switch (i)
+					{
+					case 0:
+						actionsArrs[i + agentNum * 4] = -1;
+						break;
+					case 1:
+						actionsArrs[i + agentNum * 4] = -1;
+						break;
+					case 2:
+						actionsArrs[i + agentNum * 4] = -1;
+						break;
+					case 3:
+						actionsArrs[i + agentNum * 4] = -1;
+						break;
+					}
 				}
 			}
 		}
-	}
-	decimalType* dOutputsPtr = new decimalType[agentsToTrain * 4];
-	for (int agentNum = 0; agentNum < agentsToTrain; agentNum++)
-	{
-		const glUtils::vector2 vecToEnemy = enemyAgentPos - agentsPos[agentNum];
-		constexpr decimalType epsilon = 0.001;
-		const decimalType reward = distOlds[agentNum] - std::sqrt(vecToEnemy.x * vecToEnemy.x + vecToEnemy.y * vecToEnemy.y) - epsilon; //epsilon so that when reward = 0 its bad
-		if (agentNum == 0)
+		decimalType* dOutputsPtr = new decimalType[agentsToTrain * 4];
+		for (int agentNum = 0; agentNum < agentsToTrain; agentNum++)
 		{
-			// std::cout << reward << std::endl;
-		}
-		for (int i = 0; i < 4; i++)
-		{
-			dOutputsPtr[i + agentNum * 4] = reward * actionsArrs[i + agentNum * 4];
+			const glUtils::vector2 vecToEnemy = enemyAgentPos - agentsPos[agentNum];
+			constexpr decimalType epsilon = 0.001;
+			const decimalType reward = distOlds[agentNum] - std::sqrt(vecToEnemy.x * vecToEnemy.x + vecToEnemy.y * vecToEnemy.y) - epsilon; //epsilon so that when reward = 0 its bad
 			if (agentNum == 0)
 			{
-				// std::cout << actionsArrs[i + agentNum * 4] << " " << reward << std::endl;
-				// std::cout << dOutputsPtr[i + agentNum * 4] << std::endl;
+				// std::cout << reward << std::endl;
+			}
+			for (int i = 0; i < 4; i++)
+			{
+				dOutputsPtr[i + agentNum * 4] = reward * actionsArrs[i + agentNum * 4] * 4;
+				if (agentNum == 0)
+				{
+					// std::cout << actionsArrs[i + agentNum * 4] << " " << reward << std::endl;
+					// std::cout << dOutputsPtr[i + agentNum * 4] << std::endl;
+				}
 			}
 		}
+		Array<decimalType> dOutputs(dOutputsPtr, agentsToTrain, 4);
+		aiNet->backwards(dOutputs);
+		// std::cout << std::endl << std::endl;
+		delete[] actionsArrs;
 	}
-	Array<decimalType> dOutputs(dOutputsPtr, agentsToTrain, 4);
-	aiNet->backwards(dOutputs);
-	aiNet->updateWeightsAndBiases();
-	// std::cout << std::endl << std::endl;
 	delete[] distOlds;
-	delete[] actionsArrs;
+	delete[] agentsPos;
+	delete[] inputsPtr; //dont auto delete it when arr gets out of scope bc its reused throughout loops, array is inited in time loop
+	aiNet->updateWeightsAndBiases();
 }
 
 void initGLThings(void (*mainPreFunc)(glUtils::extraData*, GLFWwindow*), void (*mainLoopFunc)(glUtils::extraData*, GLFWwindow*))
@@ -149,6 +154,8 @@ void initGLThings(void (*mainPreFunc)(glUtils::extraData*, GLFWwindow*), void (*
 	const decimalType height = static_cast<decimalType>(mode->height);
 	dataPointer->screenSize = { width, height };
 	dataPointer->size = static_cast<decimalType>(0.5);
+	dataPointer->enemySpeed = static_cast<decimalType>(0.001);
+	dataPointer->aiSpeed = dataPointer->enemySpeed * 2;
 	dataPointer->count = 0;
 
 	mainPreFunc(dataPointer, window);
@@ -159,7 +166,7 @@ void initGLThings(void (*mainPreFunc)(glUtils::extraData*, GLFWwindow*), void (*
 
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		trainNet(1000, 1, dataPointer);
+		trainNet(300, 10, dataPointer);
 		mainLoopFunc(dataPointer, window);
 
 		// glUtils::DrawSquare(glUtils::vector2(-0.5,-0.5), glUtils::vector2(0.5,0.5), glUtils::vector3(1.0,0.0,0.0));
@@ -209,7 +216,6 @@ void mainFuncLoop(glUtils::extraData* dataP, GLFWwindow* window)
 	// if (dataP->count >= 1)
 	{
 		using namespace NeurelNetwork::ArrayUtils;
-		double speed = 0.002;
 		glUtils::agent* aiAgent = dataP->agents[0];
 		glUtils::agent* enemyAgent = dataP->agents[1];
 
@@ -218,7 +224,7 @@ void mainFuncLoop(glUtils::extraData* dataP, GLFWwindow* window)
 		glUtils::vector2 vectorToEnemy = enemyAgent->pos - aiAgent->pos;
 		const decimalType hyp = std::sqrt(vectorToEnemy.x * vectorToEnemy.x + vectorToEnemy.y  * vectorToEnemy.y); //find hypotenuse of vector
 		vectorToEnemy = glUtils::vector2(vectorToEnemy.x/hyp, vectorToEnemy.y/hyp); //normalize vector by dividing by hypotenuse, also did this math in head without help ;)
-		// enemyAgent->pos = enemyAgent->pos + (vectorToEnemy * dataP->size * speed);
+		// enemyAgent->pos = enemyAgent->pos + (vectorToEnemy * dataP->size * dataP->enemySpeed);
 
 		NeurelNetwork::neuralnetwork<decimalType>* agentNet = (dataP->neuralnetworks)[0];
 		Array<decimalType> inputArr = vectorToArray(vectorToEnemy);
@@ -277,7 +283,7 @@ void mainFuncLoop(glUtils::extraData* dataP, GLFWwindow* window)
 				}
 			}
 		}
-		aiAgent->pos = aiAgent->pos + (outputVec * dataP->size * speed);
+		aiAgent->pos = aiAgent->pos + (outputVec * dataP->size * dataP->aiSpeed);
 
 		vectorToEnemy = enemyAgent->pos - aiAgent->pos;
 		const decimalType newDist = std::sqrt(vectorToEnemy.x * vectorToEnemy.x + vectorToEnemy.y  * vectorToEnemy.y); //find hypotenuse of vector

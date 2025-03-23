@@ -152,6 +152,8 @@ namespace glUtils
 		bool mouseLeftHeld = false;
 		vector2 mousePositionOld = vector2(0, 0);
 		unsigned int count = 0;
+		decimalType aiSpeed;
+		decimalType enemySpeed;
 
 		std::vector<agent*> agents;
 		std::vector<NeurelNetwork::neuralnetwork<decimalType>*> neuralnetworks;
