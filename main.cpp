@@ -442,9 +442,9 @@ void mainFuncLoop(glUtils::extraData* dataP, GLFWwindow* window)
 		if (dataP->count % 100 == 0)
 		{
 			outputArr.print();
-			// std::cout << std::endl << distanceDiffrence;
-			// (((dataP->neuralnetworks)[1])->forwards(inputArr)).print();
-			// std::cout << std::endl;
+			std::cout << std::endl << distanceDiffrence;
+			(((dataP->neuralnetworks)[1])->forwards(inputArr)).print();
+			std::cout << std::endl;
 		}
 		/*
 		std::cout << std::endl;
