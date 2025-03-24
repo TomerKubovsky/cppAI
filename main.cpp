@@ -27,6 +27,9 @@ void trainNet(const unsigned int agentsToTrain, unsigned int time, const glUtils
 {
 	glUtils::vector2* agentsPos = new glUtils::vector2[agentsToTrain];
 	NeurelNetwork::neuralnetwork<decimalType>* aiNet = dataP->neuralnetworks[0];
+	NeurelNetwork::neuralnetwork<decimalType>* predictNet = dataP->neuralnetworks[1];
+
+	Array<decimalType> predictedRewards;
 
 	for (unsigned int i = 0; i < agentsToTrain; i++)
 	{
@@ -50,6 +53,7 @@ void trainNet(const unsigned int agentsToTrain, unsigned int time, const glUtils
 			inputsPtr[i * 2 + 1] = normalizedVecToEnemy.y;
 		}
 		Array<decimalType> inputsArr(inputsPtr, agentsToTrain, 2);
+		predictedRewards = predictNet->forwards(inputsArr);
 		inputsArr.autoDeleteMem = false;
 		Array<decimalType> outputs = aiNet->forwards(inputsArr);
 		std::random_device rd;
@@ -103,18 +107,17 @@ void trainNet(const unsigned int agentsToTrain, unsigned int time, const glUtils
 			}
 		}
 		decimalType* dOutputsPtr = new decimalType[agentsToTrain * 4];
+		decimalType* dOutputsRewardPtr = new decimalType[agentsToTrain];
 		for (int agentNum = 0; agentNum < agentsToTrain; agentNum++)
 		{
 			const glUtils::vector2 vecToEnemy = enemyAgentPos - agentsPos[agentNum];
 			constexpr decimalType epsilon = 0.001;
 			const decimalType reward = distOlds[agentNum] - std::sqrt(vecToEnemy.x * vecToEnemy.x + vecToEnemy.y * vecToEnemy.y) - epsilon; //epsilon so that when reward = 0 its bad
-			if (agentNum == 0)
-			{
-				// std::cout << reward << std::endl;
-			}
+			dOutputsRewardPtr[agentNum] = ((reward - (predictedRewards.getPtr())[agentNum])*2)/(agentsToTrain * time);
+			// dOutputsRewardPtr[agentNum] = (reward)/(agentsToTrain * time);
 			for (int i = 0; i < 4; i++)
 			{
-				dOutputsPtr[i + agentNum * 4] = reward * actionsArrs[i + agentNum * 4] * 4;
+				dOutputsPtr[i + agentNum * 4] = ((reward - (predictedRewards.getPtr())[agentNum]) * actionsArrs[i + agentNum * 4])/(agentsToTrain * time);
 				if (agentNum == 0)
 				{
 					// std::cout << actionsArrs[i + agentNum * 4] << " " << reward << std::endl;
@@ -123,7 +126,9 @@ void trainNet(const unsigned int agentsToTrain, unsigned int time, const glUtils
 			}
 		}
 		Array<decimalType> dOutputs(dOutputsPtr, agentsToTrain, 4);
+		Array<decimalType> dOutputsReward(dOutputsRewardPtr, agentsToTrain, 1);
 		aiNet->backwards(dOutputs);
+		predictNet->backwards(dOutputsReward);
 		// std::cout << std::endl << std::endl;
 		delete[] actionsArrs;
 	}
@@ -131,13 +136,13 @@ void trainNet(const unsigned int agentsToTrain, unsigned int time, const glUtils
 	delete[] agentsPos;
 	delete[] inputsPtr; //dont auto delete it when arr gets out of scope bc its reused throughout loops, array is inited in time loop
 	aiNet->updateWeightsAndBiases();
+	predictNet->updateWeightsAndBiases();
 }
 
 void initGLThings(void (*mainPreFunc)(glUtils::extraData*, GLFWwindow*), void (*mainLoopFunc)(glUtils::extraData*, GLFWwindow*))
 {
 	GLFWwindow* window = nullptr;
 	glUtils::initWindow(&window, "AI Window");
-
 	glfwMakeContextCurrent(window);
 
 	glUtils::extraData* dataPointer = new glUtils::extraData();
@@ -147,6 +152,7 @@ void initGLThings(void (*mainPreFunc)(glUtils::extraData*, GLFWwindow*), void (*
 	glfwSetMouseButtonCallback(window, glUtils::mouseButtonCallBack);
 	glfwSetCursorPosCallback(window, glUtils::mouseMoveCallBack);
 	glfwSetScrollCallback(window, glUtils::scrollCallBack);
+	glfwSetKeyCallback(window, glUtils::keyCallBack);
 
 	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
@@ -166,16 +172,28 @@ void initGLThings(void (*mainPreFunc)(glUtils::extraData*, GLFWwindow*), void (*
 
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		trainNet(300, 10, dataPointer);
-		mainLoopFunc(dataPointer, window);
+		if (dataPointer->pause != true)
+		{
+			if (dataPointer->resetPos == true)
+			{
+				std::random_device rd;
+				std::mt19937 gen(rd());
+				std::uniform_real_distribution<> dis(-0.5,0.5);
+				((dataPointer->agents)[0])->pos = glUtils::vector2(dis(gen), dis(gen));
+				dataPointer->count = 0;
+				dataPointer->resetPos = false;
+			}
+			if (dataPointer->trainAi)
+				trainNet(20, 400, dataPointer);
+			mainLoopFunc(dataPointer, window);
 
-		// glUtils::DrawSquare(glUtils::vector2(-0.5,-0.5), glUtils::vector2(0.5,0.5), glUtils::vector3(1.0,0.0,0.0));
+			// glUtils::DrawSquare(glUtils::vector2(-0.5,-0.5), glUtils::vector2(0.5,0.5), glUtils::vector3(1.0,0.0,0.0));
 
+		}
 		for (glUtils::agent* agent: dataPointer->agents)
 		{
 			agent->render();
 		}
-
 		glfwSwapBuffers(window);
 	}
 
@@ -208,7 +226,9 @@ void mainFuncPre(glUtils::extraData* dataPointer, GLFWwindow* window)
 	dataPointer->agents.push_back(enemyAgent);
 
 	const int layers[] = {2, 16, 16, 4};
+	const int layersRegNet[] = {2, 16, 16, 1};
 	dataPointer->neuralnetworks.push_back(new NeurelNetwork::neuralnetwork<decimalType>(layers, 4, "relu", "sigmoid", 0.0003, "adam"));
+	dataPointer->neuralnetworks.push_back(new NeurelNetwork::neuralnetwork<decimalType>(layers, 4, "relu", "none", 0.0003, "adam"));
 }
 
 void mainFuncLoop(glUtils::extraData* dataP, GLFWwindow* window)
@@ -308,8 +328,11 @@ void mainFuncLoop(glUtils::extraData* dataP, GLFWwindow* window)
 		}
 		if (dataP->count % 100 == 0)
 		{
-			outputArr.print();
+			// outputArr.print();
 		}
+		std::cout << distanceDiffrence << std::endl;
+		(((dataP->neuralnetworks)[1])->forwards(inputArr)).print();
+		std::cout << std::endl;
 		/*
 		std::cout << std::endl;
 		std::cout << distanceDiffrence;

@@ -154,6 +154,9 @@ namespace glUtils
 		unsigned int count = 0;
 		decimalType aiSpeed;
 		decimalType enemySpeed;
+		bool trainAi = true;
+		bool pause = false;
+		bool resetPos = false;
 
 		std::vector<agent*> agents;
 		std::vector<NeurelNetwork::neuralnetwork<decimalType>*> neuralnetworks;
@@ -241,6 +244,30 @@ namespace glUtils
 			{
 				agent->offset = dataP->offset;
 			}
+		}
+	}
+
+	void keyCallBack(GLFWwindow* window, int key, int scancode, int action, int mods)
+	{
+		void* voidDataP = glfwGetWindowUserPointer(window);
+		extraData* dataP = (extraData*)voidDataP;
+		if (key == GLFW_KEY_S && action == GLFW_PRESS)
+		{
+			if (dataP->trainAi == true)
+			{
+				dataP->trainAi = false;
+			} else
+			{
+				dataP->trainAi = true;
+			}
+		}
+		if (key == GLFW_KEY_R && action == GLFW_PRESS)
+		{
+			dataP->resetPos = true;
+		}
+		if (key == GLFW_KEY_P && action == GLFW_PRESS)
+		{
+			(dataP->pause == true) ? dataP->pause = false : dataP->pause = true;
 		}
 	}
 
