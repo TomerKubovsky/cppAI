@@ -152,6 +152,7 @@ namespace NeurelNetwork
                 {
                     int index = inputIndex + batchIndex * outputCount;
                     dOutputs[index] += (((extraDataValsPtr[index] - selfOutputsPtr[index]) * -2) / outputCount); //this is derivative for mean squared error, you divide by
+                    //note for future me, idk if you are meant to divide by output count or by output count * batch count bc are u meant to averager it for all batches?
                 }
             }
         }
