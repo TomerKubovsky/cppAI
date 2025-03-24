@@ -2,9 +2,6 @@
 #include "openGlTests/utilsHeader.h"
 #include "mainAi/neurelNetworkClass.h"
 #include <windows.h>
-
-
-
 using namespace NeurelNetwork::ArrayUtils;
 
 #define getVal(arr, i) (arr.getPtr())[i]
@@ -114,6 +111,7 @@ void trainNet(const unsigned int agentsToTrain, unsigned int time, const glUtils
 			constexpr decimalType epsilon = 0.001;
 			const decimalType reward = distOlds[agentNum] - std::sqrt(vecToEnemy.x * vecToEnemy.x + vecToEnemy.y * vecToEnemy.y) - epsilon; //epsilon so that when reward = 0 its bad
 			dOutputsRewardPtr[agentNum] = ((reward - (predictedRewards.getPtr())[agentNum])*2)/(agentsToTrain * time);
+			std::cout << reward << " " << predictedRewards.getPtr()[agentNum] << std::endl;
 			// dOutputsRewardPtr[agentNum] = (reward)/(agentsToTrain * time);
 			for (int i = 0; i < 4; i++)
 			{
@@ -135,7 +133,7 @@ void trainNet(const unsigned int agentsToTrain, unsigned int time, const glUtils
 	delete[] distOlds;
 	delete[] agentsPos;
 	delete[] inputsPtr; //dont auto delete it when arr gets out of scope bc its reused throughout loops, array is inited in time loop
-	aiNet->updateWeightsAndBiases();
+	iNet->updateWeightsAndBiases();
 	predictNet->updateWeightsAndBiases();
 }
 
@@ -228,7 +226,7 @@ void mainFuncPre(glUtils::extraData* dataPointer, GLFWwindow* window)
 	const int layers[] = {2, 16, 16, 4};
 	const int layersRegNet[] = {2, 16, 16, 1};
 	dataPointer->neuralnetworks.push_back(new NeurelNetwork::neuralnetwork<decimalType>(layers, 4, "relu", "sigmoid", 0.0003, "adam"));
-	dataPointer->neuralnetworks.push_back(new NeurelNetwork::neuralnetwork<decimalType>(layers, 4, "relu", "none", 0.0003, "adam"));
+	dataPointer->neuralnetworks.push_back(new NeurelNetwork::neuralnetwork<decimalType>(layersRegNet, 4, "relu", "none", 0.05, "adam"));
 }
 
 void mainFuncLoop(glUtils::extraData* dataP, GLFWwindow* window)
@@ -330,7 +328,7 @@ void mainFuncLoop(glUtils::extraData* dataP, GLFWwindow* window)
 		{
 			// outputArr.print();
 		}
-		std::cout << distanceDiffrence << std::endl;
+		std::cout << std::endl << distanceDiffrence;
 		(((dataP->neuralnetworks)[1])->forwards(inputArr)).print();
 		std::cout << std::endl;
 		/*
