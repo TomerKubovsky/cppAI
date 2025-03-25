@@ -20,7 +20,7 @@ glUtils::vector2 arrayToVector(Array<decimalType> arr)
 	return glUtils::vector2((arr.getPtr())[0], (arr.getPtr())[1]);
 }
 
-void trainNet(const unsigned int agentsToTrain, unsigned int time, const glUtils::extraData* dataP)
+void trainNet(const unsigned int agentsToTrain, unsigned int time, glUtils::extraData* dataP)
 {
 	glUtils::vector2* agentsPos = new glUtils::vector2[agentsToTrain];
 	NeurelNetwork::neuralnetwork<decimalType>* aiNet = dataP->neuralnetworks[0];
@@ -220,16 +220,24 @@ void trainNet(const unsigned int agentsToTrain, unsigned int time, const glUtils
 			decimalType* dOutputsPtr = new decimalType[agentsToTrain * 4];
 			for (int agentNum = 0; agentNum < agentsToTrain; agentNum++)
 			{
-				const glUtils::vector2 vecToEnemy = enemyAgentPos - agentsPos[agentNum];
-				constexpr decimalType epsilon = 0.001;
-				const decimalType reward = distOlds[agentNum] - std::sqrt(vecToEnemy.x * vecToEnemy.x + vecToEnemy.y * vecToEnemy.y) - epsilon; //epsilon so that when reward = 0 its bad
-				for (int i = 0; i < 4; i++)
+				// if (distOlds[agentNum] >= 0.1)
+				if (distOlds[agentNum] >= 0.01)
 				{
-					dOutputsPtr[i + agentNum * 4] = (reward * actionsArrs[i + agentNum * 4])/(agentsToTrain * time);
-					if (agentNum == 0)
+					const glUtils::vector2 vecToEnemy = enemyAgentPos - agentsPos[agentNum];
+					constexpr decimalType epsilon = 0.001;
+					const decimalType reward = distOlds[agentNum] - std::sqrt(vecToEnemy.x * vecToEnemy.x + vecToEnemy.y * vecToEnemy.y) - epsilon; //epsilon so that when reward = 0 its bad
+					// const decimalType reward = distOlds[agentNum] - std::sqrt(vecToEnemy.x * vecToEnemy.x + vecToEnemy.y * vecToEnemy.y); //epsilon so that when reward = 0 its bad
+					dataP->averageReward += reward;
+					dataP->rewardCounter++;
+					for (int i = 0; i < 4; i++)
 					{
-						// std::cout << actionsArrs[i + agentNum * 4] << " " << reward << std::endl;
-						// std::cout << dOutputsPtr[i + agentNum * 4] << std::endl;
+						dOutputsPtr[i + agentNum * 4] = (reward * actionsArrs[i + agentNum * 4])/(agentsToTrain * time);
+					}
+				} else
+				{
+					for (int i = 0; i < 4; i++)
+					{
+						dOutputsPtr[i + agentNum * 4] = 0;
 					}
 				}
 			}
@@ -273,6 +281,8 @@ void initGLThings(void (*mainPreFunc)(glUtils::extraData*, GLFWwindow*), void (*
 
 	mainPreFunc(dataPointer, window);
 
+	unsigned int countTrue = 0;
+	constexpr unsigned int times = 50000;
 	while (!glfwWindowShouldClose(window))
 	{
 		glfwPollEvents();
@@ -294,7 +304,18 @@ void initGLThings(void (*mainPreFunc)(glUtils::extraData*, GLFWwindow*), void (*
 				trainNet(20,400 , dataPointer);
 			mainLoopFunc(dataPointer, window);
 
-			// glUtils::DrawSquare(glUtils::vector2(-0.5,-0.5), glUtils::vector2(0.5,0.5), glUtils::vector3(1.0,0.0,0.0));
+			if (countTrue % 100 == 0)
+			{
+				std::cout << countTrue << " " << (dataPointer->averageReward) / (dataPointer->rewardCounter) << std::endl;
+			}
+			if (countTrue % times == 0 && countTrue != 0)
+			{
+				std::cout << countTrue << " " << (dataPointer->averageReward) / (dataPointer->rewardCounter) << std::endl;
+				// glfwDestroyWindow(window);
+				dataPointer->trainAi = false;
+				dataPointer->pause = true;
+			}
+			countTrue++;
 
 		}
 		for (glUtils::agent* agent: dataPointer->agents)
@@ -302,6 +323,7 @@ void initGLThings(void (*mainPreFunc)(glUtils::extraData*, GLFWwindow*), void (*
 			agent->render();
 		}
 		glfwSwapBuffers(window);
+
 	}
 
 	for (auto network : dataPointer->neuralnetworks)
@@ -437,14 +459,16 @@ void mainFuncLoop(glUtils::extraData* dataP, GLFWwindow* window)
 		{
 			std::uniform_real_distribution<> dis(-0.5,0.5);
 			aiAgent->pos = glUtils::vector2(dis(gen), dis(gen));
+			enemyAgent->pos =  glUtils::vector2(0, 0);
 			dataP->count = 0;
 		}
-		if (dataP->count % 100 == 0)
+		if (dataP->count % 5 == 0)
 		{
-			outputArr.print();
-			std::cout << std::endl << distanceDiffrence;
-			(((dataP->neuralnetworks)[1])->forwards(inputArr)).print();
-			std::cout << std::endl;
+			// std::cout << oldDist << std::endl;
+			// outputArr.print();
+			// std::cout << std::endl << distanceDiffrence;
+			// (((dataP->neuralnetworks)[1])->forwards(inputArr)).print();
+			// std::cout << std::endl;
 		}
 		/*
 		std::cout << std::endl;

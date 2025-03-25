@@ -160,6 +160,8 @@ namespace glUtils
 
 		std::vector<agent*> agents;
 		std::vector<NeurelNetwork::neuralnetwork<decimalType>*> neuralnetworks;
+		decimalType averageReward = 0;
+		unsigned int rewardCounter = 0;
 
 		extraData()
 		{}
