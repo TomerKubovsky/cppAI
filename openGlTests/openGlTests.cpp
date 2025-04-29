@@ -230,7 +230,7 @@ int main()
 	const decimalType width = static_cast<decimalType>(mode->width);
 	const decimalType height = static_cast<decimalType>(mode->height);
 
-	window = glfwCreateWindow(width, height, "Tomer's Ais Window :)", monitor, NULL);
+	window = glfwCreateWindow(width, height, "AI window", monitor, NULL);
 
 	glfwMakeContextCurrent(window);
 

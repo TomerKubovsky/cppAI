@@ -283,6 +283,7 @@ void initGLThings(void (*mainPreFunc)(glUtils::extraData*, GLFWwindow*), void (*
 
 	unsigned int countTrue = 0;
 	constexpr unsigned int times = 50000;
+	bool notDone = true;
 	while (!glfwWindowShouldClose(window))
 	{
 		glfwPollEvents();
@@ -308,12 +309,13 @@ void initGLThings(void (*mainPreFunc)(glUtils::extraData*, GLFWwindow*), void (*
 			{
 				std::cout << countTrue << " " << (dataPointer->averageReward) / (dataPointer->rewardCounter) << std::endl;
 			}
-			if (countTrue % times == 0 && countTrue != 0)
+			if (countTrue == times && notDone)
 			{
 				std::cout << countTrue << " " << (dataPointer->averageReward) / (dataPointer->rewardCounter) << std::endl;
 				// glfwDestroyWindow(window);
 				dataPointer->trainAi = false;
 				dataPointer->pause = true;
+				notDone = false;
 			}
 			countTrue++;
 
@@ -356,7 +358,7 @@ void mainFuncPre(glUtils::extraData* dataPointer, GLFWwindow* window)
 
 	const int layers[] = {2, 16, 16, 4};
 	const int layersRegNet[] = {2, 16, 16, 1};
-	dataPointer->neuralnetworks.push_back(new NeurelNetwork::neuralnetwork<decimalType>(layers, 4, "relu", "sigmoid", 0.0003, "adam"));
+	dataPointer->neuralnetworks.push_back(new NeurelNetwork::neuralnetwork<decimalType>(layers, 4, "leakyRelu", "sigmoid", 0.0003, "adam"));
 	dataPointer->neuralnetworks.push_back(new NeurelNetwork::neuralnetwork<decimalType>(layersRegNet, 4, "relu", "none", -0.0001, "adam"));
 }
 
@@ -455,7 +457,7 @@ void mainFuncLoop(glUtils::extraData* dataP, GLFWwindow* window)
 
 		*/
 		dataP->count++;
-		if (dataP->count >= 1000)
+		if (dataP->count >= 1000 || newDist <= ((dataP->size * dataP->zoom)/(dataP->screenSize.x*0.01))/2)
 		{
 			std::uniform_real_distribution<> dis(-0.5,0.5);
 			aiAgent->pos = glUtils::vector2(dis(gen), dis(gen));

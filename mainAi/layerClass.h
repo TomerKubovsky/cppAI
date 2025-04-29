@@ -297,7 +297,13 @@ delete[] exponentiatedVals; delete[] addedVals;
             {
                 return 1/(1+exp(-input));
             });
-        } else
+        } else if (activationFunc == "natural_log")
+        {
+            return Inputs.customFunc([](Type input, int index)
+            {
+                return log(abs(input)); //the function "log" in std library is actually a natural log not base 10 log
+            });
+        }else
         {
             return Inputs.deepCopy();
         }
@@ -354,7 +360,15 @@ delete[] exponentiatedVals; delete[] addedVals;
                 return sigmoided * (1-sigmoided);
             });
 
-        } else
+        } else if (activationFunc == "natural_log")
+        {
+            return outputsPreActive.customFunc2Arr(dOutputs, [](Type preActivArrVal, Type dOutputsArrVal, int index)
+            {
+                constexpr Type epsilon = 0.0000000001;
+                return (1/(preActivArrVal + epsilon)) * dOutputsArrVal; //+0.0001 for divide by 0 errors
+            });
+        }
+        else
         {
             // return dOutputs.deepCopy(); //linear activation function derivative is 1 so 1*doutpus so doutputs
             return std::move(dOutputs); //linear activation function derivative is 1 so 1*doutpus so doutputs
