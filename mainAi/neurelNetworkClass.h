@@ -10,7 +10,7 @@ namespace NeurelNetwork
     {
         Layer<Type>* Layers;
 
-        int numOfLayers;
+        unsigned int numOfLayers;
 
         std::string optimizer;
 
@@ -34,6 +34,8 @@ namespace NeurelNetwork
         template <typename pointerType> ArrayUtils::Array<Type> calculatedOutputs(std::string lossFunc, pointerType extraDataVals);
 
         Layer<Type>* getLayers();
+
+        const unsigned int getNumOfLayers();
     };
 
     template<typename Type>
@@ -164,6 +166,12 @@ namespace NeurelNetwork
     Layer<Type> * neuralnetwork<Type>::getLayers()
     {
         return Layers;
+    }
+
+    template <typename Type>
+    const unsigned int neuralnetwork<Type>::getNumOfLayers()
+    {
+        return numOfLayers;
     }
 }
 

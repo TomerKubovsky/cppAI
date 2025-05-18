@@ -62,19 +62,19 @@ CMakeFiles\MainAI.dir\mainAi\aiTests.cpp.obj: CMakeFiles\MainAI.dir\flags.make
 CMakeFiles\MainAI.dir\mainAi\aiTests.cpp.obj: C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\mainAi\aiTests.cpp
 CMakeFiles\MainAI.dir\mainAi\aiTests.cpp.obj: CMakeFiles\MainAI.dir\compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/MainAI.dir/mainAi/aiTests.cpp.obj"
-	$(CMAKE_COMMAND) -E cmake_cl_compile_depends --dep-file=CMakeFiles\MainAI.dir\mainAi\aiTests.cpp.obj.d --working-dir=C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio --filter-prefix="Note: including file: " -- C:\PROGRA~1\MICROS~2\2022\COMMUN~1\VC\Tools\MSVC\1442~1.344\bin\Hostx64\x64\cl.exe @<<
+	$(CMAKE_COMMAND) -E cmake_cl_compile_depends --dep-file=CMakeFiles\MainAI.dir\mainAi\aiTests.cpp.obj.d --working-dir=C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio --filter-prefix="Note: including file: " -- C:\PROGRA~1\MICROS~2\2022\COMMUN~1\VC\Tools\MSVC\1443~1.348\bin\Hostx64\x64\cl.exe @<<
  /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /showIncludes /FoCMakeFiles\MainAI.dir\mainAi\aiTests.cpp.obj /FdCMakeFiles\MainAI.dir\ /FS -c C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\mainAi\aiTests.cpp
 <<
 
 CMakeFiles\MainAI.dir\mainAi\aiTests.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MainAI.dir/mainAi/aiTests.cpp.i"
-	C:\PROGRA~1\MICROS~2\2022\COMMUN~1\VC\Tools\MSVC\1442~1.344\bin\Hostx64\x64\cl.exe > CMakeFiles\MainAI.dir\mainAi\aiTests.cpp.i @<<
+	C:\PROGRA~1\MICROS~2\2022\COMMUN~1\VC\Tools\MSVC\1443~1.348\bin\Hostx64\x64\cl.exe > CMakeFiles\MainAI.dir\mainAi\aiTests.cpp.i @<<
  /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\mainAi\aiTests.cpp
 <<
 
 CMakeFiles\MainAI.dir\mainAi\aiTests.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MainAI.dir/mainAi/aiTests.cpp.s"
-	C:\PROGRA~1\MICROS~2\2022\COMMUN~1\VC\Tools\MSVC\1442~1.344\bin\Hostx64\x64\cl.exe @<<
+	C:\PROGRA~1\MICROS~2\2022\COMMUN~1\VC\Tools\MSVC\1443~1.348\bin\Hostx64\x64\cl.exe @<<
  /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\MainAI.dir\mainAi\aiTests.cpp.s /c C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\mainAi\aiTests.cpp
 <<
 
@@ -89,7 +89,7 @@ MainAI.exe: CMakeFiles\MainAI.dir\mainAi\aiTests.cpp.obj
 MainAI.exe: CMakeFiles\MainAI.dir\build.make
 MainAI.exe: CMakeFiles\MainAI.dir\objects1.rsp
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable MainAI.exe"
-	"C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.3\bin\cmake\win\x64\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\MainAI.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100226~1.0\x64\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100226~1.0\x64\mt.exe --manifests -- C:\PROGRA~1\MICROS~2\2022\COMMUN~1\VC\Tools\MSVC\1442~1.344\bin\Hostx64\x64\link.exe /nologo @CMakeFiles\MainAI.dir\objects1.rsp @<<
+	"C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.3\bin\cmake\win\x64\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\MainAI.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100261~1.0\x64\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100261~1.0\x64\mt.exe --manifests -- C:\PROGRA~1\MICROS~2\2022\COMMUN~1\VC\Tools\MSVC\1443~1.348\bin\Hostx64\x64\link.exe /nologo @CMakeFiles\MainAI.dir\objects1.rsp @<<
  /out:MainAI.exe /implib:MainAI.lib /pdb:C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio\MainAI.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib 
 <<
 

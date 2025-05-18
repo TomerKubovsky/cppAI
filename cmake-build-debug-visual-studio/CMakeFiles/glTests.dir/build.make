@@ -62,19 +62,19 @@ CMakeFiles\glTests.dir\openGlTests\openGlTests.cpp.obj: CMakeFiles\glTests.dir\f
 CMakeFiles\glTests.dir\openGlTests\openGlTests.cpp.obj: C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\openGlTests\openGlTests.cpp
 CMakeFiles\glTests.dir\openGlTests\openGlTests.cpp.obj: CMakeFiles\glTests.dir\compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/glTests.dir/openGlTests/openGlTests.cpp.obj"
-	$(CMAKE_COMMAND) -E cmake_cl_compile_depends --dep-file=CMakeFiles\glTests.dir\openGlTests\openGlTests.cpp.obj.d --working-dir=C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio --filter-prefix="Note: including file: " -- C:\PROGRA~1\MICROS~2\2022\COMMUN~1\VC\Tools\MSVC\1442~1.344\bin\Hostx64\x64\cl.exe @<<
+	$(CMAKE_COMMAND) -E cmake_cl_compile_depends --dep-file=CMakeFiles\glTests.dir\openGlTests\openGlTests.cpp.obj.d --working-dir=C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio --filter-prefix="Note: including file: " -- C:\PROGRA~1\MICROS~2\2022\COMMUN~1\VC\Tools\MSVC\1443~1.348\bin\Hostx64\x64\cl.exe @<<
  /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /showIncludes /FoCMakeFiles\glTests.dir\openGlTests\openGlTests.cpp.obj /FdCMakeFiles\glTests.dir\ /FS -c C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\openGlTests\openGlTests.cpp
 <<
 
 CMakeFiles\glTests.dir\openGlTests\openGlTests.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/glTests.dir/openGlTests/openGlTests.cpp.i"
-	C:\PROGRA~1\MICROS~2\2022\COMMUN~1\VC\Tools\MSVC\1442~1.344\bin\Hostx64\x64\cl.exe > CMakeFiles\glTests.dir\openGlTests\openGlTests.cpp.i @<<
+	C:\PROGRA~1\MICROS~2\2022\COMMUN~1\VC\Tools\MSVC\1443~1.348\bin\Hostx64\x64\cl.exe > CMakeFiles\glTests.dir\openGlTests\openGlTests.cpp.i @<<
  /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\openGlTests\openGlTests.cpp
 <<
 
 CMakeFiles\glTests.dir\openGlTests\openGlTests.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/glTests.dir/openGlTests/openGlTests.cpp.s"
-	C:\PROGRA~1\MICROS~2\2022\COMMUN~1\VC\Tools\MSVC\1442~1.344\bin\Hostx64\x64\cl.exe @<<
+	C:\PROGRA~1\MICROS~2\2022\COMMUN~1\VC\Tools\MSVC\1443~1.348\bin\Hostx64\x64\cl.exe @<<
  /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\glTests.dir\openGlTests\openGlTests.cpp.s /c C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\openGlTests\openGlTests.cpp
 <<
 
@@ -91,7 +91,7 @@ glTests.exe: C:\Users\tomer\Downloads\glfw-3.4.bin.WIN64\glfw-3.4.bin.WIN64\lib-
 glTests.exe: "C:\Program Files (x86)\Windows Kits\10\Lib\10.0.22621.0\um\x64\OpenGL32.Lib"
 glTests.exe: CMakeFiles\glTests.dir\objects1.rsp
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable glTests.exe"
-	"C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.3\bin\cmake\win\x64\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\glTests.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100226~1.0\x64\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100226~1.0\x64\mt.exe --manifests -- C:\PROGRA~1\MICROS~2\2022\COMMUN~1\VC\Tools\MSVC\1442~1.344\bin\Hostx64\x64\link.exe /nologo @CMakeFiles\glTests.dir\objects1.rsp @<<
+	"C:\Users\tomer\AppData\Local\JetBrains\CLion 2024.3\bin\cmake\win\x64\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\glTests.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100261~1.0\x64\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100261~1.0\x64\mt.exe --manifests -- C:\PROGRA~1\MICROS~2\2022\COMMUN~1\VC\Tools\MSVC\1443~1.348\bin\Hostx64\x64\link.exe /nologo @CMakeFiles\glTests.dir\objects1.rsp @<<
  /out:glTests.exe /implib:glTests.lib /pdb:C:\Users\tomer\OneDrive\Documents\GitHub\cppAI\cmake-build-debug-visual-studio\glTests.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console /NODEFAULTLIB:glfw3  C:\Users\tomer\Downloads\glfw-3.4.bin.WIN64\glfw-3.4.bin.WIN64\lib-vc2022\glfw3.lib "C:\Program Files (x86)\Windows Kits\10\Lib\10.0.22621.0\um\x64\OpenGL32.Lib" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib 
 <<
 
