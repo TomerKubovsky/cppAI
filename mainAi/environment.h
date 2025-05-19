@@ -96,9 +96,9 @@ namespace EnvironmentClassess
 			for (unsigned int mBatchStep = 0; mBatchStep < miniBatchSize; mBatchStep++)
 			{
 				const unsigned int currentEp = episodeDist(rng);
-				std::uniform_int_distribution<> stepDist(0, episodes.at(currentEp).rewards.size() - 1); //sub 1 same reason as above
+				std::uniform_int_distribution<> stepDist(0, episodes.at(currentEp).GetRewards().size() - 1); //sub 1 same reason as above
 				const unsigned int currentStep = stepDist(rng);
-				agentNet->ba
+				// agentNet->b
 			}
 		}
 

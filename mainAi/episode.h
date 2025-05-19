@@ -17,6 +17,7 @@ namespace EnvironmentClassess
 		void AddRewards(Type reward);
 
 		void CompileRewards(Type rewardScaler);
+		const std::vector<Type>& GetRewards();
 
 	private:
 		std::vector<Type> rewards;
@@ -49,13 +50,19 @@ namespace EnvironmentClassess
 	template <typename Type>
 	void Episode<Type>::CompileRewards(const Type rewardScaler)
 	{
-		const int rewardSize = rewards.size();
-		adjustedRewards.reserve(rewardSize);
+		const int rewardSize = rewards.size() - 1;
+		adjustedRewards.reserve(rewardSize + 1);
 		adjustedRewards[rewardSize] = rewards[rewardSize - 1];
 		for (int i = rewardSize - 1; i >= 0; i--)
 		{
 			adjustedRewards[i] = rewards[i] + adjustedRewards[i + 1] * rewardScaler;
 		}
+	}
+
+	template<typename Type>
+	const std::vector<Type> & Episode<Type>::GetRewards()
+	{
+		return rewards;
 	}
 }
 }
